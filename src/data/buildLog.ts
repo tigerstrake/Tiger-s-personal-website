@@ -1,0 +1,83 @@
+// Build log entries — reverse chronological, newest first.
+// Add new entries at the top of the array.
+
+export interface BuildLogEntry {
+  id: string;
+  date: string;
+  project: string;
+  projectSlug: string;
+  title: string;
+  what: string;      // what changed
+  why: string;       // why it changed
+  result: string;    // what the outcome was
+  next: string;      // what's next
+}
+
+export const buildLog: BuildLogEntry[] = [
+  {
+    id: "bl-006",
+    date: "2026-03-20",
+    project: "SkyRunners UAV",
+    projectSlug: "skyrunners-uav",
+    title: "CFD in Luminary: CoP is too far aft",
+    what: "Ran full CFD analysis on the current wing and fuselage geometry in Luminary.",
+    why: "We needed to verify the aerodynamic center and center of pressure location before committing to the next structural iteration.",
+    result: "CoP came out significantly too far aft relative to our CG target. The aircraft as designed would be longitudinally unstable. To compensate, the elevators need to run at a meaningful negative angle of attack to trim, which is a drag penalty we don't want baked into the baseline.",
+    next: "Revisit wing placement relative to CG, and look at adjusting tail volume coefficient. Need to get CoP forward before the current geometry gets locked in.",
+  },
+  {
+    id: "bl-005",
+    date: "2026-03-05",
+    project: "SkyRunners UAV",
+    projectSlug: "skyrunners-uav",
+    title: "Full parametric redesign",
+    what: "Rebuilt the entire airframe model parametrically in Fusion 360. Wing chord, span, rib spacing, fuselage cross-section, and tail geometry all driven by a single parameter table.",
+    why: "Every time we changed something, we were manually updating a dozen other dimensions. A parameter change to the wing chord required touching every rib, the spar cutouts, the skin panels. It was slow and introduced errors. Making it parametric means we can iterate on aerodynamic layout without paying a drafting tax each time.",
+    result: "Model rebuilt. Changing the master parameters now propagates correctly through the full assembly. First test: swept chord from 180mm to 200mm, updated cleanly in about 30 seconds.",
+    next: "Use the parametric model as the input for the CFD runs and structural sizing.",
+  },
+  {
+    id: "bl-004",
+    date: "2026-02-18",
+    project: "SkyRunners UAV",
+    projectSlug: "skyrunners-uav",
+    title: "Fuselage skinning: balsa ribs + heatshrink foil",
+    what: "Covered the fuselage rib frames with 1/32\" balsa sheet, then wrapped the outside with heatshrink foil.",
+    why: "The rib-only structure had too much drag and no defined external surface for aerodynamic analysis. Balsa sheet gives a smooth skin over the ribs; heatshrink foil pulled tight over that gives a clean, low-friction outer surface and adds a small amount of torsional stiffness.",
+    result: "Surface came out smooth. Heatshrink pulled evenly with a heat gun. No bubbling or wrinkles on the curved fuselage sections. Weight added was less than expected.",
+    next: "Weigh completed fuselage section, update mass budget.",
+  },
+  {
+    id: "bl-003",
+    date: "2026-02-03",
+    project: "SkyRunners UAV",
+    projectSlug: "skyrunners-uav",
+    title: "Wing cutting: switched to 4-axis wire foam cutter at CHIP",
+    what: "Moved wing core production from the manual method to the 4-axis wire foam cutter at CHIP (Stanford's product realization lab).",
+    why: "The manual pink foam cutting was too inconsistent. Two wing halves cut back-to-back had visible profile differences that would cause roll asymmetry. The wire cutter runs the E193 profile directly from the CAD file and cuts both root and tip profiles simultaneously on the 4-axis machine, giving a proper tapered section.",
+    result: "First cuts came out clean. Both wing halves match within tolerance. The profile edges are sharp and consistent in a way the manual method never got close to.",
+    next: "Bond spars and ribs into foam cores, then skin.",
+  },
+  {
+    id: "bl-002",
+    date: "2025-12-10",
+    project: "SkyRunners UAV",
+    projectSlug: "skyrunners-uav",
+    title: "First wing cores: E193 profile, laser cut ribs and manual foam shaping",
+    what: "Cut the first wing cores using a laser-cut wood rib template method: laser cut E193 profile ribs from plywood, glued them to pink foam blocks as guides, then manually cut the foam to shape with a hot wire and knife and bonded the pieces together.",
+    why: "Needed a first wing core to validate the E193 profile choice and the basic build process before investing in the CHIP foam cutter setup.",
+    result: "Wing core came out roughly correct in profile. Surface finish was rough and the manual cutting introduced some asymmetry, but good enough to validate the E193 geometry as workable and confirm the rib spacing layout.",
+    next: "Evaluate whether manual cutting is accurate enough for the final build or if we need a better process.",
+  },
+  {
+    id: "bl-001",
+    date: "2026-03-10",
+    project: "Smart Light Switch",
+    projectSlug: "smart-light-switch",
+    title: "ESP brownout: traced to servo voltage spikes",
+    what: "Tracked down why the ESP32 would accept a firmware upload exactly once, then become completely unreachable on every subsequent attempt.",
+    why: "The failure mode was strange: first flash worked, the program ran briefly, then the ESP dropped off USB and never came back. Looked like a code issue at first. The board appeared bricked rather than just crashing.",
+    result: "Root cause: the servo was generating voltage spikes on the shared power rail that were browning out the ESP immediately after it started driving the servo. The ESP wasn't crashing or locking up. It was losing power. Confirmed by decoupling the servo from the rail: ESP stayed up indefinitely. Fixed with a dedicated supply for the servo and a decoupling capacitor on the ESP rail. The fix took about ten minutes once the cause was known; finding the cause took much longer.",
+    next: "Enclosure design and wall-box integration.",
+  },
+];
