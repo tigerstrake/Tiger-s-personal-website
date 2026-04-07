@@ -15,6 +15,28 @@ export interface BuildLogEntry {
 
 export const buildLog: BuildLogEntry[] = [
   {
+    id: "bl-008",
+    date: "2026-04-07",
+    project: "SkyRunners UAV",
+    projectSlug: "skyrunners-uav",
+    title: "Motor mounts and landing gear: designed, 3D printed, and assembled",
+    what: "Designed new motor mounts and landing gear in CAD, 3D printed both parts, and assembled them onto the airframe.",
+    why: "The previous motor mount arrangement was a temporary placeholder and the aircraft had no landing gear. Getting proper mounts locked in lets us do static thrust tests with the motors in their final position, and the landing gear is needed before any ground handling or taxi tests.",
+    result: "Parts printed cleanly. Motor mounts fit onto the boom tubes with the designed press-fit tolerance — no slop, no cracking. Landing gear attached and holds the airframe at the correct ground angle. Assembly went together without issues.",
+    next: "Mount motors and ESCs onto the new mounts, run static thrust tests, and check CG with full electronics installed.",
+  },
+  {
+    id: "bl-007",
+    date: "2026-04-05",
+    project: "SkyRunners UAV",
+    projectSlug: "skyrunners-uav",
+    title: "Carbon spars bonded to fuselage and tail",
+    what: "Glued the carbon fiber spars to the fuselage and bonded the tail assembly onto the carbon spars.",
+    why: "The spars are the primary load path from the wings through the fuselage to the tail. Getting them permanently bonded is a prerequisite for any further structural work — everything else keys off the spar positions.",
+    result: "Bond came out clean. Spar alignment checked against the CAD reference and is within tolerance. Tail is square to the fuselage centerline. Epoxy cured fully overnight with no delamination or voids visible.",
+    next: "Install control surface linkages and route servo cables through the tail boom.",
+  },
+  {
     id: "bl-006",
     date: "2026-03-20",
     project: "SkyRunners UAV",

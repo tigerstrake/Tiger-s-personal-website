@@ -6,7 +6,7 @@ import { buildLog } from "@/data/buildLog";
 import { ArrowRight, Github, Linkedin } from "lucide-react";
 
 const CREDENTIALS = [
-  { label: "Stanford AeroAstro", detail: "Class of 2028" },
+  { label: "Stanford AeroAstro", detail: "Class of 2029" },
   { label: "ESA", detail: "BepiColombo, LISA Pathfinder" },
   { label: "DLR", detail: "Mach 10 hypersonic testing" },
   { label: "EUMETSAT", detail: "Satellite operations" },
