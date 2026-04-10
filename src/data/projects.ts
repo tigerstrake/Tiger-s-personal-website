@@ -41,6 +41,7 @@ export interface Project {
   coverImage?: string;
   images?: string[];
   videos?: string[];
+  youtubeUrl?: string;
   docs?: ProjectDoc[];
   url?: string;
   embed?: boolean;
@@ -402,6 +403,7 @@ export const projects: Project[] = [
     featured: true,
     coverImage: "/images/stratosphere balloon/stratosphere-balloon-earth-curvature-view.png",
     images: ["/images/stratosphere balloon/stratosphere-balloon-gps-flight-track-map.jpg", "/images/stratosphere balloon/stratosphere-balloon-telemetry-altitude-chart.png"],
+    youtubeUrl: "https://www.youtube.com/embed/Uy57UXi4sQ4",
     challenge:
       "Keep a Raspberry Pi and its sensors running through a flight profile that hits near-vacuum pressure and temperatures well below -40°C, then recover the gondola and get usable data off it.",
     constraints: [

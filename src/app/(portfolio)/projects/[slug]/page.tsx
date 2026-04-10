@@ -246,6 +246,19 @@ export default async function ProjectDetail({
             </div>
           )}
 
+          {/* YouTube embed */}
+          {project.youtubeUrl && (
+            <div className="w-full rounded-xl overflow-hidden" style={{ border: "1px solid rgba(255,255,255,0.07)", aspectRatio: "16/9" }}>
+              <iframe
+                src={project.youtubeUrl}
+                title="Project video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+          )}
+
           {/* Videos */}
           {project.videos && project.videos.length > 0 && (
             <div className="grid gap-3" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))" }}>

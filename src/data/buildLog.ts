@@ -15,6 +15,28 @@ export interface BuildLogEntry {
 
 export const buildLog: BuildLogEntry[] = [
   {
+    id: "bl-010",
+    date: "2026-04-09",
+    project: "SkyRunners UAV",
+    projectSlug: "skyrunners-uav",
+    title: "Full systems test: motors and servos under load",
+    what: "With the airframe fully assembled — motors on mounts, ESCs wired, servos connected to the flight controller and linked to control surfaces — ran the first full systems test. Spun all four motors up to partial and full throttle and exercised all control surfaces through their full range under load.",
+    why: "This is the first time every subsystem has been powered simultaneously on the actual airframe. We needed to confirm that nothing interferes under real operating conditions: vibration from the motors affecting the servo linkages, voltage sag on the power bus under combined motor and servo load, and that control surface deflections stay correct when the airframe is under thrust.",
+    result: "All four motors spun up cleanly with no ESC faults. No resonance or vibration coupling into the tail linkages at any throttle level. Servos held position under motor wash and responded correctly to stick inputs throughout. Power bus stayed stable — no brownouts or voltage dips that affected the FC. Elevator and rudder throws matched the configured endpoints in both directions.",
+    next: "Taxi tests and low-speed ground handling to check CG and control authority before first flight.",
+  },
+  {
+    id: "bl-009",
+    date: "2026-04-09",
+    project: "SkyRunners UAV",
+    projectSlug: "skyrunners-uav",
+    title: "Control surface linkages installed and servo cables routed through tail boom",
+    what: "Installed pushrod linkages for the elevator and rudder, connected them to the control horns on each surface, and ran all servo cables through the tail boom to the fuselage.",
+    why: "With the tail bonded and cured, getting the control surfaces mechanically connected was the next critical path item. Linkages need to go in before the boom is enclosed or any other hardware crowds the routing path — it's much harder to fish cables through after the fact.",
+    result: "Both elevator and rudder pushrods installed with correct throw and no slop at the clevises. Cables routed cleanly through the boom with enough slack at the fuselage end for servo connections. Control surfaces move through full range of motion with no binding.",
+    next: "Connect servo cables to the flight controller, configure control surface endpoints in the FC, and verify correct throw direction for each axis.",
+  },
+  {
     id: "bl-008",
     date: "2026-04-07",
     project: "SkyRunners UAV",
