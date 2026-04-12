@@ -1,0 +1,8 @@
+:HL["/_next/static/chunks/0jg6cd8o9aod~.css","style"]
+:HL["/_next/static/media/0c89a48fa5027cee-s.p.0rd3rjvnnhw7n.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/70bc3e132a0a741e-s.p.1409xf.ylxg8g.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/images/Fabrication lab/fab-lab-students-3d-printers.jpg","image"]
+:HL["/images/Fabrication lab/fab-lab-3d-printer-interior-blue-parts.jpg","image"]
+:HL["/images/Fabrication lab/fab-lab-3d-printers-room-sign.jpg","image"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"(portfolio)","param":null,"prefetchHints":0,"slots":{"children":{"name":"projects","param":null,"prefetchHints":0,"slots":{"children":{"name":"slug","param":{"type":"d","key":"fabrication-lab-eg","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}}}},"staleTime":300,"buildId":"XMO5DdfXPhhqIF5oNlrlK"}
