@@ -85,3 +85,19 @@
 **Data layer:** All project/build-log content is in `src/data/projects.ts` and `src/data/buildLog.ts` — add content there, pages update automatically.
 
 **Physics simulation:** `src/components/OrbitalBackground.tsx` — all tuning parameters in the `CONFIG` object at the top. Key params: `G`, `PERMANENT_MASS`, `MAX_SPEED`, `TRAIL_ALPHA`.
+
+**Images:** All images live in `public/images/`. Referenced in code as `/images/...`. Do not put images in the repo root.
+
+## Deploy Workflow
+
+After every change:
+1. `npm run build` — rebuilds `out/`
+2. `git add` the changed source files + `out/`
+3. `git commit` + `git push` → pushes to `v2personal-website` (origin)
+4. `git push old main --force` → pushes to `Tiger-s-personal-website` (what Cloudflare deploys from)
+
+Both remotes must be kept in sync. Cloudflare Pages pulls from `Tiger-s-personal-website`, output directory `out`, no build command.
+
+**Remotes:**
+- `origin` → `https://github.com/tigerstrake/v2personal-website.git`
+- `old` → `https://github.com/tigerstrake/Tiger-s-personal-website.git`
