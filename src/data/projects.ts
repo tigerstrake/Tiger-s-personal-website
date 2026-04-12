@@ -116,7 +116,7 @@ export const projects: Project[] = [
     timeline: "2026–Present",
     lastUpdated: "2026-03-15",
     featured: true,
-    coverImage: "/images/L2 rocket/l2-dual-deploy.jpg",
+    coverImage: "/images/L2 rocket/l2-rocket-cad.png",
     challenge:
       "Scale the L1 approach to a significantly more powerful vehicle without losing the attention to process that made L1 work.",
     constraints: [
