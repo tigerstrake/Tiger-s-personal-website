@@ -156,7 +156,7 @@ export default function Home() {
             </div>
 
             {/* Credential strip */}
-            <div className="flex flex-wrap gap-x-5 gap-y-2 animate-fade-up stagger-5">
+            <div className="flex flex-wrap gap-x-4 gap-y-2 animate-fade-up stagger-5">
               {CREDENTIALS.map((c, i) => (
                 <div key={i} className="flex items-center gap-2">
                   <span

@@ -1099,9 +1099,9 @@ export default function OrbitalBackground() {
         aria-hidden="true"
       />
 
-      {/* Toolbar */}
+      {/* Toolbar — hidden on mobile, simulation controls don't work on touch */}
       <div
-        className="fixed left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-1.5"
+        className="hidden sm:flex fixed left-1/2 -translate-x-1/2 z-50 flex-col items-center gap-1.5"
         style={{ top: "72px" }}
       >
         {/* Tool pills + persist */}
@@ -1276,9 +1276,9 @@ export default function OrbitalBackground() {
         </div>
       </div>
 
-      {/* Help panel */}
+      {/* Help panel — hidden on mobile */}
       {showHelp ? (
-        <div data-no-sim className="fixed z-50" style={{ bottom: 28, right: 28 }}>
+        <div data-no-sim className="hidden sm:block fixed z-50" style={{ bottom: 28, right: 28 }}>
           <div style={{
             width: 228,
             background: "rgba(7,8,12,0.88)",
@@ -1354,7 +1354,7 @@ export default function OrbitalBackground() {
         <button
           data-no-sim
           onClick={() => setShowHelp(true)}
-          className="fixed z-50"
+          className="hidden sm:flex fixed z-50"
           style={{
             bottom: 28, right: 28,
             width: 32, height: 32,
