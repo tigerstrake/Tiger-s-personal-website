@@ -69,7 +69,7 @@ export const projects: Project[] = [
     timeline: "2025",
     lastUpdated: "2026-03-12",
     featured: true,
-    coverImage: "/images/L1 rocket/l1-rocket-held-in-lab.jpg",
+    coverImage: "/images/l1-rocket/l1-rocket-held-in-lab.jpg",
     images: [],
     challenge:
       "The certification flight isn't the hard part. It's making sure everything works before you're standing on a field with a rocket on the pad and people watching.",
@@ -116,7 +116,7 @@ export const projects: Project[] = [
     timeline: "2026–Present",
     lastUpdated: "2026-03-15",
     featured: true,
-    coverImage: "/images/L2 rocket/l2-rocket-cad.png",
+    coverImage: "/images/l2-rocket/l2-rocket-cad.png",
     challenge:
       "Scale the L1 approach to a significantly more powerful vehicle without losing the attention to process that made L1 work.",
     constraints: [
@@ -208,7 +208,7 @@ export const projects: Project[] = [
     timeline: "2025–Present",
     lastUpdated: "2026-03-12",
     featured: false,
-    coverImage: "/images/pulse jet/pulse-jet-cover.webp",
+    coverImage: "/images/pulse-jet/pulse-jet-cover.webp",
     challenge:
       "Build a pulse jet test setup where geometry changes can be evaluated without rebuilding the fixture every time. Repeatability before optimization.",
     constraints: [
@@ -249,11 +249,11 @@ export const projects: Project[] = [
     slug: "smart-light-switch",
     title: "Smart Light Switch",
     subtitle: "ESP32-based servo-actuated wall switch with WiFi scheduling",
-    coverImage: "/images/smart light switch/smart-switch-cover.png",
+    coverImage: "/images/smart-light-switch/smart-switch-cover.png",
     videos: [
-      "/images/smart light switch/smart-light-switch-demo.mp4",
-      "/images/smart light switch/lightswitch-demo-clip-1.mp4",
-      "/images/smart light switch/lightswitch-demo-clip-2.mp4",
+      "/images/smart-light-switch/smart-light-switch-demo.mp4",
+      "/images/smart-light-switch/lightswitch-demo-clip-1.mp4",
+      "/images/smart-light-switch/lightswitch-demo-clip-2.mp4",
     ],
     docs: [
       { label: "Breadboard diagram", url: "/docs/smart-light-switch-breadboard.pdf" },
@@ -310,7 +310,7 @@ export const projects: Project[] = [
     timeline: "2026–Present",
     lastUpdated: "2026-03-08",
     featured: false,
-    coverImage: "/images/robotic arm/robotic-arm-on-workbench.jpg",
+    coverImage: "/images/robotic-arm/robotic-arm-on-workbench.jpg",
     challenge:
       "Build a low-cost desktop arm with enough precision and repeatability to stack wooden blocks autonomously. Reliable enough to run unsupervised at an exhibition.",
     constraints: [
@@ -351,8 +351,8 @@ export const projects: Project[] = [
     timeline: "2026–Present",
     lastUpdated: "2026-03-12",
     featured: false,
-    coverImage: "/images/rocket tvc/rocket-tvc-cover.png",
-    videos: ["/images/rocket tvc/rocket-tvc-test-clip.mp4"],
+    coverImage: "/images/rocket-tvc/rocket-tvc-cover.png",
+    videos: ["/images/rocket-tvc/rocket-tvc-test-clip.mp4"],
     challenge:
       "Build a TVC mechanism that's responsive enough to be useful and mechanically reliable enough to trust in a test stand context.",
     constraints: [
@@ -401,8 +401,8 @@ export const projects: Project[] = [
     timeline: "2022",
     lastUpdated: "2026-03-26",
     featured: true,
-    coverImage: "/images/stratosphere balloon/stratosphere-balloon-earth-curvature-view.png",
-    images: ["/images/stratosphere balloon/stratosphere-balloon-gps-flight-track-map.jpg", "/images/stratosphere balloon/stratosphere-balloon-telemetry-altitude-chart.png"],
+    coverImage: "/images/stratosphere-balloon/stratosphere-balloon-earth-curvature-view.png",
+    images: ["/images/stratosphere-balloon/stratosphere-balloon-gps-flight-track-map.jpg", "/images/stratosphere-balloon/stratosphere-balloon-telemetry-altitude-chart.png"],
     youtubeUrl: "https://www.youtube.com/embed/Uy57UXi4sQ4",
     challenge:
       "Keep a Raspberry Pi and its sensors running through a flight profile that hits near-vacuum pressure and temperatures well below -40°C, then recover the gondola and get usable data off it.",
@@ -453,8 +453,8 @@ export const projects: Project[] = [
     timeline: "2021",
     lastUpdated: "2026-03-22",
     featured: true,
-    coverImage: "/images/ESA/esa-airbus-spacecraft-hardware-lab-coats.jpg",
-    images: ["/images/ESA/esa-esoc-mission-control-room.jpg", "/images/ESA/esa-esoc-satellite-operations-workstation.jpg"],
+    coverImage: "/images/esa/esa-airbus-spacecraft-hardware-lab-coats.jpg",
+    images: ["/images/esa/esa-esoc-mission-control-room.jpg", "/images/esa/esa-esoc-satellite-operations-workstation.jpg"],
     challenge:
       "Do useful work on real spacecraft systems with two weeks of access and a high school physics background.",
     constraints: [
@@ -497,8 +497,8 @@ export const projects: Project[] = [
     timeline: "2021",
     lastUpdated: "2026-03-22",
     featured: true,
-    coverImage: "/images/DLR/dlr-optics-bench-experiment.jpg",
-    images: ["/images/DLR/dlr-drone-3d-printed-component-test-rig.jpg", "/images/DLR/dlr-electronics-breadboard-workbench.jpg"],
+    coverImage: "/images/dlr/dlr-optics-bench-experiment.jpg",
+    images: ["/images/dlr/dlr-drone-3d-printed-component-test-rig.jpg", "/images/dlr/dlr-electronics-breadboard-workbench.jpg"],
     challenge:
       "Get meaningful technical understanding out of one week in a world-class hypersonic research facility.",
     constraints: [
@@ -540,8 +540,8 @@ export const projects: Project[] = [
     timeline: "2021",
     lastUpdated: "2026-03-22",
     featured: false,
-    coverImage: "/images/EUMETSAT/eumetsat-satellite.jpg",
-    videos: ["/images/EUMETSAT/eumetsat-airmass-rgb-satellite-animation.mp4"],
+    coverImage: "/images/eumetsat/eumetsat-satellite.jpg",
+    videos: ["/images/eumetsat/eumetsat-airmass-rgb-satellite-animation.mp4"],
     challenge:
       "Design and deliver a coherent educational program on space systems while also producing a technically credible interview with the Director General on LEO satellite operations.",
     constraints: [
@@ -584,8 +584,8 @@ export const projects: Project[] = [
     timeline: "2022–2024",
     lastUpdated: "2026-03-25",
     featured: false,
-    coverImage: "/images/Fabrication lab/fab-lab-students-3d-printers.jpg",
-    images: ["/images/Fabrication lab/fab-lab-3d-printer-interior-blue-parts.jpg", "/images/Fabrication lab/fab-lab-3d-printers-room-sign.jpg"],
+    coverImage: "/images/fabrication-lab/fab-lab-students-3d-printers.jpg",
+    images: ["/images/fabrication-lab/fab-lab-3d-printer-interior-blue-parts.jpg", "/images/fabrication-lab/fab-lab-3d-printers-room-sign.jpg"],
     challenge:
       "Build a functional makerspace in a school environment and develop students who can work independently, not just follow instructions when I'm present.",
     constraints: [
@@ -631,7 +631,7 @@ export const projects: Project[] = [
     timeline: "2023",
     lastUpdated: "2026-03-22",
     featured: false,
-    coverImage: "/images/ML robot/ml-robot-cover.jpg",
+    coverImage: "/images/ml-robot/ml-robot-cover.jpg",
     challenge:
       "Build a practical robotic assistance system around the perception and manipulation problems involved in household chores. Tasks that are obvious to humans but poorly specified for robots.",
     constraints: [
@@ -667,7 +667,7 @@ export const projects: Project[] = [
     subtitle: "PHYS-S-12. Full coursework archive.",
     url: "https://tigerstrake.github.io/Digital_Fabrication_Tiger_Strake_phys-s-12/index.html",
     embed: true,
-    coverImage: "/images/Harvard/harvard-cover.jpg",
+    coverImage: "/images/harvard/harvard-cover.jpg",
     description:
       "PHYS-S-12 at Harvard Summer School: eleven weeks covering laser cutting, CNC milling, casting, microcontroller programming, embedded sensor integration, and machine building, culminating in a modular TVC rocket. Each week is documented with build notes, CAD files, and process photos. The full course site, including week-by-week writeups and the final project breakdown, is embedded below.",
     status: "archived",
@@ -727,8 +727,8 @@ export const projects: Project[] = [
 
   {
     slug: "additive-manufacturing-competition",
-    coverImage: "/images/AM competition/am-championships-lasertec-cnc-slm-machine.jpg",
-    images: ["/images/AM competition/am-championships-slm-metal-printed-parts-benchy.jpg"],
+    coverImage: "/images/am-competition/am-championships-lasertec-cnc-slm-machine.jpg",
+    images: ["/images/am-competition/am-championships-slm-metal-printed-parts-benchy.jpg"],
     title: "Additive Manufacturing Competition",
     subtitle: "Competed solo against company-sponsored teams. Won most rounds.",
     description:
@@ -811,8 +811,8 @@ export const projects: Project[] = [
     timeline: "2022–2023",
     lastUpdated: "2026-03-22",
     featured: false,
-    coverImage: "/images/short film/short-film-cover.png",
-    videos: ["/images/short film/short-film-final.mp4"],
+    coverImage: "/images/short-film/short-film-cover.png",
+    videos: ["/images/short-film/short-film-final.mp4"],
     challenge:
       "Coordinate a six-person production, co-write a coherent script, shoot usable footage, and deliver a finished film with VFX and original music, without a budget or production infrastructure.",
     constraints: [
@@ -856,13 +856,13 @@ export const projects: Project[] = [
     timeline: "2019–2025",
     lastUpdated: "2026-03-26",
     featured: false,
-    coverImage: "/images/social media manager/social-media-cover.png",
+    coverImage: "/images/social-media-manager/social-media-cover.png",
     videos: [
-      "/images/social media manager/01_sway_lng_drone_fields.mp4",
-      "/images/social media manager/02_abroll_overhead_drone.mp4",
-      "/images/social media manager/03_abroll_hero_angle.mp4",
-      "/images/social media manager/05_bf4_highway_clean.mp4",
-      "/images/social media manager/06_bf4_dealership_hero.mp4",
+      "/images/social-media-manager/01_sway_lng_drone_fields.mp4",
+      "/images/social-media-manager/02_abroll_overhead_drone.mp4",
+      "/images/social-media-manager/03_abroll_hero_angle.mp4",
+      "/images/social-media-manager/05_bf4_highway_clean.mp4",
+      "/images/social-media-manager/06_bf4_dealership_hero.mp4",
     ],
     challenge:
       "Shoot and edit content that makes heavy trucks look good on social media, with one person handling the full production stack.",
@@ -905,7 +905,7 @@ export const projects: Project[] = [
     timeline: "2021–2024",
     lastUpdated: "2026-03-28",
     featured: false,
-    coverImage: "/images/dual enrollment/dual-enrollment-cover.png",
+    coverImage: "/images/dual-enrollment/dual-enrollment-cover.png",
     challenge:
       "Pursue technical depth beyond what the high school curriculum offered, in subjects that actually matched where my interests were pointing.",
     constraints: [
