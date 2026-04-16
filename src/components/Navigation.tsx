@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
@@ -103,6 +104,9 @@ export default function Navigation() {
           <Link
             href="/"
             style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
               fontFamily: "var(--font-display)",
               fontSize: "0.875rem",
               fontWeight: 600,
@@ -111,6 +115,13 @@ export default function Navigation() {
               textDecoration: "none",
             }}
           >
+            <Image
+              src="/images/tiger-logo.png"
+              alt="Tiger logo"
+              width={32}
+              height={32}
+              style={{ borderRadius: "6px" }}
+            />
             TIGER STRAKE
           </Link>
 

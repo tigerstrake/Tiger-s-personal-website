@@ -25,9 +25,6 @@ export const metadata: Metadata = {
     default: "Tiger Strake | Stanford AeroAstro",
     template: "%s | Tiger Strake",
   },
-  icons: {
-    icon: "/favicon.svg",
-  },
   description:
     "Stanford AeroAstro. Rockets, UAVs, embedded systems, and fabrication-heavy hardware. ESA, DLR, and Harvard alum. EASA and FAA licensed pilot.",
   openGraph: {
