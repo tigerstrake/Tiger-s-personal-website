@@ -85,7 +85,7 @@ export default function Home() {
               }}
             >
               <span className="w-8 h-px" style={{ background: "#C8865A" }} />
-              STANFORD AEROASTRO &rsquo;28
+              STANFORD AEROASTRO &rsquo;29
             </div>
 
             <h1
