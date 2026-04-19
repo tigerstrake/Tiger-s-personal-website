@@ -5,4 +5,4 @@
 :HL["/images/fabrication-lab/fab-lab-students-3d-printers.jpg","image"]
 :HL["/images/fabrication-lab/fab-lab-3d-printer-interior-blue-parts.jpg","image"]
 :HL["/images/fabrication-lab/fab-lab-3d-printers-room-sign.jpg","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"(portfolio)","param":null,"prefetchHints":0,"slots":{"children":{"name":"projects","param":null,"prefetchHints":0,"slots":{"children":{"name":"slug","param":{"type":"d","key":"fabrication-lab-eg","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}}}},"staleTime":300,"buildId":"8ycH4RAe1hwAQ1_Ni6QWM"}
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"(portfolio)","param":null,"prefetchHints":0,"slots":{"children":{"name":"projects","param":null,"prefetchHints":0,"slots":{"children":{"name":"slug","param":{"type":"d","key":"fabrication-lab-eg","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}}}},"staleTime":300,"buildId":"z7OEeJUNejO1qVGFBoUpD"}
