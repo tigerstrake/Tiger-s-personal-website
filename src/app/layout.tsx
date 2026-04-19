@@ -22,7 +22,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Tiger Strake | Stanford AeroAstro",
+    default: "Tiger Strake",
     template: "%s | Tiger Strake",
   },
   description:
@@ -32,13 +32,13 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://tigerstrake.com",
     siteName: "Tiger Strake",
-    title: "Tiger Strake | Stanford AeroAstro",
+    title: "Tiger Strake",
     description:
       "Stanford AeroAstro. Rockets, UAVs, embedded systems, and fabrication-heavy hardware. ESA, DLR, and Harvard alum. EASA and FAA licensed pilot.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tiger Strake | Stanford AeroAstro",
+    title: "Tiger Strake",
   },
   robots: {
     index: true,
