@@ -114,8 +114,7 @@ export default function Home() {
             <div className="animate-fade-up stagger-3" style={{ maxWidth: "640px", marginBottom: "2.5rem" }}>
               <p style={{ fontSize: "1.1rem", lineHeight: 1.8, color: "#B0B6CB", marginBottom: "1rem", fontFamily: "var(--font-body)" }}>
                 I started building rockets as a kid and haven&apos;t stopped since.
-                Before turning 16, I interned at the European Space Agency and EUMETSAT (Europäische
-                Organisation für die Nutzung meteorologischer Satelliten) and worked on hypersonic
+                Before turning 16, I interned at the European Space Agency and EUMETSAT (European Organisation for the Exploitation of Meteorological Satellites) and worked on hypersonic
                 hardware testing at DLR (Deutsches Luft- und Raumfahrtzentrum). I also hold two pilot licenses.
               </p>
               <p style={{ fontSize: "1.1rem", lineHeight: 1.8, color: "#B0B6CB", marginBottom: "1rem", fontFamily: "var(--font-body)" }}>
