@@ -192,8 +192,9 @@ export default function OrbitalBackground() {
     });
 
     at(4500, () => {
-      bhX = window.innerWidth * 0.5;
-      bhY = window.innerHeight * 0.42;
+      // Place BH in the right two-thirds of the screen, away from the hero text
+      bhX = window.innerWidth * 0.68;
+      bhY = window.innerHeight * 0.45;
       setTutCursorPos({ x: bhX, y: bhY });
       setTutLabel("Hold & click to place a black hole...");
     });
@@ -204,14 +205,14 @@ export default function OrbitalBackground() {
 
     at(6700, () => {
       holdRef.current = null;
-      const now = performance.now();
+      // Don't set createdAt — render uses (now - (createdAt ?? now)) = 0 → always fully bright
+      // until we explicitly set createdAt + lifetime when we want to fade
       const bh: GravityWell = {
         x: bhX, y: bhY,
         mass: CFG.BASE_CLICK_MASS * CFG.BH_MASS_MULT,
         isBlackHole: true,
         eventHorizon: CFG.BH_EVENT_HORIZON * 1.1,
         isPermanent: true,
-        createdAt: now,
       };
       wellsRef.current.push(bh);
       tutorialBHRef.current = bh;
