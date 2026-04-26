@@ -22,6 +22,7 @@ interface Satellite {
   vx: number; vy: number;
   rotation: number;      // current body angle
   spin: number;          // angular velocity (very slow tumble)
+  id?: string;
 }
 
 interface GravityWell {
@@ -120,6 +121,8 @@ export default function OrbitalBackground() {
   const debrisCountRef = useRef<number>(CFG.DEFAULT_DEBRIS_COUNT);
   const debrisSizeRef  = useRef<number>(CFG.DEFAULT_DEBRIS_SIZE);
   const zoomRef        = useRef(1);   // 1 = normal, <1 = zoomed out
+  const tutorialBHRef  = useRef<GravityWell | null>(null);
+  const tutorialSatRef = useRef<Satellite | null>(null);
 
   const [tool, setTool]           = useState<ToolId>("gravity");
   const [noFade, setNoFade]       = useState(false);
@@ -127,6 +130,13 @@ export default function OrbitalBackground() {
   const [debrisCount, setDebrisCount] = useState<number>(CFG.DEFAULT_DEBRIS_COUNT);
   const [debrisSize,  setDebrisSize]  = useState<number>(CFG.DEFAULT_DEBRIS_SIZE);
   const [zoomPct, setZoomPct]     = useState(100);  // display only
+
+  const [tutCursorPos,  setTutCursorPos]  = useState({ x: 0, y: 0 });
+  const [tutCursorVis,  setTutCursorVis]  = useState(false);
+  const [tutClicking,   setTutClicking]   = useState(false);
+  const [tutLabel,      setTutLabel]      = useState("");
+  const [tutLabelVis,   setTutLabelVis]   = useState(false);
+  const [tutArrowPos,   setTutArrowPos]   = useState<{ x: number; y: number } | null>(null);
 
   useEffect(() => { toolRef.current    = tool;   }, [tool]);
   useEffect(() => { noFadeRef.current  = noFade; }, [noFade]);
@@ -145,6 +155,139 @@ export default function OrbitalBackground() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  // ─── Tutorial animation ──────────────────────────────────────────────────────
+  useEffect(() => {
+    if (typeof window === "undefined" || window.innerWidth < 640) return;
+
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    const at = (ms: number, fn: () => void) => { timers.push(setTimeout(fn, ms)); };
+
+    let bhX = 0, bhY = 0;
+
+    at(1200, () => {
+      setTutLabel("This background is a live gravity simulator!");
+      setTutLabelVis(true);
+    });
+
+    at(2400, () => {
+      const btn = document.getElementById("toolbar-btn-blackhole");
+      if (!btn) return;
+      const r = btn.getBoundingClientRect();
+      setTutArrowPos({ x: r.left + r.width / 2, y: r.bottom + 14 });
+      setTutLabel("Click “Black Hole” to create one!");
+      setTutCursorPos({ x: r.left + r.width / 2, y: r.top + r.height / 2 });
+    });
+
+    at(3000, () => setTutCursorVis(true));
+
+    at(3700, () => {
+      setTutClicking(true);
+      setTool("blackhole");
+    });
+    at(4000, () => {
+      setTutClicking(false);
+      setTutArrowPos(null);
+    });
+
+    at(4500, () => {
+      bhX = window.innerWidth * 0.5;
+      bhY = window.innerHeight * 0.42;
+      setTutCursorPos({ x: bhX, y: bhY });
+      setTutLabel("Hold & click to place a black hole...");
+    });
+
+    at(5400, () => {
+      holdRef.current = { start: performance.now(), x: bhX, y: bhY };
+    });
+
+    at(6700, () => {
+      holdRef.current = null;
+      const now = performance.now();
+      const bh: GravityWell = {
+        x: bhX, y: bhY,
+        mass: CFG.BASE_CLICK_MASS * CFG.BH_MASS_MULT,
+        isBlackHole: true,
+        eventHorizon: CFG.BH_EVENT_HORIZON * 1.1,
+        isPermanent: true,
+        createdAt: now,
+      };
+      wellsRef.current.push(bh);
+      tutorialBHRef.current = bh;
+    });
+
+    at(7300, () => {
+      const btn = document.getElementById("toolbar-btn-satellite");
+      if (!btn) return;
+      const r = btn.getBoundingClientRect();
+      setTutArrowPos({ x: r.left + r.width / 2, y: r.bottom + 14 });
+      setTutCursorPos({ x: r.left + r.width / 2, y: r.top + r.height / 2 });
+      setTutLabel("Now launch a satellite to orbit it!");
+    });
+
+    at(8100, () => {
+      setTutClicking(true);
+      setTool("satellite");
+    });
+    at(8400, () => {
+      setTutClicking(false);
+      setTutArrowPos(null);
+    });
+
+    at(9000, () => {
+      setTutCursorPos({ x: bhX + 165, y: bhY });
+      setTutLabel("Click to place it in orbit!");
+    });
+
+    at(9800, () => setTutClicking(true));
+
+    at(10100, () => {
+      setTutClicking(false);
+      // Compute circular orbital velocity: v = sqrt(G * M / (r² + softening) * r)
+      const r  = 165;
+      const mass = CFG.BASE_CLICK_MASS * CFG.BH_MASS_MULT;
+      const distSq = r * r + CFG.SOFTENING_SQ;
+      const v  = Math.sqrt((CFG.G * mass / distSq) * r);
+      const sat: Satellite = {
+        x: bhX + r, y: bhY,
+        vx: 0, vy: -v,
+        rotation: 0, spin: 0.004,
+        id: "tutorial-sat",
+      };
+      satellitesRef.current.push(sat);
+      tutorialSatRef.current = sat;
+      setTool("gravity");
+    });
+
+    at(11200, () => {
+      setTutLabelVis(false);
+      setTutCursorVis(false);
+      setTutLabel("");
+    });
+
+    // Fade everything 7 seconds after satellite is placed
+    at(10100 + 7000, () => {
+      const bh = tutorialBHRef.current;
+      if (bh) {
+        bh.isPermanent = false;
+        bh.createdAt   = performance.now();
+        bh.lifetime    = 2500;
+        tutorialBHRef.current = null;
+      }
+      const sat = tutorialSatRef.current;
+      if (sat) {
+        const idx = satellitesRef.current.indexOf(sat);
+        if (idx >= 0) {
+          flashesRef.current.push({ x: sat.x, y: sat.y, createdAt: performance.now(), duration: 800, color: "252,200,60" });
+          satellitesRef.current.splice(idx, 1);
+        }
+        tutorialSatRef.current = null;
+      }
+    });
+
+    return () => timers.forEach(clearTimeout);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ─── Spawn helper ───────────────────────────────────────────────────────────
@@ -1116,6 +1259,7 @@ export default function OrbitalBackground() {
           {TOOLS.map(t => (
             <button
               key={t.id}
+              id={`toolbar-btn-${t.id}`}
               onClick={() => setTool(t.id)}
               title={t.label}
               style={{
@@ -1277,6 +1421,112 @@ export default function OrbitalBackground() {
       </div>
 
       {/* Help panel — hidden on mobile */}
+      {/* ── Tutorial overlay ── */}
+      {tutLabelVis && (
+        <div
+          className="hidden sm:flex items-center gap-2"
+          style={{
+            position: "fixed",
+            top: "148px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 60,
+            background: "rgba(7,8,12,0.92)",
+            border: "1px solid rgba(167,139,250,0.35)",
+            borderRadius: "999px",
+            padding: "8px 20px",
+            fontSize: "0.8rem",
+            fontFamily: "var(--font-display)",
+            color: "#DDD8FF",
+            whiteSpace: "nowrap",
+            backdropFilter: "blur(14px)",
+            pointerEvents: "none",
+            letterSpacing: "0.01em",
+            boxShadow: "0 0 24px rgba(167,139,250,0.18)",
+          }}
+        >
+          <span style={{ fontSize: "0.85rem" }}>✦</span>
+          {tutLabel}
+        </div>
+      )}
+
+      {/* Bouncing arrow indicator */}
+      {tutArrowPos && (
+        <div
+          className="hidden sm:block"
+          style={{
+            position: "fixed",
+            left: tutArrowPos.x,
+            top: tutArrowPos.y,
+            transform: "translateX(-50%)",
+            zIndex: 60,
+            pointerEvents: "none",
+            fontSize: "18px",
+            color: "#A78BFA",
+            lineHeight: 1,
+            animation: "tutBounce 0.75s ease-in-out infinite",
+            textShadow: "0 0 12px rgba(167,139,250,0.8)",
+          }}
+        >
+          ↑
+        </div>
+      )}
+
+      {/* Fake cursor */}
+      <div
+        className="hidden sm:block"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: 0,
+          height: 0,
+          zIndex: 70,
+          pointerEvents: "none",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            transform: `translate(${tutCursorPos.x - 4}px, ${tutCursorPos.y - 2}px)`,
+            opacity: tutCursorVis ? 1 : 0,
+            transition: "transform 0.65s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease",
+          }}
+        >
+          <svg
+            width="22"
+            height="28"
+            viewBox="0 0 22 28"
+            fill="none"
+            style={{
+              transform: tutClicking ? "scale(0.82)" : "scale(1)",
+              transition: "transform 0.12s ease",
+              filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.7))",
+            }}
+          >
+            <path
+              d="M4 2L4 22L8.5 17.5L12 25L15 23.5L11.5 16L18 16Z"
+              fill="white"
+              stroke="rgba(0,0,0,0.55)"
+              strokeWidth="1.5"
+              strokeLinejoin="round"
+            />
+          </svg>
+          {tutClicking && (
+            <div style={{
+              position: "absolute",
+              top: 4,
+              left: 4,
+              width: 16,
+              height: 16,
+              borderRadius: "50%",
+              border: "2px solid rgba(167,139,250,0.7)",
+              animation: "fadeIn 0.15s ease",
+            }} />
+          )}
+        </div>
+      </div>
+
       {showHelp ? (
         <div data-no-sim className="hidden sm:block fixed z-50" style={{ bottom: 28, right: 28 }}>
           <div style={{

@@ -118,9 +118,9 @@ export default function Navigation() {
             <Image
               src="/images/tiger-logo.png"
               alt="Tiger logo"
-              width={32}
-              height={32}
-              style={{ borderRadius: "6px" }}
+              width={48}
+              height={48}
+              style={{ borderRadius: "8px" }}
             />
             TIGER STRAKE
           </Link>

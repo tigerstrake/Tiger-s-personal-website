@@ -89,7 +89,7 @@ export default function Home() {
             </div>
 
             <h1
-              className="heading-xl mb-6 animate-fade-up stagger-1"
+              className="heading-xl mb-4 animate-fade-up stagger-1"
               style={{ color: "#ECEDF2", maxWidth: "800px" }}
             >
               Tiger Strake
@@ -99,30 +99,39 @@ export default function Home() {
               className="animate-fade-up stagger-2"
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(1.1rem, 2.5vw, 1.65rem)",
-                color: "#5A5F6E",
-                fontWeight: 500,
+                fontSize: "clamp(1.25rem, 2.8vw, 1.75rem)",
+                color: "#C8D0E4",
+                fontWeight: 600,
                 letterSpacing: "-0.02em",
-                lineHeight: 1.4,
+                lineHeight: 1.3,
                 maxWidth: "680px",
                 marginBottom: "1.5rem",
               }}
             >
-              I build rockets, UAVs, and embedded systems. I hold two pilot
-              licenses. I interned at ESA and tested hardware at Mach 10
-              at DLR before I turned 16.
+              Hi there, I am Tiger.
             </p>
 
-            <p
-              className="body-lg animate-fade-up stagger-3"
-              style={{ maxWidth: "560px", marginBottom: "2.5rem" }}
-            >
-              Hardware that starts in CAD and gets more interesting once it
-              survives testing, redesigns, and the gap between simulation
-              and the real world.
-            </p>
+            <div className="animate-fade-up stagger-3" style={{ maxWidth: "640px", marginBottom: "2.5rem" }}>
+              <p style={{ fontSize: "1.1rem", lineHeight: 1.8, color: "#B0B6CB", marginBottom: "1rem", fontFamily: "var(--font-body)" }}>
+                I started building rockets as a kid and haven&apos;t stopped since.
+                Before turning 16, I interned at the European Space Agency and EUMETSAT (Europäische
+                Organisation für die Nutzung meteorologischer Satelliten) and worked on hypersonic
+                hardware testing at DLR (Deutsches Luft- und Raumfahrtzentrum). I also hold two pilot licenses.
+              </p>
+              <p style={{ fontSize: "1.1rem", lineHeight: 1.8, color: "#B0B6CB", marginBottom: "1rem", fontFamily: "var(--font-body)" }}>
+                I&apos;m currently studying Aeronautics and Astronautics at Stanford University (&lsquo;29),
+                where I serve as Chief Engineer of Stanford&apos;s Skyrunners, building UAVs and embedded systems.
+              </p>
+              <p style={{ fontSize: "1.1rem", lineHeight: 1.8, color: "#B0B6CB", marginBottom: "1rem", fontFamily: "var(--font-body)" }}>
+                I like turning ideas into things that actually fly &mdash; and eventually into my company.
+                Most of the time, you&apos;ll find the 3D printer running in my dorm.
+              </p>
+              <p style={{ fontSize: "1rem", lineHeight: 1.6, color: "#C8865A", fontFamily: "var(--font-display)", fontWeight: 500, fontStyle: "italic" }}>
+                Yes, my real name is Tiger.
+              </p>
+            </div>
 
-            <div className="flex flex-wrap gap-3 animate-fade-up stagger-4" style={{ marginBottom: "3rem" }}>
+            <div className="flex flex-wrap gap-3 animate-fade-up" style={{ marginBottom: "3rem", animationDelay: "0.33s" }}>
               <Link
                 href="/projects"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded text-sm font-semibold hover-accent-bg"
@@ -156,7 +165,7 @@ export default function Home() {
             </div>
 
             {/* Credential strip */}
-            <div className="flex flex-wrap gap-x-4 gap-y-2 animate-fade-up stagger-5">
+            <div className="flex flex-wrap gap-x-4 gap-y-2 animate-fade-up" style={{ animationDelay: "0.4s" }}>
               {CREDENTIALS.map((c, i) => (
                 <div key={i} className="flex items-center gap-2">
                   <span
@@ -167,15 +176,25 @@ export default function Home() {
                     className="text-xs"
                     style={{
                       fontFamily: "var(--font-display)",
-                      color: "#5A5F6E",
+                      color: "#8A8F9C",
                       letterSpacing: "0.02em",
                     }}
                   >
-                    <span style={{ color: "#8A8F9C", fontWeight: 600 }}>{c.label}</span>
+                    <span style={{ color: "#B8BDD0", fontWeight: 600 }}>{c.label}</span>
                     {" "}{c.detail}
                   </span>
                 </div>
               ))}
+            </div>
+
+            {/* Simulation hint */}
+            <div
+              className="hidden sm:flex animate-fade-up items-center gap-2 mt-5"
+              style={{ animationDelay: "0.5s" }}
+            >
+              <span style={{ fontSize: "0.72rem", color: "#A78BFA", letterSpacing: "0.04em", fontFamily: "var(--font-display)" }}>
+                ↑ The background is a live gravity simulator &mdash; use the toolbar to create black holes &amp; launch satellites
+              </span>
             </div>
           </div>
 
@@ -237,7 +256,7 @@ export default function Home() {
                       }}
                     />
                   </div>
-                  <p className="text-sm" style={{ color: "#5A5F6E" }}>
+                  <p className="text-sm" style={{ color: "#8A8F9C" }}>
                     {item.description}
                   </p>
                 </div>
@@ -296,7 +315,7 @@ export default function Home() {
                 <h2 className="heading-lg mb-6" style={{ color: "#ECEDF2" }}>
                   How I got here
                 </h2>
-                <p className="body-lg mb-8">
+                <p className="mb-8" style={{ fontSize: "1.05rem", lineHeight: 1.75, color: "#A0A6B8" }}>
                   Started building at 14. Interned at three European space agencies
                   before finishing high school. Founded a fab lab, competed in
                   manufacturing, earned two pilot licenses. Now at Stanford building
@@ -343,13 +362,13 @@ export default function Home() {
                       <span
                         className="text-xs font-semibold block mb-1"
                         style={{
-                          color: i === TIMELINE.length - 1 ? "#C8865A" : "#4D5260",
+                          color: i === TIMELINE.length - 1 ? "#C8865A" : "#7A8090",
                           fontFamily: "var(--font-mono)",
                         }}
                       >
                         {t.year}
                       </span>
-                      <p className="text-sm leading-relaxed" style={{ color: "#8A8F9C" }}>
+                      <p className="text-sm leading-relaxed" style={{ color: "#A0A6B8", fontSize: "0.9rem" }}>
                         {t.event}
                       </p>
                     </div>
@@ -397,7 +416,7 @@ export default function Home() {
                     <div className="flex items-center gap-3">
                       <span
                         className="text-xs"
-                        style={{ color: "#4D5260", fontFamily: "var(--font-mono)" }}
+                        style={{ color: "#7A8090", fontFamily: "var(--font-mono)" }}
                       >
                         {entry.date}
                       </span>
@@ -419,7 +438,7 @@ export default function Home() {
                   >
                     {entry.title}
                   </h3>
-                  <p className="text-sm" style={{ color: "#5A5F6E" }}>
+                  <p className="text-sm" style={{ color: "#8A8F9C" }}>
                     {entry.what}
                   </p>
                 </div>
@@ -435,7 +454,7 @@ export default function Home() {
               <h2 className="heading-md mb-1" style={{ color: "#ECEDF2" }}>
                 Building something hard?
               </h2>
-              <p className="text-sm" style={{ color: "#5A5F6E" }}>
+              <p className="text-sm" style={{ color: "#8A8F9C" }}>
                 I respond to aerospace, hardware, and research inquiries. Internships too.
               </p>
             </div>

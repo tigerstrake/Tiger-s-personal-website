@@ -281,6 +281,11 @@ body {
 
 /* stagger delays for children */
 .stagger-1 { animation-delay: 0.05s; }
+
+@keyframes tutBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0px); }
+  50%       { transform: translateX(-50%) translateY(-7px); }
+}
 .stagger-2 { animation-delay: 0.12s; }
 .stagger-3 { animation-delay: 0.19s; }
 .stagger-4 { animation-delay: 0.26s; }
