@@ -92,7 +92,7 @@ export default function Home() {
               className="animate-fade-up stagger-2"
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(1.5rem, 3.2vw, 2rem)",
+                fontSize: "clamp(2rem, 4.5vw, 3rem)",
                 color: "#C8D0E4",
                 fontWeight: 600,
                 letterSpacing: "-0.02em",

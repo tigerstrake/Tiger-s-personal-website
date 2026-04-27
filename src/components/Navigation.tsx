@@ -115,13 +115,6 @@ export default function Navigation() {
               textDecoration: "none",
             }}
           >
-            <Image
-              src="/images/tiger-logo.png"
-              alt="Tiger logo"
-              width={48}
-              height={48}
-              style={{ borderRadius: "8px" }}
-            />
             <span style={{ fontSize: "1.15rem" }}>TIGER STRAKE</span>
           </Link>
 
@@ -158,12 +151,12 @@ export default function Navigation() {
             <Image
               src="/images/tiger-logo.png"
               alt="Download CV"
-              width={36}
-              height={36}
-              style={{ borderRadius: "6px" }}
+              width={52}
+              height={52}
+              style={{ borderRadius: "8px" }}
             />
             <span style={{
-              fontSize: "0.6rem",
+              fontSize: "0.65rem",
               fontFamily: "var(--font-display)",
               fontWeight: 700,
               letterSpacing: "0.1em",
