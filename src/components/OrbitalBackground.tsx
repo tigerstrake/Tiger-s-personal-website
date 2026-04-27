@@ -237,7 +237,7 @@ export default function OrbitalBackground() {
     });
 
     at(9000, () => {
-      setTutCursorPos({ x: bhX + 165, y: bhY });
+      setTutCursorPos({ x: bhX + 195, y: bhY });
       setTutLabel("Click to place it in orbit!");
     });
 
@@ -245,14 +245,17 @@ export default function OrbitalBackground() {
 
     at(10100, () => {
       setTutClicking(false);
-      // Compute circular orbital velocity: v = sqrt(G * M / (r² + softening) * r)
-      const r  = 165;
-      const mass = CFG.BASE_CLICK_MASS * CFG.BH_MASS_MULT;
+      // Exact circular orbital velocity with Plummer softening:
+      // Radial gravity = G*M*r / (distSq * dist)
+      // Centripetal balance: v²/r = G*M*r/(distSq*dist)  →  v = r * sqrt(G*M/(distSq*dist))
+      const r      = 195;
+      const mass   = CFG.BASE_CLICK_MASS * CFG.BH_MASS_MULT;
       const distSq = r * r + CFG.SOFTENING_SQ;
-      const v  = Math.sqrt((CFG.G * mass / distSq) * r);
+      const dist   = Math.sqrt(distSq);
+      const v      = r * Math.sqrt(CFG.G * mass / (distSq * dist));
       const sat: Satellite = {
         x: bhX + r, y: bhY,
-        vx: 0, vy: -v,
+        vx: 0, vy: -v,   // upward → counter-clockwise orbit
         rotation: 0, spin: 0.004,
         id: "tutorial-sat",
       };
