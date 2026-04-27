@@ -122,7 +122,7 @@ export default function Navigation() {
               height={48}
               style={{ borderRadius: "8px" }}
             />
-            TIGER STRAKE
+            <span style={{ fontSize: "1.15rem" }}>TIGER STRAKE</span>
           </Link>
 
           {/* Desktop nav */}
@@ -139,8 +139,37 @@ export default function Navigation() {
             })}
           </ul>
 
-          <a href="/docs/tiger-strake-cv.pdf" download className="nav-cv hidden md:inline-flex">
-            CV
+          <a
+            href="/docs/tiger-strake-cv.pdf"
+            download
+            className="hidden md:inline-flex"
+            style={{
+              display: "inline-flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "3px",
+              textDecoration: "none",
+              opacity: 0.85,
+              transition: "opacity 0.2s",
+            }}
+            onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
+            onMouseLeave={e => (e.currentTarget.style.opacity = "0.85")}
+          >
+            <Image
+              src="/images/tiger-logo.png"
+              alt="Download CV"
+              width={36}
+              height={36}
+              style={{ borderRadius: "6px" }}
+            />
+            <span style={{
+              fontSize: "0.6rem",
+              fontFamily: "var(--font-display)",
+              fontWeight: 700,
+              letterSpacing: "0.1em",
+              color: "#C8865A",
+              textTransform: "uppercase",
+            }}>CV</span>
           </a>
 
           {/* Mobile hamburger */}
@@ -182,7 +211,7 @@ export default function Navigation() {
             <a
               href="/docs/tiger-strake-cv.pdf"
               download
-              className="mt-6 py-3 text-center text-sm font-semibold rounded border"
+              className="mt-6 flex items-center justify-center gap-3 py-3 rounded border"
               style={{
                 fontFamily: "var(--font-display)",
                 color: "#C8865A",
@@ -190,7 +219,14 @@ export default function Navigation() {
                 textDecoration: "none",
               }}
             >
-              Download CV
+              <Image
+                src="/images/tiger-logo.png"
+                alt="Tiger logo"
+                width={28}
+                height={28}
+                style={{ borderRadius: "5px" }}
+              />
+              <span className="text-sm font-semibold">Download CV</span>
             </a>
           </div>
         </div>

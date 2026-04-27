@@ -313,6 +313,27 @@ export default function OrbitalBackground() {
       setTutLabel("");
     });
 
+    // Satellites drifting in from the sides after tutorial ends
+    at(12000 + 5000, () => {
+      const w = window.innerWidth, h = window.innerHeight;
+      satellitesRef.current.push({
+        x: -40, y: h * 0.38,
+        vx: 1.6, vy: 0.5,
+        rotation: 0, spin: 0.004,
+        id: "passthrough-1",
+      });
+    });
+
+    at(12000 + 8000, () => {
+      const w = window.innerWidth, h = window.innerHeight;
+      satellitesRef.current.push({
+        x: w + 40, y: h * 0.62,
+        vx: -1.8, vy: -0.4,
+        rotation: Math.PI, spin: -0.003,
+        id: "passthrough-2",
+      });
+    });
+
     // Fade everything 7 seconds after satellite is placed
     at(10900 + 7000, () => {
       const bh = tutorialBHRef.current;
@@ -1467,7 +1488,7 @@ export default function OrbitalBackground() {
         {/* Hint */}
         <div style={{
           fontSize: "0.63rem",
-          color: "rgba(255,255,255,0.18)",
+          color: "rgba(255,255,255,0.5)",
           fontFamily: "var(--font-display)",
           letterSpacing: "0.04em",
           pointerEvents: "none",
@@ -1634,7 +1655,7 @@ export default function OrbitalBackground() {
             fontFamily: "var(--font-display)",
           }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-              <span style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.08em", color: "rgba(255,255,255,0.35)", textTransform: "uppercase" }}>
+              <span style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.08em", color: "rgba(255,255,255,0.65)", textTransform: "uppercase" }}>
                 Simulation
               </span>
               <button
@@ -1658,8 +1679,8 @@ export default function OrbitalBackground() {
                     fontSize: "0.62rem", fontWeight: 700, color, flexShrink: 0, marginTop: 1,
                   }}>{key}</span>
                   <div>
-                    <div style={{ fontSize: "0.72rem", fontWeight: 600, color: "rgba(255,255,255,0.75)", lineHeight: 1.2 }}>{label}</div>
-                    <div style={{ fontSize: "0.63rem", color: "rgba(255,255,255,0.28)", lineHeight: 1.3, marginTop: 1 }}>{tip}</div>
+                    <div style={{ fontSize: "0.72rem", fontWeight: 600, color: "rgba(255,255,255,0.88)", lineHeight: 1.2 }}>{label}</div>
+                    <div style={{ fontSize: "0.63rem", color: "rgba(255,255,255,0.55)", lineHeight: 1.3, marginTop: 1 }}>{tip}</div>
                   </div>
                 </div>
               ))}
@@ -1683,13 +1704,13 @@ export default function OrbitalBackground() {
                 "Release — debris will orbit",
               ].map((s, i) => (
                 <div key={i} style={{ display: "flex", gap: 6, marginBottom: 3, alignItems: "flex-start" }}>
-                  <span style={{ fontSize: "0.6rem", color: "#60A5FA", opacity: 0.55, minWidth: 10, marginTop: 1 }}>{i + 1}.</span>
-                  <span style={{ fontSize: "0.65rem", color: "rgba(255,255,255,0.38)", lineHeight: 1.35 }}>{s}</span>
+                  <span style={{ fontSize: "0.6rem", color: "#60A5FA", opacity: 0.8, minWidth: 10, marginTop: 1 }}>{i + 1}.</span>
+                  <span style={{ fontSize: "0.65rem", color: "rgba(255,255,255,0.65)", lineHeight: 1.35 }}>{s}</span>
                 </div>
               ))}
             </div>
 
-            <div style={{ fontSize: "0.61rem", color: "rgba(255,255,255,0.2)", lineHeight: 1.55 }}>
+            <div style={{ fontSize: "0.61rem", color: "rgba(255,255,255,0.5)", lineHeight: 1.55 }}>
               Right-click anywhere to repel.<br />
               Debris wraps at screen edges.
             </div>

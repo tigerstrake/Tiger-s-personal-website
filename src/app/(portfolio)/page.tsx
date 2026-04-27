@@ -88,18 +88,11 @@ export default function Home() {
               STANFORD AEROASTRO &rsquo;29
             </div>
 
-            <h1
-              className="heading-xl mb-4 animate-fade-up stagger-1"
-              style={{ color: "#ECEDF2", maxWidth: "800px" }}
-            >
-              Tiger Strake
-            </h1>
-
             <p
               className="animate-fade-up stagger-2"
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(1.25rem, 2.8vw, 1.75rem)",
+                fontSize: "clamp(1.5rem, 3.2vw, 2rem)",
                 color: "#C8D0E4",
                 fontWeight: 600,
                 letterSpacing: "-0.02em",
@@ -108,7 +101,7 @@ export default function Home() {
                 marginBottom: "1.5rem",
               }}
             >
-              Hi there, I am Tiger.
+              Hi there, I am Tiger!
             </p>
 
             <div className="animate-fade-up stagger-3" style={{ maxWidth: "640px", marginBottom: "2.5rem" }}>
@@ -121,11 +114,7 @@ export default function Home() {
                 I&apos;m currently studying Aeronautics and Astronautics at Stanford University (&lsquo;29),
                 where I serve as Chief Engineer of Stanford&apos;s Skyrunners, building UAVs and embedded systems.
               </p>
-              <p style={{ fontSize: "1.1rem", lineHeight: 1.8, color: "#B0B6CB", marginBottom: "1rem", fontFamily: "var(--font-body)" }}>
-                I like turning ideas into things that actually fly &mdash; and eventually into my company.
-                Most of the time, you&apos;ll find the 3D printer running in my dorm.
-              </p>
-              <p style={{ fontSize: "1rem", lineHeight: 1.6, color: "#C8865A", fontFamily: "var(--font-display)", fontWeight: 500, fontStyle: "italic" }}>
+              <p style={{ fontSize: "1rem", lineHeight: 1.6, color: "#B0B6CB", fontFamily: "var(--font-display)", fontWeight: 500, fontStyle: "italic" }}>
                 Yes, my real name is Tiger.
               </p>
             </div>
