@@ -133,39 +133,6 @@ export default function Navigation() {
             })}
           </ul>
 
-          {/* CV — logo + label, sits inside the 80px nav */}
-          <a
-            href="/docs/tiger-strake-cv.pdf"
-            download
-            className="hidden md:flex"
-            style={{
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "4px",
-              textDecoration: "none",
-              opacity: 0.85,
-              transition: "opacity 0.2s",
-            }}
-            onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
-            onMouseLeave={e => (e.currentTarget.style.opacity = "0.85")}
-          >
-            <Image
-              src="/images/tiger-logo.png"
-              alt="Download CV"
-              width={52}
-              height={52}
-              style={{ borderRadius: "8px" }}
-            />
-            <span style={{
-              fontSize: "0.85rem",
-              fontFamily: "var(--font-display)",
-              fontWeight: 700,
-              letterSpacing: "0.1em",
-              color: "#C8865A",
-              textTransform: "uppercase",
-            }}>CV</span>
-          </a>
-
           {/* Mobile hamburger */}
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -182,6 +149,44 @@ export default function Navigation() {
           </button>
         </nav>
       </header>
+
+      {/* CV — fixed, logo fills one 80px grid cell, starts at first grid line below nav */}
+      <a
+        href="/docs/tiger-strake-cv.pdf"
+        download
+        className="hidden md:flex"
+        style={{
+          position: "fixed",
+          top: "80px",
+          right: "calc(max(0px, (100vw - 72rem) / 2) + 1.5rem)",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "6px",
+          textDecoration: "none",
+          opacity: 0.8,
+          transition: "opacity 0.2s",
+          zIndex: 45,
+        }}
+        onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
+        onMouseLeave={e => (e.currentTarget.style.opacity = "0.8")}
+      >
+        <Image
+          src="/images/tiger-logo.png"
+          alt="Download CV"
+          width={80}
+          height={80}
+          style={{ borderRadius: "10px", display: "block" }}
+        />
+        <span style={{
+          fontSize: "1.5rem",
+          fontFamily: "var(--font-display)",
+          fontWeight: 700,
+          letterSpacing: "0.12em",
+          color: "#C8865A",
+          textTransform: "uppercase",
+          lineHeight: 1,
+        }}>CV</span>
+      </a>
 
       {/* Mobile overlay */}
       {isOpen && (
