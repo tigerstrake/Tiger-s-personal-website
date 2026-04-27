@@ -137,6 +137,7 @@ export default function OrbitalBackground() {
   const [tutLabel,      setTutLabel]      = useState("");
   const [tutLabelVis,   setTutLabelVis]   = useState(false);
   const [tutArrowPos,   setTutArrowPos]   = useState<{ x: number; y: number } | null>(null);
+  const [tutDragStart,  setTutDragStart]  = useState<{ x: number; y: number } | null>(null);
 
   useEffect(() => { toolRef.current    = tool;   }, [tool]);
   useEffect(() => { noFadeRef.current  = noFade; }, [noFade]);
@@ -238,13 +239,24 @@ export default function OrbitalBackground() {
 
     at(9000, () => {
       setTutCursorPos({ x: bhX + 195, y: bhY });
-      setTutLabel("Click to place it in orbit!");
+      setTutLabel("Drag upward to launch into orbit!");
     });
 
-    at(9800, () => setTutClicking(true));
+    // Press down at spawn point
+    at(9800, () => {
+      setTutClicking(true);
+      setTutDragStart({ x: bhX + 195, y: bhY });
+    });
 
+    // Drag cursor upward (showing orbital velocity direction)
     at(10100, () => {
+      setTutCursorPos({ x: bhX + 195, y: bhY - 110 });
+    });
+
+    // Release — place satellite with matching velocity
+    at(10900, () => {
       setTutClicking(false);
+      setTutDragStart(null);
       // Exact circular orbital velocity with Plummer softening:
       // Radial gravity = G*M*r / (distSq * dist)
       // Centripetal balance: v²/r = G*M*r/(distSq*dist)  →  v = r * sqrt(G*M/(distSq*dist))
@@ -264,14 +276,14 @@ export default function OrbitalBackground() {
       setTool("gravity");
     });
 
-    at(11200, () => {
+    at(12000, () => {
       setTutLabelVis(false);
       setTutCursorVis(false);
       setTutLabel("");
     });
 
     // Fade everything 7 seconds after satellite is placed
-    at(10100 + 7000, () => {
+    at(10900 + 7000, () => {
       const bh = tutorialBHRef.current;
       if (bh) {
         bh.isPermanent = false;
@@ -1474,6 +1486,40 @@ export default function OrbitalBackground() {
         >
           ↑
         </div>
+      )}
+
+      {/* Drag line — shown while cursor is dragging to set satellite velocity */}
+      {tutDragStart && (
+        <svg
+          className="hidden sm:block"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            zIndex: 65,
+            pointerEvents: "none",
+          }}
+        >
+          <defs>
+            <marker id="drag-arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+              <path d="M1,1 L7,4 L1,7 Z" fill="#FCD34D" opacity="0.9" />
+            </marker>
+          </defs>
+          <line
+            x1={tutDragStart.x}
+            y1={tutDragStart.y}
+            x2={tutCursorPos.x}
+            y2={tutCursorPos.y}
+            stroke="#FCD34D"
+            strokeWidth="2"
+            strokeDasharray="6 4"
+            opacity="0.75"
+            markerEnd="url(#drag-arrow)"
+          />
+          <circle cx={tutDragStart.x} cy={tutDragStart.y} r="4" fill="#FCD34D" opacity="0.5" />
+        </svg>
       )}
 
       {/* Fake cursor */}

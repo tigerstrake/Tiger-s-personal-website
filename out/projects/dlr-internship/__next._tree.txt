@@ -5,4 +5,4 @@
 :HL["/images/dlr/dlr-optics-bench-experiment.jpg","image"]
 :HL["/images/dlr/dlr-drone-3d-printed-component-test-rig.jpg","image"]
 :HL["/images/dlr/dlr-electronics-breadboard-workbench.jpg","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"(portfolio)","param":null,"prefetchHints":0,"slots":{"children":{"name":"projects","param":null,"prefetchHints":0,"slots":{"children":{"name":"slug","param":{"type":"d","key":"dlr-internship","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}}}},"staleTime":300,"buildId":"dbP7tUiJcuG39XJBeoOC_"}
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"(portfolio)","param":null,"prefetchHints":0,"slots":{"children":{"name":"projects","param":null,"prefetchHints":0,"slots":{"children":{"name":"slug","param":{"type":"d","key":"dlr-internship","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}}}},"staleTime":300,"buildId":"VAskIpz1G1TItpZk4gs1S"}
