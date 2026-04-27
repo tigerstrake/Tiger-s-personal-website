@@ -23,6 +23,8 @@ interface Satellite {
   rotation: number;      // current body angle
   spin: number;          // angular velocity (very slow tumble)
   id?: string;
+  fadeStart?: number;    // performance.now() when fade begins
+  fadeDuration?: number; // ms over which to fade to 0
 }
 
 interface GravityWell {
@@ -123,6 +125,9 @@ export default function OrbitalBackground() {
   const zoomRef        = useRef(1);   // 1 = normal, <1 = zoomed out
   const tutorialBHRef  = useRef<GravityWell | null>(null);
   const tutorialSatRef = useRef<Satellite | null>(null);
+  const tutCursorInnerRef = useRef<HTMLDivElement>(null);
+  const tutLineRef     = useRef<SVGLineElement>(null);
+  const tutDragRafRef  = useRef<number>(0);
 
   const [tool, setTool]           = useState<ToolId>("gravity");
   const [noFade, setNoFade]       = useState(false);
@@ -248,9 +253,35 @@ export default function OrbitalBackground() {
       setTutDragStart({ x: bhX + 195, y: bhY });
     });
 
-    // Drag cursor upward (showing orbital velocity direction)
+    // Drag cursor upward via RAF so arrow tip stays in sync with cursor
     at(10100, () => {
-      setTutCursorPos({ x: bhX + 195, y: bhY - 110 });
+      const startX = bhX + 195, startY = bhY;
+      const endX   = bhX + 195, endY   = bhY - 110;
+      const duration = 750;
+      const t0 = performance.now();
+
+      cancelAnimationFrame(tutDragRafRef.current);
+      const animate = (now: number) => {
+        const p = Math.min((now - t0) / duration, 1);
+        const ease = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p;
+        const x = startX + (endX - startX) * ease;
+        const y = startY + (endY - startY) * ease;
+
+        if (tutCursorInnerRef.current) {
+          tutCursorInnerRef.current.style.transform = `translate(${x - 4}px, ${y - 2}px)`;
+        }
+        if (tutLineRef.current) {
+          tutLineRef.current.setAttribute("x2", String(x));
+          tutLineRef.current.setAttribute("y2", String(y));
+        }
+
+        if (p < 1) {
+          tutDragRafRef.current = requestAnimationFrame(animate);
+        } else {
+          setTutCursorPos({ x: endX, y: endY }); // sync state after animation
+        }
+      };
+      tutDragRafRef.current = requestAnimationFrame(animate);
     });
 
     // Release — place satellite with matching velocity
@@ -293,16 +324,13 @@ export default function OrbitalBackground() {
       }
       const sat = tutorialSatRef.current;
       if (sat) {
-        const idx = satellitesRef.current.indexOf(sat);
-        if (idx >= 0) {
-          flashesRef.current.push({ x: sat.x, y: sat.y, createdAt: performance.now(), duration: 800, color: "252,200,60" });
-          satellitesRef.current.splice(idx, 1);
-        }
+        sat.fadeStart    = performance.now();
+        sat.fadeDuration = 2500;
         tutorialSatRef.current = null;
       }
     });
 
-    return () => timers.forEach(clearTimeout);
+    return () => { timers.forEach(clearTimeout); cancelAnimationFrame(tutDragRafRef.current); };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -434,6 +462,15 @@ export default function OrbitalBackground() {
 
     for (let i = satellites.length - 1; i >= 0; i--) {
       const sat = satellites[i];
+
+      // Remove once fully faded
+      if (sat.fadeStart !== undefined && sat.fadeDuration !== undefined) {
+        if (now - sat.fadeStart >= sat.fadeDuration) {
+          satellites.splice(i, 1);
+          continue;
+        }
+      }
+
       sat.rotation += sat.spin;   // slow tumble each frame
       // RK4 integration — conserves orbital energy, eliminates attractor orbit
       const accel = (px: number, py: number): [number, number] => {
@@ -856,6 +893,10 @@ export default function OrbitalBackground() {
     // Satellites — drawn as proper mechanical spacecraft
     for (const sat of satellites) {
       ctx.save();
+      if (sat.fadeStart !== undefined && sat.fadeDuration !== undefined) {
+        const alpha = Math.max(0, 1 - (now - sat.fadeStart) / sat.fadeDuration);
+        ctx.globalAlpha = alpha;
+      }
       ctx.translate(sat.x, sat.y);
       ctx.rotate(sat.rotation);
 
@@ -1508,10 +1549,11 @@ export default function OrbitalBackground() {
             </marker>
           </defs>
           <line
+            ref={tutLineRef}
             x1={tutDragStart.x}
             y1={tutDragStart.y}
-            x2={tutCursorPos.x}
-            y2={tutCursorPos.y}
+            x2={tutDragStart.x}
+            y2={tutDragStart.y}
             stroke="#FCD34D"
             strokeWidth="2"
             strokeDasharray="6 4"
@@ -1536,11 +1578,14 @@ export default function OrbitalBackground() {
         }}
       >
         <div
+          ref={tutCursorInnerRef}
           style={{
             position: "absolute",
             transform: `translate(${tutCursorPos.x - 4}px, ${tutCursorPos.y - 2}px)`,
             opacity: tutCursorVis ? 1 : 0,
-            transition: "transform 0.65s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease",
+            transition: tutDragStart
+              ? "opacity 0.3s ease"
+              : "transform 0.65s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease",
           }}
         >
           <svg
