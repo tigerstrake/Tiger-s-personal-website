@@ -100,7 +100,8 @@ export default function Navigation() {
           transition: "background 0.3s, backdrop-filter 0.3s, border-color 0.3s",
         }}
       >
-        <nav className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
+        {/* h-20 = 80px = one simulation grid cell, bottom edge aligns with first grid line */}
+        <nav className="max-w-6xl mx-auto px-6 flex items-center justify-between h-20">
           <Link
             href="/"
             style={{
@@ -132,6 +133,39 @@ export default function Navigation() {
             })}
           </ul>
 
+          {/* CV — logo + label, sits inside the 80px nav */}
+          <a
+            href="/docs/tiger-strake-cv.pdf"
+            download
+            className="hidden md:flex"
+            style={{
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "4px",
+              textDecoration: "none",
+              opacity: 0.85,
+              transition: "opacity 0.2s",
+            }}
+            onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
+            onMouseLeave={e => (e.currentTarget.style.opacity = "0.85")}
+          >
+            <Image
+              src="/images/tiger-logo.png"
+              alt="Download CV"
+              width={52}
+              height={52}
+              style={{ borderRadius: "8px" }}
+            />
+            <span style={{
+              fontSize: "0.85rem",
+              fontFamily: "var(--font-display)",
+              fontWeight: 700,
+              letterSpacing: "0.1em",
+              color: "#C8865A",
+              textTransform: "uppercase",
+            }}>CV</span>
+          </a>
+
           {/* Mobile hamburger */}
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -148,43 +182,6 @@ export default function Navigation() {
           </button>
         </nav>
       </header>
-
-      {/* CV button — fixed, center aligned to 2nd simulation grid line (y=160px) */}
-      <a
-        href="/docs/tiger-strake-cv.pdf"
-        download
-        className="hidden md:flex"
-        style={{
-          position: "fixed",
-          top: "124px",
-          right: "calc(max(0px, (100vw - 72rem) / 2) + 1.5rem)",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "6px",
-          textDecoration: "none",
-          opacity: 0.85,
-          transition: "opacity 0.2s",
-          zIndex: 45,
-        }}
-        onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
-        onMouseLeave={e => (e.currentTarget.style.opacity = "0.85")}
-      >
-        <Image
-          src="/images/tiger-logo.png"
-          alt="Download CV"
-          width={72}
-          height={72}
-          style={{ borderRadius: "10px" }}
-        />
-        <span style={{
-          fontSize: "1.1rem",
-          fontFamily: "var(--font-display)",
-          fontWeight: 700,
-          letterSpacing: "0.1em",
-          color: "#C8865A",
-          textTransform: "uppercase",
-        }}>CV</span>
-      </a>
 
       {/* Mobile overlay */}
       {isOpen && (
