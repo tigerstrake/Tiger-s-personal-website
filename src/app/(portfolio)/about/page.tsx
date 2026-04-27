@@ -50,31 +50,17 @@ export default function About() {
           {/* Long-form bio */}
           <div className="lg:col-span-2 space-y-8">
 
-            <div className="border-l-2 pl-5" style={{ borderColor: "rgba(200,134,90,0.3)" }}>
-              <p className="text-base leading-relaxed italic" style={{ color: "#8A8F9C" }}>
-                &ldquo;I care less about polished concept talk and more about whether
-                a design can actually be built, tested, and improved without turning
-                into a mess.&rdquo;
-              </p>
-            </div>
-
             <div>
               <h2 className="heading-sm mb-4" style={{ color: "#ECEDF2" }}>What I&apos;m interested in</h2>
               <div className="space-y-4">
                 <p className="body-lg">
-                  Aerospace hardware with real flight or test requirements. Propulsion
-                  systems and combustion. Structural design where the weight budget
-                  is real, not a spreadsheet assumption. Embedded control systems
-                  where the software has to work with the physics, not around it.
+                  Aerospace hardware is the main thing — propulsion, structural design with real weight budgets, embedded systems that have to work with the physics rather than around it. That&apos;s where most of my time goes.
                 </p>
                 <p className="body-lg">
-                  Also: astrophysics, orbital mechanics, and the kind of physics
-                  problems where the answer requires you to understand the system
-                  before you write the equations. I took an astrophysics and
-                  astrobiology course that included a research paper on planetary
-                  habitability. Not directly applicable to most hardware work, but
-                  it sharpened how I think about systems with long time constants
-                  and uncertain inputs.
+                  I&apos;ve recently gotten into mountaineering, which I wasn&apos;t expecting to love as much as I do. There&apos;s something about committing to a route on incomplete information — deciding when to push and when to turn back — that maps surprisingly well to how I think about test programs and flight operations.
+                </p>
+                <p className="body-lg">
+                  Outside of that: orbital mechanics, bouncing half-formed ideas off people, and cooking. Night owl by nature. Most productive when it&apos;s quiet and something&apos;s running on the bench.
                 </p>
               </div>
             </div>
@@ -89,9 +75,7 @@ export default function About() {
                 </p>
                 <p className="body-lg">
                   The appeal isn&apos;t complicated. You can just go, whenever,
-                  wherever. And there&apos;s something about looking out of the
-                  window and watching the world get small that doesn&apos;t get
-                  old. More on this on the{" "}
+                  wherever. And the view from up there is hard to beat. More on this on the{" "}
                   <Link href="/flight" style={{ color: "#C8865A" }}>
                     flight page
                   </Link>

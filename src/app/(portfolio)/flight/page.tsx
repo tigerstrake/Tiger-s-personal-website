@@ -36,7 +36,7 @@ const IN_TRAINING = [
   },
   {
     label: "Helicopter",
-    description: "Robinson R22 or equivalent. A different kind of problem.",
+    description: "Anything up to 12,500lbs. A different kind of problem.",
     status: "In progress",
   },
 ];
@@ -87,23 +87,24 @@ export default function Flight() {
               </span>
               <div className="space-y-5">
                 <p className="body-lg">
-                  Flying isn&apos;t particularly connected to my engineering work.
-                  It&apos;s a separate thing. The appeal is simple: you can just go,
-                  whenever and wherever, and the process of getting there requires
-                  your full attention in a way that most things don&apos;t.
+                  It was my grandma&apos;s idea. And from there on out I kept going.
                 </p>
                 <p className="body-lg">
-                  There&apos;s also something about looking out of the window at
-                  altitude that doesn&apos;t get old. The world is small and quiet
-                  and very clear from up there, and that perspective is worth
-                  something on its own.
+                  The appeal is simple: you can just go, whenever and wherever.
+                  It&apos;s a separate thing from my engineering work — which is
+                  part of why I like it.
                 </p>
                 <p className="body-lg">
-                  What it has changed about how I work: checklists. Aviation
-                  procedure is built around the idea that memory alone is not
-                  reliable enough for anything that matters, so you write it down
-                  and you follow the list. I use the same logic on hardware
-                  integration and launch operations now.
+                  The view from up there is hard to beat. Clear air, the world
+                  laid out below you — it&apos;s a good place to think.
+                </p>
+                <p className="body-lg">
+                  What it has changed about how I work: checklists. The process
+                  of getting there requires your full attention in a way that most
+                  things don&apos;t, and aviation is built around the idea that
+                  memory alone isn&apos;t reliable enough for anything that matters.
+                  You write it down and follow the list. I use the same logic on
+                  hardware integration and launch operations now.
                 </p>
               </div>
             </div>

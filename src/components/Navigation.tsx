@@ -152,12 +152,12 @@ export default function Navigation() {
             <Image
               src="/images/tiger-logo.png"
               alt="Download CV"
-              width={52}
-              height={52}
-              style={{ borderRadius: "8px" }}
+              width={72}
+              height={72}
+              style={{ borderRadius: "10px" }}
             />
             <span style={{
-              fontSize: "0.75rem",
+              fontSize: "0.9rem",
               fontFamily: "var(--font-display)",
               fontWeight: 700,
               letterSpacing: "0.1em",

@@ -62,10 +62,10 @@ export default function Home() {
 
         {/* ─── Hero ──────────────────────────────────────────────────────── */}
         <section
-          className="min-h-screen flex flex-col justify-center px-6"
+          className="min-h-screen flex flex-col justify-center"
           style={{ paddingTop: "80px" }}
         >
-          <div className="max-w-6xl mx-auto w-full">
+          <div className="max-w-6xl mx-auto w-full px-6">
             <div
               className="inline-flex items-center gap-2 text-xs font-medium mb-8 animate-fade-up"
               style={{
