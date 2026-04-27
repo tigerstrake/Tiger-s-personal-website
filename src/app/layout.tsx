@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s | Tiger Strake",
   },
   description:
-    "Stanford AeroAstro. Rockets, UAVs, embedded systems, and fabrication-heavy hardware. ESA, DLR, and Harvard alum. EASA and FAA licensed pilot.",
+    "Building rockets and UAVs at Stanford. Two pilot licenses, one very busy 3D printer.",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     siteName: "Tiger Strake",
     title: "Tiger Strake",
     description:
-      "Stanford AeroAstro. Rockets, UAVs, embedded systems, and fabrication-heavy hardware. ESA, DLR, and Harvard alum. EASA and FAA licensed pilot.",
+      "Building rockets and UAVs at Stanford. Two pilot licenses, one very busy 3D printer.",
   },
   twitter: {
     card: "summary_large_image",
