@@ -143,6 +143,14 @@ export default function OrbitalBackground() {
   const [tutLabelVis,   setTutLabelVis]   = useState(false);
   const [tutArrowPos,   setTutArrowPos]   = useState<{ x: number; y: number } | null>(null);
   const [tutDragStart,  setTutDragStart]  = useState<{ x: number; y: number } | null>(null);
+  const [inHeroView,    setInHeroView]    = useState(true);
+
+  // Hide tutorial overlay when user scrolls past the hero section
+  useEffect(() => {
+    const onScroll = () => setInHeroView(window.scrollY < window.innerHeight * 0.5);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => { toolRef.current    = tool;   }, [tool]);
   useEffect(() => { noFadeRef.current  = noFade; }, [noFade]);
@@ -1499,8 +1507,8 @@ export default function OrbitalBackground() {
       </div>
 
       {/* Help panel — hidden on mobile */}
-      {/* ── Tutorial overlay ── */}
-      {tutLabelVis && (
+      {/* ── Tutorial overlay — only visible while in hero viewport ── */}
+      {inHeroView && tutLabelVis && (
         <div
           className="hidden sm:flex items-center gap-2"
           style={{
@@ -1529,7 +1537,7 @@ export default function OrbitalBackground() {
       )}
 
       {/* Bouncing arrow indicator */}
-      {tutArrowPos && (
+      {inHeroView && tutArrowPos && (
         <div
           className="hidden sm:block"
           style={{
@@ -1551,7 +1559,7 @@ export default function OrbitalBackground() {
       )}
 
       {/* Drag line — shown while cursor is dragging to set satellite velocity */}
-      {tutDragStart && (
+      {inHeroView && tutDragStart && (
         <svg
           className="hidden sm:block"
           style={{
@@ -1586,7 +1594,7 @@ export default function OrbitalBackground() {
       )}
 
       {/* Fake cursor */}
-      <div
+      {inHeroView && <div
         className="hidden sm:block"
         style={{
           position: "fixed",
@@ -1641,7 +1649,7 @@ export default function OrbitalBackground() {
             }} />
           )}
         </div>
-      </div>
+      </div>}
 
       {showHelp ? (
         <div data-no-sim className="hidden sm:block fixed z-50" style={{ bottom: 28, right: 28 }}>

@@ -140,10 +140,11 @@ export default function Navigation() {
               display: "inline-flex",
               flexDirection: "column",
               alignItems: "center",
-              gap: "3px",
+              gap: "5px",
               textDecoration: "none",
               opacity: 0.85,
               transition: "opacity 0.2s",
+              marginTop: "8px",
             }}
             onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
             onMouseLeave={e => (e.currentTarget.style.opacity = "0.85")}
@@ -156,7 +157,7 @@ export default function Navigation() {
               style={{ borderRadius: "8px" }}
             />
             <span style={{
-              fontSize: "0.65rem",
+              fontSize: "0.75rem",
               fontFamily: "var(--font-display)",
               fontWeight: 700,
               letterSpacing: "0.1em",

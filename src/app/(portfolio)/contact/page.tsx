@@ -167,21 +167,6 @@ export default function Contact() {
               ))}
             </div>
 
-            <div
-              className="mt-8 p-5 rounded-xl"
-              style={{
-                background: "rgba(200,134,90,0.05)",
-                border: "1px solid rgba(200,134,90,0.15)",
-              }}
-            >
-              <p className="text-sm leading-relaxed" style={{ color: "#8A8F9C" }}>
-                I&apos;ll respond pretty quickly. In-person meetings are a bit
-                harder to schedule. I&apos;m a Stanford student, so timing
-                around quarters matters. Anything aerospace or hardware-related
-                I try to get back to within a few days. For everything else, it
-                depends on where I am in a build cycle.
-              </p>
-            </div>
           </div>
         </div>
       </section>

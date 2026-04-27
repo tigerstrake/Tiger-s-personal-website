@@ -50,48 +50,12 @@ export default function About() {
           {/* Long-form bio */}
           <div className="lg:col-span-2 space-y-8">
 
-            <div>
-              <h2 className="heading-sm mb-4" style={{ color: "#ECEDF2" }}>The short version</h2>
-              <div className="space-y-4">
-                <p className="body-lg">
-                  I study aerospace engineering at Stanford. My work spans rockets,
-                  UAVs, fabrication-heavy builds, embedded systems, and enough physics
-                  to know when I&apos;m oversimplifying the math.
-                </p>
-                <p className="body-lg">
-                  I got into this because the hardware always turns out to be harder
-                  than the theory suggested, and I find that more interesting than
-                  frustrating. The constraint is usually what makes the design
-                  problem worth solving.
-                </p>
-              </div>
-            </div>
-
             <div className="border-l-2 pl-5" style={{ borderColor: "rgba(200,134,90,0.3)" }}>
               <p className="text-base leading-relaxed italic" style={{ color: "#8A8F9C" }}>
                 &ldquo;I care less about polished concept talk and more about whether
                 a design can actually be built, tested, and improved without turning
                 into a mess.&rdquo;
               </p>
-            </div>
-
-            <div>
-              <h2 className="heading-sm mb-4" style={{ color: "#ECEDF2" }}>How I work</h2>
-              <div className="space-y-4">
-                <p className="body-lg">
-                  I start with functional prototypes. Something that can be tested,
-                  even if it looks rough. The first version exists to find out what
-                  the first version gets wrong. Documentation of failures matters
-                  more than photographs of success.
-                </p>
-                <p className="body-lg">
-                  Flying has made me more careful about procedure and sequencing.
-                  Pre-flight checklists in aviation aren&apos;t bureaucracy.
-                  They&apos;re how you make sure the thing you remembered last week
-                  still works today. That thinking carries over into how I run build
-                  and test programs.
-                </p>
-              </div>
             </div>
 
             <div>
@@ -163,7 +127,7 @@ export default function About() {
               }}
             >
               <Image
-                src="/images/Me/tiger-portrait-headshot.jpg"
+                src="/images/about-me/tiger-portrait-headshot.jpg"
                 alt="Tiger Strake"
                 fill
                 style={{ objectFit: "cover", objectPosition: "center top" }}

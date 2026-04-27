@@ -14,16 +14,6 @@ const CREDENTIALS = [
   { label: "EASA + FAA PPL", detail: "SEP, night, helicopter in training" },
 ];
 
-const TIMELINE = [
-  { year: "2019", event: "Started producing content for Autohaus Hecker. Drone, cable cam, gimbal, Final Cut." },
-  { year: "2021", event: "Internships at ESA (attitude control), DLR (Mach 10 wind tunnel), and EUMETSAT (satellite ops). All before turning 16." },
-  { year: "2021", event: "Accepted into Junior Studium at Hochschule Hamm-Lippstadt. University-level physics and engineering exams alongside high school." },
-  { year: "2022", event: "Founded a fabrication lab at school. Brought in my own SLA printers, laser cutters, and FDM machines. Mentored 12 students." },
-  { year: "2023", event: "Harvard Summer School. 11-week digital fabrication intensive. Built a modular TVC rocket as the capstone." },
-  { year: "2023", event: "Competed solo in the Additive Manufacturing Competition against company-sponsored teams. Won most rounds." },
-  { year: "2024", event: "EASA and FAA Private Pilot Licences. Night qualification. Handed off the fab lab to trained successors." },
-  { year: "2025", event: "Stanford. SkyRunners UAV manufacturing lead. L1/L2 rocketry. Pulse jet test program. Co-founded an AI/bioengineering startup." },
-];
 
 const CURRENT_WORK = [
   {
@@ -112,7 +102,7 @@ export default function Home() {
               </p>
               <p style={{ fontSize: "1.1rem", lineHeight: 1.8, color: "#B0B6CB", marginBottom: "1rem", fontFamily: "var(--font-body)" }}>
                 I&apos;m currently studying Aeronautics and Astronautics at Stanford University (&lsquo;29),
-                where I serve as Chief Engineer of Stanford&apos;s Skyrunners, building UAVs and embedded systems.
+                where I serve as Chief Engineer of Stanford&apos;s Skyrunners — we&apos;re building a 12-foot wingspan UAV and somehow keeping it all in one piece.
               </p>
               <p style={{ fontSize: "1rem", lineHeight: 1.6, color: "#B0B6CB", fontFamily: "var(--font-display)", fontWeight: 500, fontStyle: "italic" }}>
                 Yes, my real name is Tiger.
@@ -289,86 +279,6 @@ export default function Home() {
 
         <hr className="section-divider" />
 
-        {/* ─── Timeline ─────────────────────────────────────────────────── */}
-        <section className="px-6 py-20" style={{ background: "rgba(7,8,12,0.96)" }}>
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-              <div>
-                <span
-                  className="text-xs font-semibold uppercase tracking-widest block mb-4"
-                  style={{ color: "#C8865A", fontFamily: "var(--font-display)" }}
-                >
-                  Background
-                </span>
-                <h2 className="heading-lg mb-6" style={{ color: "#ECEDF2" }}>
-                  How I got here
-                </h2>
-                <p className="mb-8" style={{ fontSize: "1.05rem", lineHeight: 1.75, color: "#A0A6B8" }}>
-                  Started building at 14. Interned at three European space agencies
-                  before finishing high school. Founded a fab lab, competed in
-                  manufacturing, earned two pilot licenses. Now at Stanford building
-                  the next set of things.
-                </p>
-                <Link
-                  href="/about"
-                  className="inline-flex items-center gap-2 text-sm font-semibold hover-accent"
-                  style={{ color: "#C8865A", fontFamily: "var(--font-display)" }}
-                >
-                  Full bio <ArrowRight size={14} />
-                </Link>
-              </div>
-
-              <div className="md:col-span-2">
-                <div className="relative" style={{ paddingLeft: "20px" }}>
-                  {/* Vertical line */}
-                  <div
-                    className="absolute top-0 bottom-0"
-                    style={{
-                      left: "3px",
-                      width: "1px",
-                      background: "linear-gradient(to bottom, rgba(200,134,90,0.4), rgba(200,134,90,0.08))",
-                    }}
-                  />
-                  {TIMELINE.map((t, i) => (
-                    <div
-                      key={i}
-                      className="relative pb-6"
-                      style={{ paddingLeft: "16px" }}
-                    >
-                      {/* Dot */}
-                      <div
-                        className="absolute rounded-full"
-                        style={{
-                          left: "-20px",
-                          top: "6px",
-                          width: "7px",
-                          height: "7px",
-                          background: i === TIMELINE.length - 1 ? "#C8865A" : "rgba(200,134,90,0.35)",
-                          boxShadow: i === TIMELINE.length - 1 ? "0 0 8px rgba(200,134,90,0.5)" : "none",
-                        }}
-                      />
-                      <span
-                        className="text-xs font-semibold block mb-1"
-                        style={{
-                          color: i === TIMELINE.length - 1 ? "#C8865A" : "#7A8090",
-                          fontFamily: "var(--font-mono)",
-                        }}
-                      >
-                        {t.year}
-                      </span>
-                      <p className="text-sm leading-relaxed" style={{ color: "#A0A6B8", fontSize: "0.9rem" }}>
-                        {t.event}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <hr className="section-divider" />
-
         {/* ─── Build Log Preview ───────────────────────────────────────────── */}
         <section className="px-6 py-20" style={{ background: "rgba(7,8,12,0.96)" }}>
           <div className="max-w-6xl mx-auto">
@@ -440,10 +350,10 @@ export default function Home() {
           <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div>
               <h2 className="heading-md mb-1" style={{ color: "#ECEDF2" }}>
-                Building something hard?
+                Building something interesting?
               </h2>
               <p className="text-sm" style={{ color: "#8A8F9C" }}>
-                I respond to aerospace, hardware, and research inquiries. Internships too.
+                I&apos;d love to hear about your project — to learn more, give advice, or just talk through it. Reach out about anything, especially if it flies.
               </p>
             </div>
             <div className="flex flex-wrap gap-3 shrink-0">
