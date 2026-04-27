@@ -596,14 +596,17 @@ export default function OrbitalBackground() {
     ctx: CanvasRenderingContext2D, wells: GravityWell[], w: number, h: number, now: number
   ) => {
     const persistMode = noFadeRef.current;
-    const sp   = CFG.GRID_SPACING;
-    const cols = Math.ceil(w / sp) + 1;
-    const rows = Math.ceil(h / sp) + 1;
+    const sp      = CFG.GRID_SPACING;
+    const pad     = 2;                          // extra cells on every side
+    const cols    = Math.ceil(w / sp) + 1 + pad * 2;
+    const rows    = Math.ceil(h / sp) + 1 + pad * 2;
+    const originX = -pad * sp;                  // grid starts this far left of screen
+    const originY = -pad * sp;
     const pts  = new Float32Array(cols * rows * 2);
 
     for (let row = 0; row < rows; row++) {
       for (let col = 0; col < cols; col++) {
-        const gx = col * sp, gy = row * sp;
+        const gx = originX + col * sp, gy = originY + row * sp;
         let dx = 0, dy = 0;
 
         for (const well of wells) {
