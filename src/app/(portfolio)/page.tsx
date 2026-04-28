@@ -63,7 +63,7 @@ export default function Home() {
         {/* ─── Hero ──────────────────────────────────────────────────────── */}
         <section
           className="min-h-screen flex flex-col justify-center"
-          style={{ paddingTop: "96px" }}
+          style={{ paddingTop: "80px" }}
         >
           <div className="max-w-6xl mx-auto w-full px-6">
             <div

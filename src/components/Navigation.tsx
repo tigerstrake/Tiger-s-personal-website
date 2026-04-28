@@ -100,8 +100,7 @@ export default function Navigation() {
           transition: "background 0.3s, backdrop-filter 0.3s, border-color 0.3s",
         }}
       >
-        {/* h-20 = 80px = one simulation grid cell, bottom edge aligns with first grid line */}
-        <nav className="max-w-6xl mx-auto px-6 flex items-center justify-between h-20">
+        <nav className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
           <Link
             href="/"
             style={{
@@ -133,6 +132,9 @@ export default function Navigation() {
             })}
           </ul>
 
+          {/* Spacer keeps nav links centred — matches CV button width on the right */}
+          <div className="hidden md:block" style={{ width: "80px", flexShrink: 0 }} />
+
           {/* Mobile hamburger */}
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -150,14 +152,14 @@ export default function Navigation() {
         </nav>
       </header>
 
-      {/* CV — fixed, logo fills one 80px grid cell, starts at first grid line below nav */}
+      {/* CV — logo sits in the top-right grid cell (y 0–80), 15px from top */}
       <a
         href="/docs/tiger-strake-cv.pdf"
         download
         className="hidden md:flex"
         style={{
           position: "fixed",
-          top: "80px",
+          top: "15px",
           right: "calc(max(0px, (100vw - 72rem) / 2) + 1.5rem)",
           flexDirection: "column",
           alignItems: "center",
@@ -173,9 +175,9 @@ export default function Navigation() {
         <Image
           src="/images/tiger-logo.png"
           alt="Download CV"
-          width={80}
-          height={80}
-          style={{ borderRadius: "10px", display: "block" }}
+          width={64}
+          height={64}
+          style={{ borderRadius: "9px", display: "block" }}
         />
         <span style={{
           fontSize: "1.5rem",
