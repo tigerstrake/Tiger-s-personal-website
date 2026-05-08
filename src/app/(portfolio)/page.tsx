@@ -18,31 +18,37 @@ const CREDENTIALS = [
 const CURRENT_WORK = [
   {
     label: "L2 Rocket",
+    slug: "l2-rocket",
     description: "Airframe and avionics integration. Next certification flight.",
     status: "active" as const,
   },
   {
     label: "SkyRunners UAV",
+    slug: "skyrunners-uav",
     description: "Manufacturing and structures lead. Main spar build in progress.",
     status: "active" as const,
   },
   {
     label: "Pulse Jet",
+    slug: "pulse-jet",
     description: "Safety evaluation before first hot fire. Fixture design done.",
     status: "early-stage" as const,
   },
   {
     label: "Robotic Arm",
+    slug: "robotic-arm",
     description: "Inverse kinematics implementation. Forward kinematics verified.",
     status: "active" as const,
   },
   {
     label: "Rocket TVC",
+    slug: "rocket-tvc",
     description: "Control loop benchmarked. Backlash rework in progress.",
     status: "active" as const,
   },
   {
     label: "Smart Light Switch",
+    slug: "smart-light-switch",
     description: "Servo actuation working. Wall-box integration next.",
     status: "active" as const,
   },
@@ -209,7 +215,12 @@ export default function Home() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {CURRENT_WORK.map((item) => (
-                <div key={item.label} className="card p-5 flex flex-col gap-2">
+                <Link
+                  key={item.label}
+                  href={`/projects/${item.slug}`}
+                  className="card p-5 flex flex-col gap-2"
+                  style={{ textDecoration: "none", transition: "border-color 0.2s, box-shadow 0.2s" }}
+                >
                   <div className="flex items-center justify-between gap-2">
                     <span
                       className="text-sm font-semibold"
@@ -237,7 +248,7 @@ export default function Home() {
                   <p className="text-sm" style={{ color: "#8A8F9C" }}>
                     {item.description}
                   </p>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
