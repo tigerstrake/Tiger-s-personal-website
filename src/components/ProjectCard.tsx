@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import type { Project } from "@/data/projects";
+import { useTilt } from "@/hooks/useTilt";
 
 const STATUS_LABELS: Record<string, string> = {
   active: "Active",
@@ -71,9 +74,11 @@ export default function ProjectCard({
     year: "numeric",
   });
 
+  const tilt = useTilt(5);
+
   if (variant === "featured") {
     return (
-      <Link href={`/projects/${slug}`} className="block group">
+      <Link href={`/projects/${slug}`} className="block group" {...tilt}>
         <article
           className="card card-hover relative overflow-hidden h-full flex flex-col"
           style={{ minHeight: "320px" }}
@@ -165,7 +170,7 @@ export default function ProjectCard({
 
   if (variant === "compact") {
     return (
-      <Link href={`/projects/${slug}`} className="block group">
+      <Link href={`/projects/${slug}`} className="block group" {...tilt}>
         <article
           className="flex items-start gap-4 py-4 border-b"
           style={{ borderColor: "rgba(255,255,255,0.06)" }}
@@ -197,7 +202,7 @@ export default function ProjectCard({
 
   // Default variant
   return (
-    <Link href={`/projects/${slug}`} className="block group">
+    <Link href={`/projects/${slug}`} className="block group" {...tilt}>
       <article className="card card-hover overflow-hidden h-full flex flex-col">
         {/* Thumbnail */}
         <Thumbnail src={coverImage} title={title} height={160} />

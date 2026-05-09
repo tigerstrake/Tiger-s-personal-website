@@ -1,6 +1,7 @@
 import Link from "next/link";
 import OrbitalBackground from "@/components/OrbitalBackground";
 import ProjectCard from "@/components/ProjectCard";
+import TiltCard from "@/components/TiltCard";
 import { getFeaturedProjects } from "@/data/projects";
 import { buildLog } from "@/data/buildLog";
 import { ArrowRight, Github, Linkedin } from "lucide-react";
@@ -215,40 +216,41 @@ export default function Home() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {CURRENT_WORK.map((item) => (
-                <Link
-                  key={item.label}
-                  href={`/projects/${item.slug}`}
-                  className="card p-5 flex flex-col gap-2"
-                  style={{ textDecoration: "none", transition: "border-color 0.2s, box-shadow 0.2s" }}
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <span
-                      className="text-sm font-semibold"
-                      style={{
-                        color: "#ECEDF2",
-                        fontFamily: "var(--font-display)",
-                      }}
-                    >
-                      {item.label}
-                    </span>
-                    <span
-                      className="w-2 h-2 rounded-full shrink-0"
-                      style={{
-                        background:
-                          item.status === "active"
-                            ? "#C8865A"
-                            : "#B0A0CC",
-                        boxShadow:
-                          item.status === "active"
-                            ? "0 0 6px rgba(200,134,90,0.6)"
-                            : "none",
-                      }}
-                    />
-                  </div>
-                  <p className="text-sm" style={{ color: "#8A8F9C" }}>
-                    {item.description}
-                  </p>
-                </Link>
+                <TiltCard key={item.label} intensity={5}>
+                  <Link
+                    href={`/projects/${item.slug}`}
+                    className="card card-hover p-5 flex flex-col gap-2"
+                    style={{ textDecoration: "none", display: "flex" }}
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <span
+                        className="text-sm font-semibold"
+                        style={{
+                          color: "#ECEDF2",
+                          fontFamily: "var(--font-display)",
+                        }}
+                      >
+                        {item.label}
+                      </span>
+                      <span
+                        className="w-2 h-2 rounded-full shrink-0"
+                        style={{
+                          background:
+                            item.status === "active"
+                              ? "#C8865A"
+                              : "#B0A0CC",
+                          boxShadow:
+                            item.status === "active"
+                              ? "0 0 6px rgba(200,134,90,0.6)"
+                              : "none",
+                        }}
+                      />
+                    </div>
+                    <p className="text-sm" style={{ color: "#8A8F9C" }}>
+                      {item.description}
+                    </p>
+                  </Link>
+                </TiltCard>
               ))}
             </div>
           </div>
