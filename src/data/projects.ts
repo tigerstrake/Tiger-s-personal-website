@@ -15,7 +15,9 @@ export type ProjectCategory =
   | "Physics"
   | "Fabrication"
   | "Media"
-  | "Biotech";
+  | "Biotech"
+  | "Software"
+  | "Automation";
 
 export interface ProjectHighlight {
   label: string;
@@ -942,6 +944,57 @@ export const projects: Project[] = [
       "Quantum Mechanics",
     ],
     relatedSlugs: ["harvard-fabrication", "fabrication-lab-eg"],
+  },
+
+  {
+    slug: "stanford-dining-recommender",
+    title: "Stanford Dining Recommender",
+    subtitle: "Automated daily dining recommendations via Discord. Python, OpenAI, GitHub Actions.",
+    description:
+      "A scheduled Python pipeline that fetches Stanford's dining hall menus each day, scores every option against my actual dietary preferences, and sends a concise recommendation to Discord — best hall, backup, recommended plate, and what to skip. Built because manually clicking through five dining halls to find the best meal was a daily annoyance I could automate once and solve forever.",
+    status: "active",
+    categories: ["Software", "Automation"],
+    role: "Solo Developer",
+    timeline: "2026",
+    lastUpdated: "2026-05-11",
+    featured: false,
+    challenge:
+      "Stanford's dining system doesn't expose a clean public API. Getting reliable daily data meant working with a form-based web interface: select date, select meal, select hall, extract results. Doing this for every combination at every meal time, then turning raw menu text into a useful recommendation, required a pipeline that could handle scraping failures gracefully and still produce a usable output even if one layer broke.",
+    constraints: [
+      "No public JSON API — scraper has to navigate Stanford's R&DE menu form for every hall and meal combination",
+      "Recommendation needs to reflect my actual preferences, not a generic 'healthy eating' heuristic",
+      "Fallback to deterministic scoring if the AI layer fails — the pipeline should never silently produce nothing",
+      "Runs on GitHub Actions schedule; must be stateless, fast, and cheap to operate",
+    ],
+    designDecisions: [
+      "Deterministic scoring runs first, before the model sees anything. The AI layer refines and explains the output — it doesn't make the core decision alone.",
+      "Saved menu data to structured JSON at each stage so failures are inspectable and the scraper can be debugged without re-running everything",
+      "Discord webhook for delivery — always-on, no app to check, recommendation arrives at meal time",
+      "Explicit penalty and reward lists derived from my actual preferences, not a generic nutritional API. Fried food, processed meat, seafood, and egg-forward dishes are penalized. Whole foods, legumes, quality protein, and vegetables score well.",
+    ],
+    buildProcess: [
+      "Built the scraper to navigate Stanford's R&DE dining form: select date, select meal period, cycle through each hall, extract and clean menu items",
+      "Structured output as JSON at each stage for inspectability",
+      "Wrote the dietary scoring engine with explicit lists: high-value foods, disqualifying foods, and neutral fillers",
+      "Integrated OpenAI to convert the ranked menu data into a readable recommendation: best hall, backup, plate suggestion, foods to avoid, confidence, and short reasoning",
+      "Added fallback logic: if the AI layer fails or returns malformed output, the system sends the deterministic ranking directly",
+      "Deployed as a GitHub Actions cron job — runs automatically at meal times, no server required",
+    ],
+    results:
+      "Running daily. Gets the recommendation right most of the time and consistently surfaces options I'd have missed by not checking every hall manually. The fallback has triggered a handful of times when the OpenAI call hit a rate limit; the deterministic output was still useful.",
+    lessons: [
+      "Scraping form-based interfaces is fragile. Small changes to the page structure break the selector. Worth building in assertions that catch silent failures before they produce bad data.",
+      "The deterministic scoring layer ended up being more useful than expected — it's fast, inspectable, and forces you to articulate your actual preferences rather than leaving it vague for the model.",
+      "GitHub Actions cron is a surprisingly good host for lightweight pipelines. Stateless, free at low frequency, and the logs are right there when something breaks.",
+    ],
+    highlights: [
+      { label: "Runs", value: "Daily via GitHub Actions" },
+      { label: "Delivery", value: "Discord webhook" },
+      { label: "Scoring", value: "Deterministic + OpenAI" },
+      { label: "Fallback", value: "Deterministic ranking if AI fails" },
+    ],
+    tools: ["Python", "BeautifulSoup", "OpenAI API", "GitHub Actions", "Discord webhooks", "JSON"],
+    relatedSlugs: ["bioengineering-ai-startup"],
   },
 ];
 

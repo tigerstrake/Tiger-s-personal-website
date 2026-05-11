@@ -15,6 +15,17 @@ export interface BuildLogEntry {
 
 export const buildLog: BuildLogEntry[] = [
   {
+    id: "bl-011",
+    date: "2026-05-11",
+    project: "SkyRunners UAV",
+    projectSlug: "skyrunners-uav",
+    title: "Carbon fiber spar rods cut and clamps printed to fix motor twist",
+    what: "Cut four carbon fiber rods to length and 3D-printed four clamps to mount them to the existing airframe. The spars run spanwise from the main fuselage structure to brace the motor booms and stop them rotating out of plane under load.",
+    why: "During ground testing, the motor booms were twisting under thrust — the motors were pulling out of plane, which is a stability problem that would have made controlled flight impossible. The fix is to run rigid carbon fiber spars between the fuselage and each boom, clamped to the existing structure with printed brackets rather than bonded or drilled.",
+    result: "Rods cut cleanly to the correct length. All four clamps printed and test-fitted to the airframe — tolerances are correct, clamping force is good, and nothing needs to be rebored. Used a respirator and full PPE throughout the cutting process; carbon fiber dust is not something you mess around with.",
+    next: "Install the spars and clamps into the airframe, re-check motor alignment under static load, and verify the twist is eliminated before the next systems test.",
+  },
+  {
     id: "bl-010",
     date: "2026-04-09",
     project: "SkyRunners UAV",
