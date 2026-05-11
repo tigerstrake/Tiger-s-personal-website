@@ -958,6 +958,7 @@ export const projects: Project[] = [
     timeline: "2026",
     lastUpdated: "2026-05-11",
     featured: false,
+    coverImage: "/images/stanford-dining-recommender/terminal-output.png",
     challenge:
       "Stanford's dining system doesn't expose a clean public API. Getting reliable daily data meant working with a form-based web interface: select date, select meal, select hall, extract results. Doing this for every combination at every meal time, then turning raw menu text into a useful recommendation, required a pipeline that could handle scraping failures gracefully and still produce a usable output even if one layer broke.",
     constraints: [
