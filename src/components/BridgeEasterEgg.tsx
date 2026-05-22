@@ -570,6 +570,7 @@ export default function BridgeEasterEgg() {
       (window as any).__bridgeGameState = state;
       
       console.clear();
+      console.log(`%cHey Mr Pichai! Heard you liked bridge. Let's play a game!`, "color: #fbbf24; font-weight: bold; font-size: 1.2em;");
       console.log(`%c🃏 SHUFFLING AND DEALING HAND...`, "color: #34d399; font-weight: bold; font-size: 1.15em;");
       console.log(`%cPartnering with Tiger (North) against the East/West AI defenders.`, "color: #9ca3af; font-style: italic;");
       console.log("");
