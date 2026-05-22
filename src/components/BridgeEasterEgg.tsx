@@ -388,37 +388,150 @@ function printGameOver(state: BridgeGameState) {
   console.log(`%c======================================================`, "color: #374151");
 }
 
+// Helper to determine the winning card in the trick so far
+function getWinningPlaySoFar(currentTrick: TrickCard[], contractSuit: "S" | "H" | "D" | "C" | "NT"): TrickCard | null {
+  if (currentTrick.length === 0) return null;
+  let winningPlay = currentTrick[0];
+  for (let i = 1; i < currentTrick.length; i++) {
+    const play = currentTrick[i];
+    const winCard = winningPlay.card;
+    const playCard = play.card;
+    let isNewPlayBetter = false;
+    if (playCard.suit === contractSuit && winCard.suit !== contractSuit) {
+      isNewPlayBetter = true;
+    } else if (playCard.suit === winCard.suit) {
+      if (playCard.value > winCard.value) {
+        isNewPlayBetter = true;
+      }
+    }
+    if (isNewPlayBetter) {
+      winningPlay = play;
+    }
+  }
+  return winningPlay;
+}
+
+// Helper to choose the best discard (lowest non-trump card from shortest suit, or just lowest non-trump)
+function getBestDiscard(hand: Card[], trumpSuit: "S" | "H" | "D" | "C" | "NT"): Card {
+  const nonTrumps = hand.filter(c => c.suit !== trumpSuit);
+  if (nonTrumps.length > 0) {
+    return [...nonTrumps].sort((a, b) => a.value - b.value)[0];
+  }
+  return [...hand].sort((a, b) => a.value - b.value)[0];
+}
+
+// Heuristic selection for AI card play
+function getSmartAICard(state: BridgeGameState, player: "E" | "W"): Card {
+  const hand = state.hands[player];
+  const trumpSuit = state.contract.suit;
+  
+  // 1. LEADING A TRICK (First to play)
+  if (state.currentTrick.length === 0) {
+    // If we have top touching honors, lead the top honor (e.g., K from KQ, Q from QJ)
+    const suits: ("S" | "H" | "D" | "C")[] = ["S", "H", "D", "C"];
+    for (const suit of suits) {
+      const cardsInSuit = hand.filter(c => c.suit === suit).sort((a, b) => b.value - a.value);
+      if (cardsInSuit.length >= 2) {
+        const top = cardsInSuit[0];
+        const second = cardsInSuit[1];
+        if (top.value === second.value + 1 && top.value >= 10) {
+          return top;
+        }
+      }
+    }
+    
+    // Otherwise, lead a card from our longest non-trump suit to establish it
+    const nonTrumps = hand.filter(c => c.suit !== trumpSuit);
+    if (nonTrumps.length > 0) {
+      const suitCounts: Record<string, Card[]> = {};
+      nonTrumps.forEach(c => {
+        if (!suitCounts[c.suit]) suitCounts[c.suit] = [];
+        suitCounts[c.suit].push(c);
+      });
+      let longestSuit: "S" | "H" | "D" | "C" = Object.keys(suitCounts)[0] as "S" | "H" | "D" | "C";
+      Object.keys(suitCounts).forEach(s => {
+        const suitKey = s as "S" | "H" | "D" | "C";
+        if (suitCounts[suitKey].length > suitCounts[longestSuit].length) {
+          longestSuit = suitKey;
+        }
+      });
+      const suitCards = suitCounts[longestSuit].sort((a, b) => b.value - a.value);
+      return suitCards[suitCards.length - 1]; // Lead lowest of longest suit
+    }
+    
+    // Fallback: lowest card in hand
+    return [...hand].sort((a, b) => a.value - b.value)[0];
+  }
+  
+  // 2. FOLLOWING OR DISCARDING
+  const ledSuit = state.currentTrick[0].card.suit;
+  const sameSuitCards = hand.filter(c => c.suit === ledSuit).sort((a, b) => b.value - a.value);
+  const partner = player === "E" ? "W" : "E";
+  const winningPlay = getWinningPlaySoFar(state.currentTrick, trumpSuit);
+  const partnerWinning = winningPlay && winningPlay.player === partner;
+  
+  if (sameSuitCards.length > 0) {
+    // Position in trick (1, 2, or 3)
+    const position = state.currentTrick.length;
+    
+    if (position === 3) {
+      // Last to play:
+      if (partnerWinning) {
+        return sameSuitCards[sameSuitCards.length - 1]; // Duck
+      } else {
+        // Try to win the trick cheaply
+        if (winningPlay && winningPlay.card.suit === ledSuit) {
+          const winningVal = winningPlay.card.value;
+          const winners = sameSuitCards.filter(c => c.value > winningVal);
+          if (winners.length > 0) {
+            return winners[winners.length - 1]; // Lowest winning card
+          }
+        }
+        return sameSuitCards[sameSuitCards.length - 1];
+      }
+    }
+    
+    if (position === 2) {
+      // Third to play: "Third hand high"
+      if (partnerWinning && winningPlay && winningPlay.card.value >= 12) {
+        return sameSuitCards[sameSuitCards.length - 1]; // Partner winning with Q/K/A, play low
+      }
+      return sameSuitCards[0]; // Play high
+    }
+    
+    // Position === 1 (Second to play): "Second hand low"
+    return sameSuitCards[sameSuitCards.length - 1];
+  } else {
+    // Void in led suit
+    const trumpCards = hand.filter(c => c.suit === trumpSuit).sort((a, b) => b.value - a.value);
+    
+    if (partnerWinning) {
+      return getBestDiscard(hand, trumpSuit);
+    }
+    
+    if (trumpCards.length > 0) {
+      if (winningPlay && winningPlay.card.suit === trumpSuit) {
+        // Try to overtrump
+        const winningTrumpVal = winningPlay.card.value;
+        const overtrumps = trumpCards.filter(c => c.value > winningTrumpVal);
+        if (overtrumps.length > 0) {
+          return overtrumps[overtrumps.length - 1]; // Lowest overtrump
+        }
+      } else {
+        return trumpCards[trumpCards.length - 1]; // Lowest trump wins
+      }
+    }
+    
+    return getBestDiscard(hand, trumpSuit);
+  }
+}
+
 // AI plays East / West
 function playAICard(state: BridgeGameState, player: "E" | "W") {
   const hand = state.hands[player];
   if (hand.length === 0) return;
   
-  let cardToPlay: Card;
-  
-  if (state.currentTrick.length === 0) {
-    const idx = Math.floor(Math.random() * hand.length);
-    cardToPlay = hand[idx];
-  } else {
-    const ledSuit = state.currentTrick[0].card.suit;
-    const sameSuitCards = hand.filter(c => c.suit === ledSuit);
-    
-    if (sameSuitCards.length > 0) {
-      const idx = Math.floor(Math.random() * sameSuitCards.length);
-      cardToPlay = sameSuitCards[idx];
-    } else {
-      const trumpSuit = state.contract.suit;
-      const trumpCards = hand.filter(c => c.suit === trumpSuit);
-      if (trumpCards.length > 0 && Math.random() < 0.3) {
-        const idx = Math.floor(Math.random() * trumpCards.length);
-        cardToPlay = trumpCards[idx];
-      } else {
-        const nonTrumps = hand.filter(c => c.suit !== trumpSuit);
-        const pool = nonTrumps.length > 0 ? nonTrumps : hand;
-        const idx = Math.floor(Math.random() * pool.length);
-        cardToPlay = pool[idx];
-      }
-    }
-  }
+  const cardToPlay = getSmartAICard(state, player);
   
   // Remove from hand
   state.hands[player] = hand.filter(c => c !== cardToPlay);
