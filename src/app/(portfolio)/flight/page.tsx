@@ -58,11 +58,11 @@ const SINGLE_ENGINE: MediaItem[] = [
   { type: "video", src: "/images/flying/single-engine/sf-from-above.mov",         caption: "San Francisco from above" },
   { type: "video", src: "/images/flying/single-engine/short-final-palo-alto.mov", caption: "Short final into Palo Alto" },
   { type: "video", src: "/images/flying/single-engine/expedited-approach.mov",    caption: "Expedited approach — traffic conflict" },
-  { type: "video", src: "/images/flying/single-engine/night-flight-timelapse.m4v",caption: "Night flight timelapse" },
-  { type: "image", src: "/images/flying/single-engine/track-log-kavx-3o8.png",   caption: "Catalina trip — track log: KAVX → Big Bear" },
-  { type: "image", src: "/images/flying/single-engine/track-log-3o8-kpao.png",   caption: "Catalina trip — track log: Big Bear → KPAO" },
-  { type: "video", src: "/images/flying/single-engine/harris-ranch-patterns.mov", caption: "Catalina trip — pattern work at Harris Ranch" },
-  { type: "video", src: "/images/flying/single-engine/ifr-departure-kavx.mov",   caption: "Catalina trip — IFR departure out of KAVX" },
+  { type: "video", src: "/images/flying/single-engine/night-flight-timelapse.mp4", caption: "Night flight timelapse" },
+  { type: "image", src: "/images/flying/single-engine/track-log-kavx-3o8.png",    caption: "Track log: Catalina (KAVX) → Harris Ranch (3O8)" },
+  { type: "image", src: "/images/flying/single-engine/track-log-3o8-kpao.png",    caption: "Track log: Harris Ranch (3O8) → Palo Alto (KPAO)" },
+  { type: "video", src: "/images/flying/single-engine/harris-ranch-patterns.mov",  caption: "Pattern work at Harris Ranch" },
+  { type: "video", src: "/images/flying/single-engine/ifr-departure-kavx.mov",    caption: "IFR departure out of Catalina (KAVX)" },
 ];
 
 const MULTI_ENGINE: MediaItem[] = [
