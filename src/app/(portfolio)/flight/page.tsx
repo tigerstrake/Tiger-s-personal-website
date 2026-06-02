@@ -4,7 +4,7 @@ import FlyingCarousel, { type MediaItem } from "@/components/FlyingCarousel";
 export const metadata: Metadata = {
   title: "Flight",
   description:
-    "EASA and FAA licensed. PPL SEP(L) with night operations. Currently training for multi-engine, high-performance, and helicopter.",
+    "EASA PPL(A) and FAA Private Pilot. Building toward multi-engine, helicopter, high performance, tailwheel, and complex.",
 };
 
 const QUALIFICATIONS = [
@@ -26,18 +26,28 @@ const QUALIFICATIONS = [
 
 const IN_TRAINING = [
   {
-    label: "Multi-engine rating",
-    description: "MEP(L). Adding the second engine.",
-    status: "In progress",
-  },
-  {
-    label: "High-performance endorsement",
-    description: "Aircraft above 200hp. Changes the flight envelope.",
+    label: "MEP",
+    description: "Multi-engine piston — DA62 and Twin Comanche.",
     status: "In progress",
   },
   {
     label: "Helicopter",
-    description: "Anything up to 12,500lbs. A different kind of problem.",
+    description: "Up to 12,500 lbs. Specialized Helicopters at KRHV.",
+    status: "In progress",
+  },
+  {
+    label: "High Performance",
+    description: "Required for aircraft with engines over 200hp.",
+    status: "In progress",
+  },
+  {
+    label: "Tailwheel",
+    description: "Conventional gear — the old-school way to land.",
+    status: "In progress",
+  },
+  {
+    label: "Complex",
+    description: "Retractable gear, flaps, and controllable-pitch prop.",
     status: "In progress",
   },
 ];
@@ -75,6 +85,7 @@ const HELICOPTER: MediaItem[] = [
 export default function Flight() {
   return (
     <div style={{ background: "#07080C", minHeight: "100vh" }}>
+
       {/* Header */}
       <section
         className="px-6 pt-32 pb-16"
@@ -93,16 +104,69 @@ export default function Flight() {
           <h1 className="heading-xl mb-4" style={{ color: "#ECEDF2" }}>
             Flight
           </h1>
-          <p
-            className="body-lg"
-            style={{ maxWidth: "520px" }}
-          >
-            EASA and FAA licensed. Currently training for multi-engine,
-            high-performance, and helicopter.
+          <p className="body-lg" style={{ maxWidth: "520px" }}>
+            EASA PPL(A) and FAA Private Pilot. Multi-engine, helicopter, and
+            more in progress.
           </p>
         </div>
       </section>
 
+      {/* Gallery — carousels */}
+      <section
+        className="px-6 py-20"
+        style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+      >
+        <div className="max-w-4xl mx-auto">
+          <span
+            className="text-xs font-semibold uppercase tracking-widest block mb-4"
+            style={{ color: "#C8865A", fontFamily: "var(--font-display)" }}
+          >
+            In the air
+          </span>
+          <p className="body-lg mb-16" style={{ maxWidth: "560px" }}>
+            A small selection from various stages — first solo through checkride,
+            Catalina Island and back, multi-engine training, and helicopter.
+          </p>
+
+          <div className="space-y-20">
+            <div>
+              <span
+                className="text-xs font-semibold uppercase tracking-widest block mb-5"
+                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+              >
+                Single engine
+              </span>
+              <FlyingCarousel items={SINGLE_ENGINE} />
+            </div>
+
+            <hr className="section-divider" />
+
+            <div>
+              <span
+                className="text-xs font-semibold uppercase tracking-widest block mb-5"
+                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+              >
+                Multi engine
+              </span>
+              <FlyingCarousel items={MULTI_ENGINE} />
+            </div>
+
+            <hr className="section-divider" />
+
+            <div>
+              <span
+                className="text-xs font-semibold uppercase tracking-widest block mb-5"
+                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+              >
+                Helicopter
+              </span>
+              <FlyingCarousel items={HELICOPTER} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Content + sidebar */}
       <section className="px-6 py-20">
         <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-16">
 
@@ -114,41 +178,40 @@ export default function Flight() {
                 className="text-xs font-semibold uppercase tracking-widest block mb-4"
                 style={{ color: "#C8865A", fontFamily: "var(--font-display)" }}
               >
-                Why
+                Background
               </span>
               <div className="space-y-5">
                 <p className="body-lg">
-                  It was my grandma&apos;s idea. And from there on out I kept going.
+                  I earned my EASA PPL(A) in Germany, logging my first solo hours
+                  over the Rhine Valley before finishing school. That certificate got
+                  me in the air early, but moving to the US meant converting to a FAA
+                  license.
                 </p>
                 <p className="body-lg">
-                  The appeal is simple: you can just go, whenever and wherever.
-                  It&apos;s a separate thing from my engineering work — which is
-                  part of why I like it.
+                  At Stanford I&apos;m working through my FAA currency and club
+                  checkouts at WVFC, mostly flying the C172S with G1000 glass panel.
+                  Alongside that I&apos;m building toward my multi-engine rating on a
+                  DA62 and Twin Comanche, and getting my helicopter rating at
+                  Specialized Helicopters.
                 </p>
                 <p className="body-lg">
-                  The view from up there is hard to beat. Clear air, the world
-                  laid out below you — it&apos;s a good place to think.
-                </p>
-                <p className="body-lg">
-                  What it has changed about how I work: checklists. The process
-                  of getting there requires your full attention in a way that most
-                  things don&apos;t, and aviation is built around the idea that
-                  memory alone isn&apos;t reliable enough for anything that matters.
-                  You write it down and follow the list. I use the same logic on
-                  hardware integration and launch operations now.
+                  The first 100 hours across fixed-wing and rotary, EASA and FAA,
+                  steam gauges and glass were some of the most fun I&apos;ve ever had
+                  learning a new skill. For an AeroAstro major, this is the fun part
+                  — applying the classroom concepts to the cockpit.
                 </p>
               </div>
             </div>
 
             <hr className="section-divider" />
 
-            {/* Current training */}
+            {/* Working toward */}
             <div>
               <span
                 className="text-xs font-semibold uppercase tracking-widest block mb-6"
                 style={{ color: "#C8865A", fontFamily: "var(--font-display)" }}
               >
-                Currently training
+                Working toward
               </span>
               <div className="space-y-4">
                 {IN_TRAINING.map((item) => (
@@ -159,14 +222,8 @@ export default function Flight() {
                     <span
                       className="w-2 h-2 mt-1.5 rounded-full shrink-0"
                       style={{
-                        background:
-                          item.status === "In progress"
-                            ? "#C8865A"
-                            : "rgba(200,134,90,0.3)",
-                        boxShadow:
-                          item.status === "In progress"
-                            ? "0 0 6px rgba(200,134,90,0.5)"
-                            : "none",
+                        background: "#C8865A",
+                        boxShadow: "0 0 6px rgba(200,134,90,0.5)",
                       }}
                     />
                     <div>
@@ -196,7 +253,7 @@ export default function Flight() {
 
           </div>
 
-          {/* Sidebar: Qualifications */}
+          {/* Sidebar */}
           <div>
             <img
               src="/images/flying/ABF48F2A-9189-4E2C-83A3-C55A770548A1_1_105_c.jpeg"
@@ -212,17 +269,11 @@ export default function Flight() {
             </h3>
             <div className="space-y-4">
               {QUALIFICATIONS.map((q) => (
-                <div
-                  key={q.body}
-                  className="card p-5 space-y-3"
-                >
+                <div key={q.body} className="card p-5 space-y-3">
                   <div className="flex items-center justify-between">
                     <span
                       className="text-sm font-semibold"
-                      style={{
-                        color: "#ECEDF2",
-                        fontFamily: "var(--font-display)",
-                      }}
+                      style={{ color: "#ECEDF2", fontFamily: "var(--font-display)" }}
                     >
                       {q.body}
                     </span>
@@ -238,50 +289,21 @@ export default function Flight() {
                       {q.status}
                     </span>
                   </div>
-
                   <dl className="space-y-2">
                     <div>
-                      <dt
-                        className="text-xs mb-0.5"
-                        style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
-                      >
-                        Rating
-                      </dt>
-                      <dd className="text-sm" style={{ color: "#8A8F9C" }}>
-                        {q.rating}
-                      </dd>
+                      <dt className="text-xs mb-0.5" style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}>Rating</dt>
+                      <dd className="text-sm" style={{ color: "#8A8F9C" }}>{q.rating}</dd>
                     </div>
                     <div>
-                      <dt
-                        className="text-xs mb-0.5"
-                        style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
-                      >
-                        Class
-                      </dt>
-                      <dd className="text-sm" style={{ color: "#8A8F9C" }}>
-                        {q.class}
-                      </dd>
+                      <dt className="text-xs mb-0.5" style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}>Class</dt>
+                      <dd className="text-sm" style={{ color: "#8A8F9C" }}>{q.class}</dd>
                     </div>
                     {q.endorsements.length > 0 && (
                       <div>
-                        <dt
-                          className="text-xs mb-0.5"
-                          style={{
-                            color: "#4D5260",
-                            fontFamily: "var(--font-display)",
-                          }}
-                        >
-                          Endorsements
-                        </dt>
+                        <dt className="text-xs mb-0.5" style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}>Endorsements</dt>
                         <dd>
                           {q.endorsements.map((e) => (
-                            <span
-                              key={e}
-                              className="text-sm block"
-                              style={{ color: "#8A8F9C" }}
-                            >
-                              {e}
-                            </span>
+                            <span key={e} className="text-sm block" style={{ color: "#8A8F9C" }}>{e}</span>
                           ))}
                         </dd>
                       </div>
@@ -290,74 +312,8 @@ export default function Flight() {
                 </div>
               ))}
             </div>
-
           </div>
-        </div>
-      </section>
 
-      {/* Gallery section */}
-      <section
-        className="px-6 pb-24"
-        style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
-      >
-        <div className="max-w-4xl mx-auto pt-20">
-          <span
-            className="text-xs font-semibold uppercase tracking-widest block mb-4"
-            style={{ color: "#C8865A", fontFamily: "var(--font-display)" }}
-          >
-            In the air
-          </span>
-          <h2
-            className="heading-lg mb-6"
-            style={{ color: "#ECEDF2" }}
-          >
-            A small collection
-          </h2>
-          <p className="body-lg mb-16" style={{ maxWidth: "600px" }}>
-            Photos and videos from various stages — from first solo through
-            checkride, and since then: the high performance endorsement earned on
-            the Catalina Island trip, the complex endorsement on the Twin
-            Comanche, and the technically advanced aircraft endorsement on the
-            glass-panel C172.
-          </p>
-
-          <div className="space-y-20">
-
-            <div>
-              <span
-                className="text-xs font-semibold uppercase tracking-widest block mb-6"
-                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
-              >
-                Single engine
-              </span>
-              <FlyingCarousel items={SINGLE_ENGINE} />
-            </div>
-
-            <hr className="section-divider" />
-
-            <div>
-              <span
-                className="text-xs font-semibold uppercase tracking-widest block mb-6"
-                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
-              >
-                Multi engine
-              </span>
-              <FlyingCarousel items={MULTI_ENGINE} />
-            </div>
-
-            <hr className="section-divider" />
-
-            <div>
-              <span
-                className="text-xs font-semibold uppercase tracking-widest block mb-6"
-                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
-              >
-                Helicopter
-              </span>
-              <FlyingCarousel items={HELICOPTER} />
-            </div>
-
-          </div>
         </div>
       </section>
     </div>

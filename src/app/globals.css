@@ -260,6 +260,12 @@ body {
   background: #14161F !important;
 }
 
+/* ─── Carousel ───────────────────────────────────────────────────── */
+@keyframes carousel-progress {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
 /* ─── Page transitions ───────────────────────────────────────────── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(16px); }

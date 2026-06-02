@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 
 export type MediaItem = {
   type: "image" | "video";
@@ -8,38 +8,58 @@ export type MediaItem = {
   caption: string;
 };
 
+const AUTO_ADVANCE_MS = 3000;
+
 export default function FlyingCarousel({ items }: { items: MediaItem[] }) {
   const [current, setCurrent] = useState(0);
+  const [progressKey, setProgressKey] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const go = useCallback(
-    (idx: number) => {
-      if (videoRef.current) videoRef.current.pause();
-      setCurrent(idx);
-    },
-    []
-  );
+  const goTo = useCallback((idx: number) => {
+    if (videoRef.current) videoRef.current.pause();
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setCurrent(idx);
+    setProgressKey((k) => k + 1);
+  }, []);
 
-  const prev = () => go((current - 1 + items.length) % items.length);
-  const next = () => go((current + 1) % items.length);
+  const goNext = useCallback(() => {
+    goTo((current + 1) % items.length);
+  }, [current, items.length, goTo]);
+
+  const goPrev = () => goTo((current - 1 + items.length) % items.length);
+
+  // Auto-advance images after 3s
+  useEffect(() => {
+    if (items.length < 2) return;
+    if (timerRef.current) clearTimeout(timerRef.current);
+    if (items[current].type === "image") {
+      timerRef.current = setTimeout(goNext, AUTO_ADVANCE_MS);
+    }
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+  }, [current, items, goNext]);
+
   const item = items[current];
+  const isImage = item.type === "image";
 
   return (
     <div>
+      {/* Media frame */}
       <div
-        className="relative rounded-xl overflow-hidden"
+        className="relative rounded-2xl overflow-hidden"
         style={{
-          background: "#0D0F17",
-          border: "1px solid rgba(255,255,255,0.07)",
+          background: "#070810",
+          border: "1px solid rgba(255,255,255,0.1)",
           aspectRatio: "16/9",
         }}
       >
-        {item.type === "image" ? (
+        {isImage ? (
           <img
             key={item.src}
             src={item.src}
             alt={item.caption}
-            className="w-full h-full object-cover"
+            className="w-full h-full"
+            style={{ objectFit: "contain" }}
           />
         ) : (
           <video
@@ -48,71 +68,83 @@ export default function FlyingCarousel({ items }: { items: MediaItem[] }) {
             src={item.src}
             controls
             playsInline
+            onEnded={goNext}
             className="w-full h-full"
-            style={{ background: "#000", objectFit: "contain" }}
+            style={{ objectFit: "contain", background: "#000" }}
           />
         )}
 
+        {/* Arrows */}
         {items.length > 1 && (
           <>
             <button
-              onClick={prev}
+              onClick={goPrev}
               aria-label="Previous"
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center"
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center"
               style={{
-                background: "rgba(7,8,12,0.8)",
-                border: "1px solid rgba(255,255,255,0.12)",
-                backdropFilter: "blur(6px)",
+                background: "rgba(7,8,12,0.88)",
+                border: "1.5px solid rgba(255,255,255,0.18)",
+                backdropFilter: "blur(10px)",
+                boxShadow: "0 2px 12px rgba(0,0,0,0.5)",
               }}
             >
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path
-                  d="M9 2L4 7L9 12"
-                  stroke="#ECEDF2"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M11 4L6 9L11 14" stroke="#ECEDF2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
             <button
-              onClick={next}
+              onClick={goNext}
               aria-label="Next"
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center"
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center"
               style={{
-                background: "rgba(7,8,12,0.8)",
-                border: "1px solid rgba(255,255,255,0.12)",
-                backdropFilter: "blur(6px)",
+                background: "rgba(7,8,12,0.88)",
+                border: "1.5px solid rgba(255,255,255,0.18)",
+                backdropFilter: "blur(10px)",
+                boxShadow: "0 2px 12px rgba(0,0,0,0.5)",
               }}
             >
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path
-                  d="M5 2L10 7L5 12"
-                  stroke="#ECEDF2"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M7 4L12 9L7 14" stroke="#ECEDF2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
           </>
         )}
 
+        {/* Counter badge */}
         {items.length > 1 && (
           <div
-            className="absolute bottom-3 right-3 text-xs px-2 py-0.5 rounded"
+            className="absolute top-3 right-3 text-xs px-2.5 py-1 rounded-full"
             style={{
-              background: "rgba(7,8,12,0.75)",
-              color: "#5A5F6E",
-              backdropFilter: "blur(4px)",
+              background: "rgba(7,8,12,0.82)",
+              color: "#8A8F9C",
+              backdropFilter: "blur(6px)",
               fontFamily: "var(--font-display)",
+              border: "1px solid rgba(255,255,255,0.08)",
             }}
           >
             {current + 1} / {items.length}
           </div>
         )}
+
+        {/* Progress bar (images only) */}
+        {isImage && items.length > 1 && (
+          <div
+            className="absolute bottom-0 left-0 right-0 h-[3px]"
+            style={{ background: "rgba(255,255,255,0.08)" }}
+          >
+            <div
+              key={progressKey}
+              className="h-full"
+              style={{
+                background: "#C8865A",
+                animation: `carousel-progress ${AUTO_ADVANCE_MS}ms linear forwards`,
+              }}
+            />
+          </div>
+        )}
       </div>
 
+      {/* Caption */}
       <p
         className="mt-3 text-sm"
         style={{ color: "#5A5F6E", fontFamily: "var(--font-display)" }}
@@ -120,23 +152,23 @@ export default function FlyingCarousel({ items }: { items: MediaItem[] }) {
         {item.caption}
       </p>
 
+      {/* Dot indicators */}
       {items.length > 1 && (
-        <div className="flex gap-1.5 mt-3 flex-wrap">
-          {items.map((_, i) => (
+        <div className="flex gap-2 mt-3 items-center flex-wrap">
+          {items.map((it, i) => (
             <button
               key={i}
-              onClick={() => go(i)}
+              onClick={() => goTo(i)}
               aria-label={`Slide ${i + 1}`}
               style={{
-                width: "6px",
-                height: "6px",
-                borderRadius: "50%",
+                width: i === current ? "20px" : "8px",
+                height: "8px",
+                borderRadius: "4px",
                 background: i === current ? "#C8865A" : "rgba(255,255,255,0.18)",
-                transform: i === current ? "scale(1.3)" : "scale(1)",
-                transition: "background 0.2s, transform 0.2s",
                 border: "none",
                 cursor: "pointer",
                 padding: 0,
+                transition: "width 0.25s ease, background 0.2s",
               }}
             />
           ))}
