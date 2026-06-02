@@ -78,7 +78,7 @@ const HELICOPTER: MediaItem[] = [
   { type: "video", src: "/images/flying/helicopter/final-hayward.mov",               caption: "Final approach into Hayward" },
   { type: "video", src: "/images/flying/helicopter/short-base-final-hayward.mov",    caption: "Shortened base and final into Hayward" },
   { type: "video", src: "/images/flying/helicopter/windy-departure-hayward.mov",     caption: "Windy departure from Hayward" },
-  { type: "video", src: "https://pub-1689e9161f494bbc873145913e873cd2.r2.dev/setdown-pad.mp4",  caption: "Setting down on pad" },
+  { type: "video", src: "https://pub-1689e9161f494bbc873145913e873cd2.r2.dev/Setdown%20on%20Pad.mp4",  caption: "Setting down on pad" },
   { type: "video", src: "https://pub-1689e9161f494bbc873145913e873cd2.r2.dev/sf-roundtrip.mp4", caption: "SF roundtrip" },
 ];
 
