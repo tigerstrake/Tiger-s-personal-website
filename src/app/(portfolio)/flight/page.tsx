@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import FlyingCarousel, { type MediaItem } from "@/components/FlyingCarousel";
 
 export const metadata: Metadata = {
   title: "Flight",
@@ -39,6 +40,36 @@ const IN_TRAINING = [
     description: "Anything up to 12,500lbs. A different kind of problem.",
     status: "In progress",
   },
+];
+
+const SINGLE_ENGINE: MediaItem[] = [
+  { type: "image", src: "/images/flying/single-engine/pa28-cockpit.jpeg",         caption: "PA-28 Warrior cockpit" },
+  { type: "image", src: "/images/flying/single-engine/pa28-in-cruise.jpeg",       caption: "PA-28 Warrior in cruise" },
+  { type: "video", src: "/images/flying/single-engine/sf-from-above.mov",         caption: "San Francisco from above" },
+  { type: "video", src: "/images/flying/single-engine/short-final-palo-alto.mov", caption: "Short final into Palo Alto" },
+  { type: "video", src: "/images/flying/single-engine/expedited-approach.mov",    caption: "Expedited approach — traffic conflict" },
+  { type: "video", src: "/images/flying/single-engine/night-flight-timelapse.m4v",caption: "Night flight timelapse" },
+  { type: "image", src: "/images/flying/single-engine/track-log-kavx-3o8.png",   caption: "Catalina trip — track log: KAVX → Big Bear" },
+  { type: "image", src: "/images/flying/single-engine/track-log-3o8-kpao.png",   caption: "Catalina trip — track log: Big Bear → KPAO" },
+  { type: "video", src: "/images/flying/single-engine/harris-ranch-patterns.mov", caption: "Catalina trip — pattern work at Harris Ranch" },
+  { type: "video", src: "/images/flying/single-engine/ifr-departure-kavx.mov",   caption: "Catalina trip — IFR departure out of KAVX" },
+];
+
+const MULTI_ENGINE: MediaItem[] = [
+  { type: "image", src: "/images/flying/multi-engine/twin-comanche-sunset.jpg",  caption: "Twin Comanche at sunset" },
+  { type: "video", src: "/images/flying/multi-engine/takeoff-san-jose.mov",      caption: "Takeoff from San Jose" },
+  { type: "video", src: "/images/flying/multi-engine/steep-turns.mov",           caption: "Steep turns" },
+  { type: "video", src: "/images/flying/multi-engine/base-final-hollister.mov",  caption: "Base and final into Hollister" },
+];
+
+const HELICOPTER: MediaItem[] = [
+  { type: "image", src: "/images/flying/helicopter/parents-sf-flight.jpg",           caption: "Taking my parents on a flight around SF" },
+  { type: "video", src: "/images/flying/helicopter/detour-chicago.mp4",              caption: "Detour in Chicago" },
+  { type: "video", src: "/images/flying/helicopter/final-hayward.mov",               caption: "Final approach into Hayward" },
+  { type: "video", src: "/images/flying/helicopter/short-base-final-hayward.mov",    caption: "Shortened base and final into Hayward" },
+  { type: "video", src: "/images/flying/helicopter/windy-departure-hayward.mov",     caption: "Windy departure from Hayward" },
+  { type: "video", src: "/images/flying/helicopter/setdown-pad.mp4",                 caption: "Setting down on pad" },
+  { type: "video", src: "/images/flying/helicopter/sf-roundtrip.mp4",                caption: "SF roundtrip" },
 ];
 
 export default function Flight() {
@@ -258,6 +289,72 @@ export default function Flight() {
                   </dl>
                 </div>
               ))}
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery section */}
+      <section
+        className="px-6 pb-24"
+        style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+      >
+        <div className="max-w-4xl mx-auto pt-20">
+          <span
+            className="text-xs font-semibold uppercase tracking-widest block mb-4"
+            style={{ color: "#C8865A", fontFamily: "var(--font-display)" }}
+          >
+            In the air
+          </span>
+          <h2
+            className="heading-lg mb-6"
+            style={{ color: "#ECEDF2" }}
+          >
+            A small collection
+          </h2>
+          <p className="body-lg mb-16" style={{ maxWidth: "600px" }}>
+            Photos and videos from various stages — from first solo through
+            checkride, and since then: the high performance endorsement earned on
+            the Catalina Island trip, the complex endorsement on the Twin
+            Comanche, and the technically advanced aircraft endorsement on the
+            glass-panel C172.
+          </p>
+
+          <div className="space-y-20">
+
+            <div>
+              <span
+                className="text-xs font-semibold uppercase tracking-widest block mb-6"
+                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+              >
+                Single engine
+              </span>
+              <FlyingCarousel items={SINGLE_ENGINE} />
+            </div>
+
+            <hr className="section-divider" />
+
+            <div>
+              <span
+                className="text-xs font-semibold uppercase tracking-widest block mb-6"
+                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+              >
+                Multi engine
+              </span>
+              <FlyingCarousel items={MULTI_ENGINE} />
+            </div>
+
+            <hr className="section-divider" />
+
+            <div>
+              <span
+                className="text-xs font-semibold uppercase tracking-widest block mb-6"
+                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+              >
+                Helicopter
+              </span>
+              <FlyingCarousel items={HELICOPTER} />
             </div>
 
           </div>

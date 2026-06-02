@@ -43,3 +43,9 @@ next-env.d.ts
 # Nested git repos that sneak into out/
 out/images/harvard/Digital_Fabrication_Tiger_Strake_phys-s-12
 public/images/harvard/Digital_Fabrication_Tiger_Strake_phys-s-12/
+
+# Large helicopter videos (>100MB, exceeds GitHub limit without LFS)
+public/images/flying/helicopter/setdown-pad.mp4
+public/images/flying/helicopter/sf-roundtrip.mp4
+out/images/flying/helicopter/setdown-pad.mp4
+out/images/flying/helicopter/sf-roundtrip.mp4
