@@ -67,6 +67,8 @@ export default function FlyingCarousel({ items }: { items: MediaItem[] }) {
             ref={videoRef}
             src={item.src}
             controls
+            autoPlay
+            muted
             playsInline
             onEnded={goNext}
             className="w-full h-full"
