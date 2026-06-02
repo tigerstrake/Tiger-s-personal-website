@@ -127,23 +127,26 @@ export default function Flight() {
               </span>
               <div className="space-y-5">
                 <p className="body-lg">
-                  I earned my EASA PPL(A) in Germany, logging my first solo hours
-                  over the Rhine Valley before finishing school. That certificate got
-                  me in the air early, but moving to the US meant converting to a FAA
-                  license.
+                  It all started with a half serious remark of my grandma asking me
+                  if I wanted to get my glider license — and from there on I earned
+                  my Private Pilot License in Germany, logging my first solo hours
+                  over the Rhine Valley before finishing high school. That certificate
+                  got me in the air early, but moving to the US meant converting my
+                  licenses.
                 </p>
                 <p className="body-lg">
-                  At Stanford I&apos;m working through my FAA currency and club
-                  checkouts at WVFC, mostly flying the C172S with G1000 glass panel.
-                  Alongside that I&apos;m building toward my multi-engine rating on a
-                  DA62 and Twin Comanche, and getting my helicopter rating at
-                  Specialized Helicopters.
+                  At Stanford I&apos;m getting checked out at local flying clubs and
+                  keeping my hours up, mostly flying G1000 Cessna 172SPs with modern
+                  avionics. Alongside that I&apos;m building toward my multi-engine
+                  rating on a DA62 and Twin Comanche, and getting my helicopter rating
+                  at Specialized Helicopters.
                 </p>
                 <p className="body-lg">
-                  The first 100 hours across fixed-wing and rotary, EASA and FAA,
-                  steam gauges and glass were some of the most fun I&apos;ve ever had
-                  learning a new skill. For an AeroAstro major, this is the fun part
-                  — applying the classroom concepts to the cockpit.
+                  The first 100 hours across fixed-wing and rotary, Europe and the
+                  US, steam gauges and glass cockpit were some of the most fun
+                  I&apos;ve ever had learning a new skill. For me as an AeroAstro
+                  major, it&apos;s always cool to see how the concepts we learn in
+                  class apply to the actual aircraft&apos;s behavior.
                 </p>
               </div>
             </div>
