@@ -111,61 +111,6 @@ export default function Flight() {
         </div>
       </section>
 
-      {/* Gallery — carousels */}
-      <section
-        className="px-6 py-20"
-        style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
-      >
-        <div className="max-w-4xl mx-auto">
-          <span
-            className="text-xs font-semibold uppercase tracking-widest block mb-4"
-            style={{ color: "#C8865A", fontFamily: "var(--font-display)" }}
-          >
-            In the air
-          </span>
-          <p className="body-lg mb-16" style={{ maxWidth: "560px" }}>
-            A small selection from various stages — first solo through checkride,
-            Catalina Island and back, multi-engine training, and helicopter.
-          </p>
-
-          <div className="space-y-20">
-            <div>
-              <span
-                className="text-xs font-semibold uppercase tracking-widest block mb-5"
-                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
-              >
-                Single engine
-              </span>
-              <FlyingCarousel items={SINGLE_ENGINE} />
-            </div>
-
-            <hr className="section-divider" />
-
-            <div>
-              <span
-                className="text-xs font-semibold uppercase tracking-widest block mb-5"
-                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
-              >
-                Multi engine
-              </span>
-              <FlyingCarousel items={MULTI_ENGINE} />
-            </div>
-
-            <hr className="section-divider" />
-
-            <div>
-              <span
-                className="text-xs font-semibold uppercase tracking-widest block mb-5"
-                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
-              >
-                Helicopter
-              </span>
-              <FlyingCarousel items={HELICOPTER} />
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Content + sidebar */}
       <section className="px-6 py-20">
         <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-16">
@@ -314,6 +259,61 @@ export default function Flight() {
             </div>
           </div>
 
+        </div>
+      </section>
+
+      {/* Gallery — carousels */}
+      <section
+        className="px-6 pb-24"
+        style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+      >
+        <div className="max-w-4xl mx-auto pt-20">
+          <span
+            className="text-xs font-semibold uppercase tracking-widest block mb-4"
+            style={{ color: "#C8865A", fontFamily: "var(--font-display)" }}
+          >
+            In the air
+          </span>
+          <p className="body-lg mb-16" style={{ maxWidth: "560px" }}>
+            A small selection from various stages — first solo through checkride,
+            Catalina Island and back, multi-engine training, and helicopter.
+          </p>
+
+          <div className="space-y-20">
+            <div>
+              <span
+                className="text-xs font-semibold uppercase tracking-widest block mb-5"
+                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+              >
+                Single engine
+              </span>
+              <FlyingCarousel items={SINGLE_ENGINE} />
+            </div>
+
+            <hr className="section-divider" />
+
+            <div>
+              <span
+                className="text-xs font-semibold uppercase tracking-widest block mb-5"
+                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+              >
+                Multi engine
+              </span>
+              <FlyingCarousel items={MULTI_ENGINE} />
+            </div>
+
+            <hr className="section-divider" />
+
+            <div>
+              <span
+                className="text-xs font-semibold uppercase tracking-widest block mb-5"
+                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+              >
+                Helicopter
+              </span>
+              <FlyingCarousel items={HELICOPTER} />
+            </div>
+          </div>
         </div>
       </section>
     </div>
