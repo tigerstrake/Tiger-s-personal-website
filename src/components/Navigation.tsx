@@ -13,6 +13,7 @@ const NAV_LINKS = [
   { href: "/build-log", label: "Build Log" },
   { href: "/flight", label: "Flight" },
   { href: "/writing", label: "Writing" },
+  { href: "/resume", label: "Resume" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -26,10 +27,6 @@ export default function Navigation() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
 
   return (
     <>
@@ -83,7 +80,7 @@ export default function Navigation() {
           font-size: 1.5rem;
           font-weight: 600;
           font-family: var(--font-display);
-          letter-spacing: -0.02em;
+          letter-spacing: 0;
           text-decoration: none;
           border-bottom: 1px solid rgba(255,255,255,0.07);
           color: #ECEDF2;
@@ -132,18 +129,29 @@ export default function Navigation() {
             })}
           </ul>
 
-          {/* Spacer keeps nav links centred — matches CV button width on the right */}
-          <div className="hidden md:block" style={{ width: "80px", flexShrink: 0 }} />
+          <a
+            href="/docs/tiger-strake-cv.pdf"
+            download
+            className="nav-cv hidden md:inline-flex"
+            aria-label="Download Tiger Strake CV as PDF"
+          >
+            PDF
+          </a>
 
           {/* Mobile hamburger */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded"
+            className="md:hidden rounded"
             style={{
               color: "#8A8F9C",
               background: "transparent",
               border: "none",
               cursor: "pointer",
+              width: "44px",
+              height: "44px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
             aria-label={isOpen ? "Close menu" : "Open menu"}
           >
@@ -152,44 +160,6 @@ export default function Navigation() {
         </nav>
 
       </header>
-
-      {/* CV — fixed to viewport, always visible regardless of scroll */}
-      <a
-        href="/docs/tiger-strake-cv.pdf"
-        download
-        className="hidden md:flex"
-        style={{
-          position: "fixed",
-          top: "15px",
-          right: "calc(max(0px, (100vw - 72rem) / 2) + 1.5rem)",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "6px",
-          textDecoration: "none",
-          opacity: 0.8,
-          zIndex: 51,
-          transition: "opacity 0.2s",
-        }}
-        onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
-        onMouseLeave={e => (e.currentTarget.style.opacity = "0.8")}
-      >
-        <Image
-          src="/images/tiger-logo.png"
-          alt="Download CV"
-          width={64}
-          height={64}
-          style={{ borderRadius: "9px", display: "block" }}
-        />
-        <span style={{
-          fontSize: "1.5rem",
-          fontFamily: "var(--font-display)",
-          fontWeight: 700,
-          letterSpacing: "0.12em",
-          color: "#C8865A",
-          textTransform: "uppercase",
-          lineHeight: 1,
-        }}>CV</span>
-      </a>
 
       {/* Mobile overlay */}
       {isOpen && (
@@ -205,6 +175,7 @@ export default function Navigation() {
                   key={href}
                   href={href}
                   className={`mobile-link${active ? " active" : ""}`}
+                  onClick={() => setIsOpen(false)}
                 >
                   {label}
                 </Link>
@@ -213,7 +184,9 @@ export default function Navigation() {
             <a
               href="/docs/tiger-strake-cv.pdf"
               download
+              onClick={() => setIsOpen(false)}
               className="mt-6 flex items-center justify-center gap-3 py-3 rounded border"
+              aria-label="Download Tiger Strake CV as PDF"
               style={{
                 fontFamily: "var(--font-display)",
                 color: "#C8865A",

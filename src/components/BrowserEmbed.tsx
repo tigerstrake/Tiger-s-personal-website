@@ -43,7 +43,7 @@ export default function BrowserEmbed({ url, height = 620 }: BrowserEmbedProps) {
             height: "26px",
             background: "rgba(255,255,255,0.05)",
             border: "1px solid rgba(255,255,255,0.08)",
-            color: "#5A5F6E",
+            color: "#8A8F9C",
             fontFamily: "var(--font-mono)",
             textDecoration: "none",
           }}
@@ -63,7 +63,7 @@ export default function BrowserEmbed({ url, height = 620 }: BrowserEmbedProps) {
           target="_blank"
           rel="noopener noreferrer"
           className="shrink-0 flex items-center justify-center w-7 h-7 rounded transition-colors duration-150"
-          style={{ color: "#4D5260" }}
+          style={{ color: "#7B8293" }}
           title="Open in new tab"
         >
           <svg width="13" height="13" viewBox="0 0 16 16" fill="none">

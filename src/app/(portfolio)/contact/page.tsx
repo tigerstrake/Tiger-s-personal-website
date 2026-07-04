@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "Contact",
   description:
     "Reach out about internships, project work, research, or technical collaboration.",
+  alternates: {
+    canonical: "/contact",
+  },
 };
 
 const CONTACT_METHODS = [
@@ -95,7 +98,7 @@ export default function Contact() {
           <div>
             <h2
               className="text-xs font-semibold uppercase tracking-widest mb-6"
-              style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+              style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
             >
               Reach me at
             </h2>
@@ -117,7 +120,7 @@ export default function Contact() {
                   <div className="min-w-0">
                     <span
                       className="text-xs block mb-0.5"
-                      style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+                      style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
                     >
                       {label}
                     </span>
@@ -127,7 +130,7 @@ export default function Contact() {
                     >
                       {value}
                     </span>
-                    <span className="text-xs" style={{ color: "#5A5F6E" }}>
+                    <span className="text-xs" style={{ color: "#8A8F9C" }}>
                       {description}
                     </span>
                   </div>
@@ -140,7 +143,7 @@ export default function Contact() {
           <div>
             <h2
               className="text-xs font-semibold uppercase tracking-widest mb-6"
-              style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+              style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
             >
               What I&apos;m open to
             </h2>
@@ -160,7 +163,7 @@ export default function Contact() {
                   >
                     {title}
                   </h3>
-                  <p className="text-sm leading-relaxed" style={{ color: "#5A5F6E" }}>
+                  <p className="text-sm leading-relaxed" style={{ color: "#8A8F9C" }}>
                     {description}
                   </p>
                 </div>

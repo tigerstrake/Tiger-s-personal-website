@@ -32,7 +32,7 @@ const CURRENT_WORK = [
   {
     label: "Pulse Jet",
     slug: "pulse-jet",
-    description: "Safety evaluation before first hot fire. Fixture design done.",
+    description: "Safety protocol under review. Fixture design done.",
     status: "early-stage" as const,
   },
   {
@@ -85,31 +85,34 @@ export default function Home() {
               STANFORD AEROASTRO &rsquo;29
             </div>
 
-            <p
+            <h1
               className="animate-fade-up stagger-2"
               style={{
                 fontFamily: "var(--font-display)",
                 fontSize: "clamp(2rem, 4.5vw, 3rem)",
                 color: "#C8D0E4",
                 fontWeight: 600,
-                letterSpacing: "-0.02em",
+                letterSpacing: "0",
                 lineHeight: 1.3,
                 maxWidth: "680px",
                 marginBottom: "1.5rem",
               }}
             >
-              Hi there, I am Tiger!
-            </p>
+              Tiger Strake
+            </h1>
 
             <div className="animate-fade-up stagger-3" style={{ maxWidth: "640px", marginBottom: "2.5rem" }}>
               <p style={{ fontSize: "1.1rem", lineHeight: 1.8, color: "#B0B6CB", marginBottom: "1rem", fontFamily: "var(--font-body)" }}>
-                I started building rockets as a kid and haven&apos;t stopped since.
-                Before turning 16, I interned at the European Space Agency and EUMETSAT (European Organisation for the Exploitation of Meteorological Satellites) and worked on hypersonic
-                hardware testing at DLR (Deutsches Luft- und Raumfahrtzentrum). I also hold two pilot licenses.
+                I&apos;m a Stanford AeroAstro student focused on aerospace hardware:
+                high-power rockets, fixed-wing UAVs, embedded controls, and
+                fabrication-heavy test rigs. Before turning 16, I interned at
+                the European Space Agency and EUMETSAT, and worked on hypersonic
+                hardware testing at DLR.
               </p>
               <p style={{ fontSize: "1.1rem", lineHeight: 1.8, color: "#B0B6CB", marginBottom: "1rem", fontFamily: "var(--font-body)" }}>
-                I&apos;m currently studying Aeronautics and Astronautics at Stanford University (&lsquo;29),
-                where I serve as Chief Engineer of Stanford&apos;s Skyrunners — we&apos;re building a 12-foot wingspan UAV and somehow keeping it all in one piece.
+                I hold EASA and FAA private pilot licenses. At Stanford,
+                I serve as Chief Engineer of SkyRunners, where we&apos;re building a
+                12-foot wingspan UAV.
               </p>
               <p style={{ fontSize: "1rem", lineHeight: 1.6, color: "#B0B6CB", fontFamily: "var(--font-display)", fontWeight: 500, fontStyle: "italic" }}>
                 Yes, my real name is Tiger.
@@ -276,7 +279,7 @@ export default function Home() {
               <Link
                 href="/projects"
                 className="hidden md:inline-flex items-center gap-2 text-sm font-medium"
-                style={{ color: "#5A5F6E", fontFamily: "var(--font-display)" }}
+                style={{ color: "#8A8F9C", fontFamily: "var(--font-display)" }}
               >
                 All projects <ArrowRight size={14} />
               </Link>
@@ -310,7 +313,7 @@ export default function Home() {
               <Link
                 href="/build-log"
                 className="hidden md:inline-flex items-center gap-2 text-sm font-medium"
-                style={{ color: "#5A5F6E", fontFamily: "var(--font-display)" }}
+                style={{ color: "#8A8F9C", fontFamily: "var(--font-display)" }}
               >
                 Full log <ArrowRight size={14} />
               </Link>

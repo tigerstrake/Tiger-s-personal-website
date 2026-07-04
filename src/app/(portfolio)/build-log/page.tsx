@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "Build Log",
   description:
     "Engineering notebook. What changed, why, what worked, and what comes next.",
+  alternates: {
+    canonical: "/build-log",
+  },
 };
 
 export default function BuildLog() {
@@ -33,7 +36,7 @@ export default function BuildLog() {
             Reverse-chronological engineering notebook. Short notes on what
             changed, why, what the outcome was, and what comes next.
           </p>
-          <p className="body-sm mt-3" style={{ color: "#4D5260" }}>
+          <p className="body-sm mt-3" style={{ color: "#7B8293" }}>
             Not polished. Not marketing. Just what actually happened.
           </p>
         </div>
@@ -59,7 +62,7 @@ export default function BuildLog() {
                   <span
                     className="text-xs"
                     style={{
-                      color: "#4D5260",
+                      color: "#7B8293",
                       fontFamily: "var(--font-mono)",
                     }}
                   >
@@ -97,7 +100,7 @@ export default function BuildLog() {
                     <span
                       className="text-xs font-semibold uppercase tracking-widest block mb-2"
                       style={{
-                        color: "#4D5260",
+                        color: "#7B8293",
                         fontFamily: "var(--font-display)",
                       }}
                     >
@@ -112,7 +115,7 @@ export default function BuildLog() {
                     <span
                       className="text-xs font-semibold uppercase tracking-widest block mb-2"
                       style={{
-                        color: "#4D5260",
+                        color: "#7B8293",
                         fontFamily: "var(--font-display)",
                       }}
                     >
@@ -127,7 +130,7 @@ export default function BuildLog() {
                     <span
                       className="text-xs font-semibold uppercase tracking-widest block mb-2"
                       style={{
-                        color: "#4D5260",
+                        color: "#7B8293",
                         fontFamily: "var(--font-display)",
                       }}
                     >
@@ -142,7 +145,7 @@ export default function BuildLog() {
                     <span
                       className="text-xs font-semibold uppercase tracking-widest block mb-2"
                       style={{
-                        color: "#4D5260",
+                        color: "#7B8293",
                         fontFamily: "var(--font-display)",
                       }}
                     >

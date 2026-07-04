@@ -203,7 +203,7 @@ export const projects: Project[] = [
     title: "Pulse Jet",
     subtitle: "Combustion test program. Early stage.",
     description:
-      "A pulse jet build with two friends, focused on making the test setup repeatable before worrying about making it fast. The goal right now is a fixture geometry that can be modified without rebuilding the whole test rig, and a data capture setup that gives comparable run-to-run numbers.",
+      "A pulse jet build with two friends, focused on making the test setup repeatable before worrying about making it fast. The goal right now is fixture geometry that can be modified without rebuilding the whole test rig, plus instrumentation that will make later test data comparable.",
     status: "early-stage",
     categories: ["Aerospace", "Manufacturing"],
     role: "Lead Builder and Test Engineer",
@@ -229,9 +229,9 @@ export const projects: Project[] = [
       "Instrumentation mounting designed into the fixture, not added after",
     ],
     results:
-      "Repeatable ignition sequence established. Thermal mapping identifies geometry hotspots per revision.",
+      "Chamber fabrication and support fixture complete. Safety documentation and instrumentation mounting are still under review before the first hot fire.",
     lessons: [
-      "Fixture stiffness matters more than expected. Run-to-run geometry drift contaminated early data.",
+      "Fixture stiffness needs to be measured before hot-fire testing. If the fixture moves under load, geometry changes will be impossible to evaluate cleanly.",
     ],
     highlights: [
       { label: "Type", value: "Valveless pulse jet" },
@@ -773,35 +773,6 @@ export const projects: Project[] = [
   },
 
   {
-    slug: "bioengineering-ai-startup",
-    title: "Bioengineering & AI Startup",
-    subtitle: "Co-founder. AI applications in bioengineering.",
-    description:
-      "Co-founded a startup exploring applications of AI in bioengineering. Early stage, details not public yet.",
-    status: "active",
-    categories: ["Biotech"],
-    role: "Co-founder",
-    timeline: "2025–Present",
-    lastUpdated: "2026-03-26",
-    featured: false,
-    coverImage: "/images/startup/startup-davinci.jpg",
-    challenge: "Find where AI creates real value in bioengineering workflows rather than just adding a model layer on top of an existing process.",
-    constraints: [
-      "Early stage. Scope and focus still being defined.",
-    ],
-    designDecisions: [],
-    buildProcess: [],
-    results: "Active. Details not public yet.",
-    lessons: [],
-    highlights: [
-      { label: "Stage", value: "Early / stealth" },
-      { label: "Domain", value: "AI + Bioengineering" },
-    ],
-    tools: [],
-    relatedSlugs: [],
-  },
-
-  {
     slug: "infinity-studios",
     title: "Short Film Production",
     subtitle: "Co-directed, produced, and edited a short film. Grade 11.",
@@ -814,7 +785,6 @@ export const projects: Project[] = [
     lastUpdated: "2026-03-22",
     featured: false,
     coverImage: "/images/short-film/short-film-cover.png",
-    videos: ["/images/short-film/short-film-final.mp4"],
     challenge:
       "Coordinate a six-person production, co-write a coherent script, shoot usable footage, and deliver a finished film with VFX and original music, without a budget or production infrastructure.",
     constraints: [
@@ -995,7 +965,7 @@ export const projects: Project[] = [
       { label: "Fallback", value: "Deterministic ranking if AI fails" },
     ],
     tools: ["Python", "BeautifulSoup", "OpenAI API", "GitHub Actions", "Discord webhooks", "JSON"],
-    relatedSlugs: ["bioengineering-ai-startup"],
+    relatedSlugs: [],
   },
 ];
 

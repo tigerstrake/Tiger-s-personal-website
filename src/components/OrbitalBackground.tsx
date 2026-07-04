@@ -47,8 +47,8 @@ interface Flash {
 // ─── Configuration ────────────────────────────────────────────────────────────
 
 const CFG = {
-  PARTICLE_COUNT_DESKTOP: 320,
-  PARTICLE_COUNT_MOBILE:  100,
+  PARTICLE_COUNT_DESKTOP: 180,
+  PARTICLE_COUNT_MOBILE:  60,
 
   G:              0.12,
   SOFTENING_SQ:   1600,
@@ -74,7 +74,7 @@ const CFG = {
   SAT_COLLISION_R: 16,         // satellite body half-size for collision (px)
   SAT_EXPLOSION_N: 22,
 
-  STAR_COUNT: 180,
+  STAR_COUNT: 100,
 
   DRAG:          0.9997,  // per-frame velocity damping — prevents energy drift from numerical integration
   MAX_SPEED:     50,      // hard cap, should rarely fire with Verlet + drag
@@ -107,7 +107,13 @@ const INTERACTIVE_SEL = "a, button, input, select, textarea, label, [role='butto
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export default function OrbitalBackground() {
+export default function OrbitalBackground({
+  showHelpByDefault = false,
+  showTutorial = false,
+}: {
+  showHelpByDefault?: boolean;
+  showTutorial?: boolean;
+}) {
   const canvasRef      = useRef<HTMLCanvasElement>(null);
   const particlesRef   = useRef<Particle[]>([]);
   const satellitesRef  = useRef<Satellite[]>([]);
@@ -131,7 +137,7 @@ export default function OrbitalBackground() {
 
   const [tool, setTool]           = useState<ToolId>("gravity");
   const [noFade, setNoFade]       = useState(false);
-  const [showHelp, setShowHelp]   = useState(true);
+  const [showHelp, setShowHelp]   = useState(showHelpByDefault);
   const [debrisCount, setDebrisCount] = useState<number>(CFG.DEFAULT_DEBRIS_COUNT);
   const [debrisSize,  setDebrisSize]  = useState<number>(CFG.DEFAULT_DEBRIS_SIZE);
   const [zoomPct, setZoomPct]     = useState(100);  // display only
@@ -147,10 +153,11 @@ export default function OrbitalBackground() {
 
   // Hide tutorial overlay when user scrolls past the hero section
   useEffect(() => {
+    if (!showTutorial) return;
     const onScroll = () => setInHeroView(window.scrollY < window.innerHeight * 0.5);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [showTutorial]);
 
   useEffect(() => { toolRef.current    = tool;   }, [tool]);
   useEffect(() => { noFadeRef.current  = noFade; }, [noFade]);
@@ -173,6 +180,7 @@ export default function OrbitalBackground() {
 
   // ─── Tutorial animation ──────────────────────────────────────────────────────
   useEffect(() => {
+    if (!showTutorial) return;
     if (typeof window === "undefined" || window.innerWidth < 640) return;
 
     const timers: ReturnType<typeof setTimeout>[] = [];
@@ -323,7 +331,7 @@ export default function OrbitalBackground() {
 
     // Satellites drifting in from the sides after tutorial ends
     at(12000 + 5000, () => {
-      const w = window.innerWidth, h = window.innerHeight;
+      const h = window.innerHeight;
       satellitesRef.current.push({
         x: -40, y: h * 0.38,
         vx: 1.6, vy: 0.5,
@@ -360,8 +368,7 @@ export default function OrbitalBackground() {
     });
 
     return () => { timers.forEach(clearTimeout); cancelAnimationFrame(tutDragRafRef.current); };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [showTutorial]);
 
   // ─── Spawn helper ───────────────────────────────────────────────────────────
   const spawnParticle = useCallback((wells: GravityWell[], w: number, h: number): Particle => {
@@ -1056,8 +1063,13 @@ export default function OrbitalBackground() {
             + 0.13 * Math.sin(2.9 * ang + seed * 6.28)
             + 0.09 * Math.sin(5.2 * ang + seed * 11.1)
           );
-          const px = Math.cos(ang) * rad, py = Math.sin(ang) * rad;
-          j === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+          const px = Math.cos(ang) * rad;
+          const py = Math.sin(ang) * rad;
+          if (j === 0) {
+            ctx.moveTo(px, py);
+          } else {
+            ctx.lineTo(px, py);
+          }
         }
         ctx.closePath();
 
@@ -1351,6 +1363,8 @@ export default function OrbitalBackground() {
               id={`toolbar-btn-${t.id}`}
               onClick={() => setTool(t.id)}
               title={t.label}
+              aria-label={`Select ${t.label} simulation tool`}
+              aria-pressed={tool === t.id}
               style={{
                 display: "flex", alignItems: "center", gap: 6,
                 padding: "5px 13px",
@@ -1391,6 +1405,7 @@ export default function OrbitalBackground() {
               type="checkbox"
               checked={noFade}
               onChange={e => setNoFade(e.target.checked)}
+              aria-label="Keep simulation objects from fading"
               style={{ accentColor: "#C8865A", width: 11, height: 11, cursor: "pointer" }}
             />
             <span className="hidden sm:inline">Persist</span>
@@ -1403,6 +1418,7 @@ export default function OrbitalBackground() {
             <button
               onClick={() => { zoomRef.current = 1; setZoomPct(100); }}
               title="Reset zoom (Ctrl+scroll to zoom)"
+              aria-label="Reset simulation zoom"
               style={{
                 display: "flex", alignItems: "center", gap: 4,
                 padding: "5px 9px",
@@ -1430,6 +1446,7 @@ export default function OrbitalBackground() {
             target="_blank"
             rel="noopener noreferrer"
             title="Open simulation standalone"
+            aria-label="Open standalone gravity simulator"
             style={{
               display: "flex", alignItems: "center", gap: 5,
               padding: "5px 10px",
@@ -1671,7 +1688,21 @@ export default function OrbitalBackground() {
               </span>
               <button
                 onClick={() => setShowHelp(false)}
-                style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.25)", fontSize: 14, lineHeight: 1, padding: "0 2px" }}
+                aria-label="Hide simulation help"
+                style={{
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  color: "rgba(255,255,255,0.25)",
+                  fontSize: 14,
+                  lineHeight: 1,
+                  padding: 0,
+                  width: 32,
+                  height: 32,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
               >×</button>
             </div>
 
@@ -1747,6 +1778,7 @@ export default function OrbitalBackground() {
             backdropFilter: "blur(14px)",
           }}
           title="Show simulation help"
+          aria-label="Show simulation help"
         >?</button>
       )}
     </>

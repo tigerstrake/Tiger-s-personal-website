@@ -4,11 +4,14 @@ import { Download } from "lucide-react";
 export const metadata: Metadata = {
   title: "Resume",
   description: "Tiger Strake CV and resume download.",
+  alternates: {
+    canonical: "/resume",
+  },
 };
 
 const HIGHLIGHTS = [
   "Stanford AeroAstro with a focus on aerospace hardware and build programs",
-  "L1 certified, L2 in progress. SkyRunners UAV manufacturing and structures lead",
+  "L1 rocket built with certification flight pending; L2 build in progress. SkyRunners UAV manufacturing and structures lead",
   "Embedded systems across ESP32, IMU integration, servo control, and telemetry",
   "Fabrication: composites, CNC milling, casting, laser cutting, 3D printing (FDM/resin)",
   "Pilot: EASA + FAA PPL SEP(L) with night ops, currently training MEP and high-performance",
@@ -82,7 +85,7 @@ export default function Resume() {
             <div>
               <h3
                 className="text-xs font-semibold uppercase tracking-widest mb-5"
-                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+                style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
               >
                 Highlights
               </h3>
@@ -108,7 +111,7 @@ export default function Resume() {
                 border: "1px solid rgba(255,255,255,0.06)",
               }}
             >
-              <p className="text-xs leading-relaxed" style={{ color: "#4D5260" }}>
+              <p className="text-xs leading-relaxed" style={{ color: "#7B8293" }}>
                 Reach out at{" "}
                 <a
                   href="mailto:tiger29@stanford.edu"

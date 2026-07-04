@@ -1,11 +1,15 @@
-"use client";
+import type { Metadata } from "next";
+import SimulationClient from "./SimulationClient";
 
-import OrbitalBackground from "@/components/OrbitalBackground";
+export const metadata: Metadata = {
+  title: "Gravity Simulator",
+  description:
+    "Interactive gravity simulator with gravity wells, black holes, debris, satellites, and repulsors.",
+  alternates: {
+    canonical: "/simulation",
+  },
+};
 
 export default function SimulationPage() {
-  return (
-    <div style={{ width: "100vw", height: "100vh", overflow: "hidden", background: "#07080C" }}>
-      <OrbitalBackground />
-    </div>
-  );
+  return <SimulationClient />;
 }

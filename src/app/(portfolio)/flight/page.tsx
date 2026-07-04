@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import FlyingCarousel, { type MediaItem } from "@/components/FlyingCarousel";
 
 export const metadata: Metadata = {
   title: "Flight",
   description:
     "EASA PPL(A) and FAA Private Pilot. Building toward multi-engine, helicopter, high performance, tailwheel, and complex.",
+  alternates: {
+    canonical: "/flight",
+  },
 };
 
 const QUALIFICATIONS = [
@@ -127,12 +131,10 @@ export default function Flight() {
               </span>
               <div className="space-y-5">
                 <p className="body-lg">
-                  It all started with a half serious remark of my grandma asking me
-                  if I wanted to get my glider license — and from there on I earned
-                  my Private Pilot License in Germany, logging my first solo hours
-                  over the Rhine Valley before finishing high school. That certificate
-                  got me in the air early, but moving to the US meant converting my
-                  licenses.
+                  My grandmother once half-jokingly asked whether I wanted to get
+                  a glider license. That turned into a Private Pilot License in
+                  Germany, first solo hours over the Rhine Valley, and a lot of
+                  paperwork when I moved to the US and converted the license.
                 </p>
                 <p className="body-lg">
                   At Stanford I&apos;m getting checked out at local flying clubs and
@@ -185,12 +187,12 @@ export default function Flight() {
                         {item.label}
                         <span
                           className="ml-3 text-xs font-normal"
-                          style={{ color: "#4D5260" }}
+                          style={{ color: "#7B8293" }}
                         >
                           {item.status}
                         </span>
                       </h3>
-                      <p className="text-sm" style={{ color: "#5A5F6E" }}>
+                      <p className="text-sm" style={{ color: "#8A8F9C" }}>
                         {item.description}
                       </p>
                     </div>
@@ -203,15 +205,25 @@ export default function Flight() {
 
           {/* Sidebar */}
           <div>
-            <img
-              src="/images/flying/ABF48F2A-9189-4E2C-83A3-C55A770548A1_1_105_c.jpeg"
-              alt="Flying"
-              className="w-full rounded-xl mb-6"
-              style={{ border: "1px solid rgba(255,255,255,0.07)", display: "block" }}
-            />
+            <div
+              className="relative w-full rounded-xl mb-6 overflow-hidden"
+              style={{
+                aspectRatio: "4/3",
+                border: "1px solid rgba(255,255,255,0.07)",
+                background: "#0A0B10",
+              }}
+            >
+              <Image
+                src="/images/flying/ABF48F2A-9189-4E2C-83A3-C55A770548A1_1_105_c.jpeg"
+                alt="Tiger flying in a single-engine aircraft"
+                fill
+                sizes="(min-width: 1024px) 280px, calc(100vw - 48px)"
+                style={{ objectFit: "cover" }}
+              />
+            </div>
             <h3
               className="text-xs font-semibold uppercase tracking-widest mb-6"
-              style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+              style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
             >
               Licenses held
             </h3>
@@ -239,16 +251,16 @@ export default function Flight() {
                   </div>
                   <dl className="space-y-2">
                     <div>
-                      <dt className="text-xs mb-0.5" style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}>Rating</dt>
+                      <dt className="text-xs mb-0.5" style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}>Rating</dt>
                       <dd className="text-sm" style={{ color: "#8A8F9C" }}>{q.rating}</dd>
                     </div>
                     <div>
-                      <dt className="text-xs mb-0.5" style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}>Class</dt>
+                      <dt className="text-xs mb-0.5" style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}>Class</dt>
                       <dd className="text-sm" style={{ color: "#8A8F9C" }}>{q.class}</dd>
                     </div>
                     {q.endorsements.length > 0 && (
                       <div>
-                        <dt className="text-xs mb-0.5" style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}>Endorsements</dt>
+                        <dt className="text-xs mb-0.5" style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}>Endorsements</dt>
                         <dd>
                           {q.endorsements.map((e) => (
                             <span key={e} className="text-sm block" style={{ color: "#8A8F9C" }}>{e}</span>
@@ -286,7 +298,7 @@ export default function Flight() {
             <div>
               <span
                 className="text-xs font-semibold uppercase tracking-widest block mb-5"
-                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+                style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
               >
                 Single engine
               </span>
@@ -298,7 +310,7 @@ export default function Flight() {
             <div>
               <span
                 className="text-xs font-semibold uppercase tracking-widest block mb-5"
-                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+                style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
               >
                 Multi engine
               </span>
@@ -310,7 +322,7 @@ export default function Flight() {
             <div>
               <span
                 className="text-xs font-semibold uppercase tracking-widest block mb-5"
-                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+                style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
               >
                 Helicopter
               </span>

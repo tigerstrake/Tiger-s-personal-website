@@ -23,7 +23,7 @@ export default function Footer() {
       <style>{`
         .footer-link {
           font-size: 0.875rem;
-          color: #5A5F6E;
+          color: #8A8F9C;
           text-decoration: none;
           transition: color 0.2s;
         }
@@ -33,7 +33,7 @@ export default function Footer() {
           align-items: center;
           gap: 10px;
           font-size: 0.875rem;
-          color: #5A5F6E;
+          color: #8A8F9C;
           text-decoration: none;
           transition: color 0.2s;
         }
@@ -57,7 +57,7 @@ export default function Footer() {
               >
                 TIGER STRAKE
               </span>
-              <p className="text-sm leading-relaxed" style={{ color: "#4D5260" }}>
+              <p className="text-sm leading-relaxed" style={{ color: "#7B8293" }}>
                 Stanford AeroAstro. Building rockets, UAVs, and embedded systems.
               </p>
             </div>
@@ -66,7 +66,7 @@ export default function Footer() {
             <div>
               <span
                 className="text-xs font-semibold uppercase tracking-widest block mb-4"
-                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+                style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
               >
                 Pages
               </span>
@@ -85,7 +85,7 @@ export default function Footer() {
             <div>
               <span
                 className="text-xs font-semibold uppercase tracking-widest block mb-4"
-                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+                style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
               >
                 Contact
               </span>
@@ -111,10 +111,10 @@ export default function Footer() {
             className="pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-t"
             style={{ borderColor: "rgba(255,255,255,0.05)" }}
           >
-            <p className="text-xs" style={{ color: "#4D5260" }}>
+            <p className="text-xs" style={{ color: "#7B8293" }}>
               © {new Date().getFullYear()} Tiger Strake
             </p>
-            <p className="text-xs" style={{ color: "#4D5260" }}>
+            <p className="text-xs" style={{ color: "#7B8293" }}>
               Stanford University · AeroAstro
             </p>
           </div>

@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "About",
   description:
     "AeroAstro at Stanford. Building rockets, UAVs, fabrication-heavy hardware, and licensed to fly.",
+  alternates: {
+    canonical: "/about",
+  },
 };
 
 const SOCIAL = [
@@ -37,7 +40,7 @@ export default function About() {
           <h1 className="heading-xl mb-4" style={{ color: "#ECEDF2" }}>
             Tiger Strake
           </h1>
-          <p style={{ fontFamily: "var(--font-display)", fontSize: "1.25rem", color: "#5A5F6E", letterSpacing: "-0.02em" }}>
+          <p style={{ fontFamily: "var(--font-display)", fontSize: "1.25rem", color: "#8A8F9C", letterSpacing: "0" }}>
             Stanford AeroAstro · Builder · Licensed Pilot
           </p>
         </div>
@@ -130,7 +133,7 @@ export default function About() {
 
             {/* Contact */}
             <div>
-              <h3 className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}>
+              <h3 className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}>
                 Contact
               </h3>
               <ul className="space-y-3">
@@ -141,7 +144,7 @@ export default function About() {
                       target={href.startsWith("mailto") ? undefined : "_blank"}
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2.5 text-sm hover-accent transition-colors duration-200"
-                      style={{ color: "#5A5F6E" }}
+                      style={{ color: "#8A8F9C" }}
                     >
                       <Icon size={13} />
                       {label}
@@ -153,7 +156,7 @@ export default function About() {
 
             {/* Quick facts */}
             <div>
-              <h3 className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}>
+              <h3 className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}>
                 Details
               </h3>
               <dl className="space-y-3">
@@ -165,7 +168,7 @@ export default function About() {
                   ["Based", "Stanford, CA"],
                 ].map(([k, v]) => (
                   <div key={k}>
-                    <dt className="text-xs mb-0.5" style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}>{k}</dt>
+                    <dt className="text-xs mb-0.5" style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}>{k}</dt>
                     <dd className="text-sm" style={{ color: "#8A8F9C" }}>{v}</dd>
                   </div>
                 ))}

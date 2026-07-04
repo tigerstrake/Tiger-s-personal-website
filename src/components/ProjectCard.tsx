@@ -1,8 +1,6 @@
-"use client";
-
 import Link from "next/link";
+import Image from "next/image";
 import type { Project } from "@/data/projects";
-import { useTilt } from "@/hooks/useTilt";
 
 const STATUS_LABELS: Record<string, string> = {
   active: "Active",
@@ -30,6 +28,7 @@ function Thumbnail({ src, title, height = 180 }: { src?: string; title: string; 
       className="w-full overflow-hidden"
       style={{
         height,
+        position: "relative",
         borderRadius: "6px 6px 0 0",
         background: "#0D0F17",
         borderBottom: "1px solid rgba(255,255,255,0.06)",
@@ -37,10 +36,12 @@ function Thumbnail({ src, title, height = 180 }: { src?: string; title: string; 
       }}
     >
       {hasImage ? (
-        <img
+        <Image
           src={src}
-          alt={title}
-          style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
+          alt={`${title} cover image`}
+          fill
+          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+          style={{ objectFit: "contain" }}
         />
       ) : (
         <div
@@ -74,11 +75,9 @@ export default function ProjectCard({
     year: "numeric",
   });
 
-  const tilt = useTilt(5);
-
   if (variant === "featured") {
     return (
-      <Link href={`/projects/${slug}`} className="block group" {...tilt}>
+      <Link href={`/projects/${slug}`} className="block group">
         <article
           className="card card-hover relative overflow-hidden h-full flex flex-col"
           style={{ minHeight: "320px" }}
@@ -104,7 +103,7 @@ export default function ProjectCard({
               </span>
               <span
                 className="text-xs"
-                style={{ color: "#4D5260", fontFamily: "var(--font-mono)" }}
+                style={{ color: "#7B8293", fontFamily: "var(--font-mono)" }}
               >
                 {date}
               </span>
@@ -117,7 +116,7 @@ export default function ProjectCard({
                   key={cat}
                   className="text-xs px-2 py-0.5 rounded"
                   style={{
-                    color: "#4D5260",
+                    color: "#7B8293",
                     background: "rgba(255,255,255,0.04)",
                     fontFamily: "var(--font-display)",
                   }}
@@ -134,7 +133,7 @@ export default function ProjectCard({
             >
               {title}
             </h3>
-            <p className="text-sm mb-4" style={{ color: "#5A5F6E" }}>
+            <p className="text-sm mb-4" style={{ color: "#8A8F9C" }}>
               {subtitle}
             </p>
 
@@ -152,12 +151,12 @@ export default function ProjectCard({
               className="flex items-center justify-between mt-6 pt-4 border-t"
               style={{ borderColor: "rgba(255,255,255,0.06)" }}
             >
-              <span className="text-xs" style={{ color: "#4D5260" }}>
+              <span className="text-xs" style={{ color: "#7B8293" }}>
                 {role}
               </span>
               <span
                 className="text-xs font-medium group-hover:text-[#C8865A] transition-colors duration-200"
-                style={{ color: "#5A5F6E", fontFamily: "var(--font-display)" }}
+                style={{ color: "#8A8F9C", fontFamily: "var(--font-display)" }}
               >
                 View project →
               </span>
@@ -170,7 +169,7 @@ export default function ProjectCard({
 
   if (variant === "compact") {
     return (
-      <Link href={`/projects/${slug}`} className="block group" {...tilt}>
+      <Link href={`/projects/${slug}`} className="block group">
         <article
           className="flex items-start gap-4 py-4 border-b"
           style={{ borderColor: "rgba(255,255,255,0.06)" }}
@@ -185,13 +184,13 @@ export default function ProjectCard({
             >
               {title}
             </h3>
-            <p className="text-xs mt-0.5 truncate" style={{ color: "#5A5F6E" }}>
+            <p className="text-xs mt-0.5 truncate" style={{ color: "#8A8F9C" }}>
               {subtitle}
             </p>
           </div>
           <span
             className="text-xs shrink-0"
-            style={{ color: "#4D5260", fontFamily: "var(--font-mono)" }}
+            style={{ color: "#7B8293", fontFamily: "var(--font-mono)" }}
           >
             {date}
           </span>
@@ -202,7 +201,7 @@ export default function ProjectCard({
 
   // Default variant
   return (
-    <Link href={`/projects/${slug}`} className="block group" {...tilt}>
+    <Link href={`/projects/${slug}`} className="block group">
       <article className="card card-hover overflow-hidden h-full flex flex-col">
         {/* Thumbnail */}
         <Thumbnail src={coverImage} title={title} height={160} />
@@ -215,7 +214,7 @@ export default function ProjectCard({
             </span>
             <span
               className="text-xs shrink-0"
-              style={{ color: "#4D5260", fontFamily: "var(--font-mono)" }}
+              style={{ color: "#7B8293", fontFamily: "var(--font-mono)" }}
             >
               {date}
             </span>
@@ -228,7 +227,7 @@ export default function ProjectCard({
                 key={cat}
                 className="text-xs px-2 py-0.5 rounded"
                 style={{
-                  color: "#4D5260",
+                  color: "#7B8293",
                   background: "rgba(255,255,255,0.04)",
                   fontFamily: "var(--font-display)",
                 }}
@@ -244,7 +243,7 @@ export default function ProjectCard({
           >
             {title}
           </h3>
-          <p className="text-xs mb-3" style={{ color: "#5A5F6E" }}>
+          <p className="text-xs mb-3" style={{ color: "#8A8F9C" }}>
             {subtitle}
           </p>
           <p
@@ -259,12 +258,12 @@ export default function ProjectCard({
             className="flex items-center justify-between mt-4 pt-3 border-t"
             style={{ borderColor: "rgba(255,255,255,0.06)" }}
           >
-            <span className="text-xs" style={{ color: "#4D5260" }}>
+            <span className="text-xs" style={{ color: "#7B8293" }}>
               {role}
             </span>
             <span
               className="text-xs font-medium group-hover:text-[#C8865A] transition-colors duration-200"
-              style={{ color: "#5A5F6E", fontFamily: "var(--font-display)" }}
+              style={{ color: "#8A8F9C", fontFamily: "var(--font-display)" }}
             >
               →
             </span>

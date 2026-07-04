@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { projects, getProjectBySlug } from "@/data/projects";
@@ -19,9 +20,30 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = getProjectBySlug(slug);
   if (!project) return { title: "Project not found" };
+  const description = project.description.slice(0, 160);
+  const images = project.coverImage
+    ? [{ url: project.coverImage, alt: `${project.title} cover image` }]
+    : undefined;
+
   return {
     title: project.title,
-    description: project.description.slice(0, 160),
+    description,
+    alternates: {
+      canonical: `/projects/${project.slug}`,
+    },
+    openGraph: {
+      title: project.title,
+      description,
+      type: "article",
+      url: `/projects/${project.slug}`,
+      images,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project.title,
+      description,
+      images: project.coverImage ? [project.coverImage] : undefined,
+    },
   };
 }
 
@@ -97,7 +119,7 @@ export default async function ProjectDetail({
           <Link
             href="/projects"
             className="inline-flex items-center gap-2 text-sm"
-            style={{ color: "#5A5F6E", fontFamily: "var(--font-display)" }}
+            style={{ color: "#8A8F9C", fontFamily: "var(--font-display)" }}
           >
             <ArrowLeft size={14} /> All projects
           </Link>
@@ -123,7 +145,7 @@ export default async function ProjectDetail({
                 key={cat}
                 className="text-xs px-2 py-0.5 rounded"
                 style={{
-                  color: "#4D5260",
+                  color: "#7B8293",
                   background: "rgba(255,255,255,0.04)",
                   fontFamily: "var(--font-display)",
                 }}
@@ -140,7 +162,7 @@ export default async function ProjectDetail({
             style={{
               fontFamily: "var(--font-display)",
               fontSize: "1.1rem",
-              color: "#5A5F6E",
+              color: "#8A8F9C",
               marginBottom: "2rem",
             }}
           >
@@ -152,7 +174,7 @@ export default async function ProjectDetail({
             <div>
               <span
                 className="text-xs block mb-1"
-                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+                style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
               >
                 Role
               </span>
@@ -163,7 +185,7 @@ export default async function ProjectDetail({
             <div>
               <span
                 className="text-xs block mb-1"
-                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+                style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
               >
                 Timeline
               </span>
@@ -174,7 +196,7 @@ export default async function ProjectDetail({
             <div>
               <span
                 className="text-xs block mb-1"
-                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+                style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
               >
                 Updated
               </span>
@@ -189,7 +211,7 @@ export default async function ProjectDetail({
               <div key={h.label}>
                 <span
                   className="text-xs block mb-1"
-                  style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+                  style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
                 >
                   {h.label}
                 </span>
@@ -207,12 +229,23 @@ export default async function ProjectDetail({
       <div className="px-6">
         <div className="max-w-4xl mx-auto my-10 space-y-4">
           {project.coverImage && !project.coverImage.includes("placeholder") ? (
-            <img
-              src={project.coverImage}
-              alt={project.title}
-              className="w-full rounded-xl"
-              style={{ border: "1px solid rgba(255,255,255,0.07)", maxHeight: "600px", objectFit: "contain", background: "#0A0B10" }}
-            />
+            <div
+              className="relative w-full rounded-xl overflow-hidden"
+              style={{
+                aspectRatio: "16/9",
+                border: "1px solid rgba(255,255,255,0.07)",
+                background: "#0A0B10",
+              }}
+            >
+              <Image
+                src={project.coverImage}
+                alt={`${project.title} cover image`}
+                fill
+                priority
+                sizes="(min-width: 1024px) 896px, calc(100vw - 48px)"
+                style={{ objectFit: "contain" }}
+              />
+            </div>
           ) : (
             <div
               className="w-full rounded-xl"
@@ -225,7 +258,7 @@ export default async function ProjectDetail({
                 justifyContent: "center",
               }}
             >
-              <span className="text-xs" style={{ color: "#4D5260", fontFamily: "var(--font-mono)" }}>
+              <span className="text-xs" style={{ color: "#7B8293", fontFamily: "var(--font-mono)" }}>
                 {project.title} · images coming
               </span>
             </div>
@@ -235,13 +268,23 @@ export default async function ProjectDetail({
           {project.images && project.images.length > 0 && (
             <div className="grid gap-3" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))" }}>
               {project.images.map((src, i) => (
-                <img
+                <div
                   key={i}
-                  src={src}
-                  alt={`${project.title} ${i + 2}`}
-                  className="w-full rounded-lg"
-                  style={{ border: "1px solid rgba(255,255,255,0.07)", display: "block" }}
-                />
+                  className="relative w-full rounded-lg overflow-hidden"
+                  style={{
+                    aspectRatio: "16/10",
+                    border: "1px solid rgba(255,255,255,0.07)",
+                    background: "#0A0B10",
+                  }}
+                >
+                  <Image
+                    src={src}
+                    alt={`${project.title} detail image ${i + 1}`}
+                    fill
+                    sizes="(min-width: 1024px) 448px, (min-width: 640px) 50vw, 100vw"
+                    style={{ objectFit: "contain" }}
+                  />
+                </div>
               ))}
             </div>
           )}
@@ -267,6 +310,7 @@ export default async function ProjectDetail({
                   key={i}
                   src={src}
                   controls
+                  preload="metadata"
                   playsInline
                   className="w-full rounded-xl"
                   style={{ border: "1px solid rgba(255,255,255,0.07)", background: "#0A0B10" }}
@@ -292,7 +336,7 @@ export default async function ProjectDetail({
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-1.5 text-xs"
-                      style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+                      style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
                     >
                       <ExternalLink size={11} /> Open
                     </a>
@@ -369,7 +413,7 @@ export default async function ProjectDetail({
                       <span
                         className="shrink-0 text-xs pt-1"
                         style={{
-                          color: "#4D5260",
+                          color: "#7B8293",
                           fontFamily: "var(--font-mono)",
                           minWidth: "1.5rem",
                         }}
@@ -420,7 +464,7 @@ export default async function ProjectDetail({
                   <Link
                     href="/build-log"
                     className="text-xs"
-                    style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+                    style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
                   >
                     Full log →
                   </Link>
@@ -447,7 +491,7 @@ export default async function ProjectDetail({
                       <div className="flex items-center gap-3 mb-2">
                         <span
                           className="text-xs"
-                          style={{ color: "#4D5260", fontFamily: "var(--font-mono)" }}
+                          style={{ color: "#7B8293", fontFamily: "var(--font-mono)" }}
                         >
                           {entry.date}
                         </span>
@@ -462,18 +506,18 @@ export default async function ProjectDetail({
                         <div>
                           <span
                             className="text-xs uppercase tracking-widest block mb-1"
-                            style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+                            style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
                           >
                             What
                           </span>
-                          <p className="text-xs leading-relaxed" style={{ color: "#6A6F7E" }}>
+                          <p className="text-xs leading-relaxed" style={{ color: "#9EA6BA" }}>
                             {entry.what}
                           </p>
                         </div>
                         <div>
                           <span
                             className="text-xs uppercase tracking-widest block mb-1"
-                            style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+                            style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
                           >
                             Result
                           </span>
@@ -495,7 +539,7 @@ export default async function ProjectDetail({
             <div>
               <h3
                 className="text-xs font-semibold uppercase tracking-widest mb-4"
-                style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+                style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
               >
                 Tools & Methods
               </h3>
@@ -505,7 +549,7 @@ export default async function ProjectDetail({
                     key={tool}
                     className="text-xs px-2 py-1 rounded"
                     style={{
-                      color: "#5A5F6E",
+                      color: "#8A8F9C",
                       background: "rgba(255,255,255,0.04)",
                       border: "1px solid rgba(255,255,255,0.06)",
                       fontFamily: "var(--font-display)",
@@ -522,7 +566,7 @@ export default async function ProjectDetail({
               <div>
                 <h3
                   className="text-xs font-semibold uppercase tracking-widest mb-4"
-                  style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+                  style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
                 >
                   Specs
                 </h3>
@@ -531,7 +575,7 @@ export default async function ProjectDetail({
                     <div key={h.label}>
                       <dt
                         className="text-xs mb-0.5"
-                        style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+                        style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
                       >
                         {h.label}
                       </dt>
@@ -549,7 +593,7 @@ export default async function ProjectDetail({
               <div>
                 <h3
                   className="text-xs font-semibold uppercase tracking-widest mb-4"
-                  style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+                  style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
                 >
                   Related
                 </h3>
@@ -562,7 +606,7 @@ export default async function ProjectDetail({
                       style={{ color: "#8A8F9C", fontFamily: "var(--font-display)" }}
                     >
                       {rel.title}
-                      <ExternalLink size={12} style={{ color: "#4D5260" }} />
+                      <ExternalLink size={12} style={{ color: "#7B8293" }} />
                     </Link>
                   ))}
                 </div>
@@ -574,7 +618,7 @@ export default async function ProjectDetail({
               <div>
                 <h3
                   className="text-xs font-semibold uppercase tracking-widest mb-4"
-                  style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+                  style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
                 >
                   External link
                 </h3>

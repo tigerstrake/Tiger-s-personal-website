@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
+import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export type MediaItem = {
   type: "image" | "video";
@@ -54,11 +56,12 @@ export default function FlyingCarousel({ items }: { items: MediaItem[] }) {
         }}
       >
         {isImage ? (
-          <img
+          <Image
             key={item.src}
             src={item.src}
             alt={item.caption}
-            className="w-full h-full"
+            fill
+            sizes="(min-width: 1024px) 896px, calc(100vw - 48px)"
             style={{ objectFit: "contain" }}
           />
         ) : (
@@ -67,8 +70,8 @@ export default function FlyingCarousel({ items }: { items: MediaItem[] }) {
             ref={videoRef}
             src={item.src}
             controls
-            autoPlay
             muted
+            preload="metadata"
             playsInline
             onEnded={goNext}
             className="w-full h-full"
@@ -90,9 +93,7 @@ export default function FlyingCarousel({ items }: { items: MediaItem[] }) {
                 boxShadow: "0 2px 12px rgba(0,0,0,0.5)",
               }}
             >
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <path d="M11 4L6 9L11 14" stroke="#ECEDF2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              <ChevronLeft size={20} color="#ECEDF2" />
             </button>
             <button
               onClick={goNext}
@@ -105,9 +106,7 @@ export default function FlyingCarousel({ items }: { items: MediaItem[] }) {
                 boxShadow: "0 2px 12px rgba(0,0,0,0.5)",
               }}
             >
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <path d="M7 4L12 9L7 14" stroke="#ECEDF2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              <ChevronRight size={20} color="#ECEDF2" />
             </button>
           </>
         )}
@@ -149,7 +148,7 @@ export default function FlyingCarousel({ items }: { items: MediaItem[] }) {
       {/* Caption */}
       <p
         className="mt-3 text-sm"
-        style={{ color: "#5A5F6E", fontFamily: "var(--font-display)" }}
+        style={{ color: "#8A8F9C", fontFamily: "var(--font-display)" }}
       >
         {item.caption}
       </p>
@@ -162,6 +161,7 @@ export default function FlyingCarousel({ items }: { items: MediaItem[] }) {
               key={i}
               onClick={() => goTo(i)}
               aria-label={`Slide ${i + 1}`}
+              aria-current={i === current}
               style={{
                 width: i === current ? "20px" : "8px",
                 height: "8px",

@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "Writing",
   description:
     "Physics notes, astrophysics writing, and occasional technical reflection.",
+  alternates: {
+    canonical: "/writing",
+  },
 };
 
 export default function Writing() {
@@ -45,7 +48,7 @@ export default function Writing() {
             </div>
             <p
               className="text-xs mb-5"
-              style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+              style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
             >
               ASTR S-80 · Harvard University Summer School · 2023
             </p>
@@ -78,7 +81,7 @@ export default function Writing() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs"
-                  style={{ color: "#4D5260", fontFamily: "var(--font-display)" }}
+                  style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
                 >
                   Open ↗
                 </a>
@@ -101,7 +104,7 @@ export default function Writing() {
           {/* Placeholder for future entries */}
           <div
             className="text-center py-20"
-            style={{ color: "#4D5260" }}
+            style={{ color: "#7B8293" }}
           >
             <p
               className="text-sm mb-2"
