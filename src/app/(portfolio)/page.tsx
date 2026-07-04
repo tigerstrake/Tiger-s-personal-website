@@ -62,7 +62,7 @@ export default function Home() {
   return (
     <>
       {/* Physics Background */}
-      <OrbitalBackground />
+      <OrbitalBackground showTutorial />
 
       {/* Content above canvas */}
       <div className="relative" style={{ zIndex: 1 }}>

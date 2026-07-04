@@ -2,9 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Download, Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -58,15 +57,15 @@ export default function Navigation() {
           display: inline-flex;
           align-items: center;
           gap: 6px;
-          font-size: 0.75rem;
+          font-size: 0.78rem;
           font-weight: 600;
-          padding: 6px 14px;
+          padding: 7px 13px;
           border-radius: 6px;
           border: 1px solid rgba(200,134,90,0.3);
           background: rgba(200,134,90,0.05);
           color: #C8865A;
           font-family: var(--font-display);
-          letter-spacing: 0.05em;
+          letter-spacing: 0;
           text-decoration: none;
           transition: background 0.2s, border-color 0.2s;
         }
@@ -133,9 +132,10 @@ export default function Navigation() {
             href="/docs/tiger-strake-cv.pdf"
             download
             className="nav-cv hidden md:inline-flex"
-            aria-label="Download Tiger Strake CV as PDF"
+            aria-label="Download Tiger Strake CV"
           >
-            PDF
+            <Download size={14} aria-hidden="true" />
+            Download CV
           </a>
 
           {/* Mobile hamburger */}
@@ -186,7 +186,7 @@ export default function Navigation() {
               download
               onClick={() => setIsOpen(false)}
               className="mt-6 flex items-center justify-center gap-3 py-3 rounded border"
-              aria-label="Download Tiger Strake CV as PDF"
+              aria-label="Download Tiger Strake CV"
               style={{
                 fontFamily: "var(--font-display)",
                 color: "#C8865A",
@@ -194,13 +194,7 @@ export default function Navigation() {
                 textDecoration: "none",
               }}
             >
-              <Image
-                src="/images/tiger-logo.png"
-                alt="Tiger logo"
-                width={28}
-                height={28}
-                style={{ borderRadius: "5px" }}
-              />
+              <Download size={18} aria-hidden="true" />
               <span className="text-sm font-semibold">Download CV</span>
             </a>
           </div>
