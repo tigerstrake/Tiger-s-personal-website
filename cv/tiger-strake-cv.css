@@ -1,0 +1,262 @@
+@page {
+  size: Letter;
+  margin: 0;
+}
+
+:root {
+  --ink: #111827;
+  --muted: #5b6472;
+  --quiet: #8a94a3;
+  --line: #d7dce3;
+  --soft-line: #edf0f4;
+  --paper: #ffffff;
+  --panel: #f6f7f9;
+  --accent: #a96038;
+  --accent-dark: #7a3f24;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #dfe3e8;
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9.35pt;
+  line-height: 1.28;
+}
+
+.document {
+  width: 8.5in;
+  margin: 0 auto;
+}
+
+.sheet {
+  width: 8.5in;
+  height: 11in;
+  padding: 0.45in 0.52in 0.48in;
+  background: var(--paper);
+  page-break-after: always;
+  overflow: hidden;
+}
+
+.sheet:last-child {
+  page-break-after: auto;
+}
+
+.masthead {
+  display: grid;
+  grid-template-columns: 1fr 2.45in;
+  gap: 0.22in;
+  padding-bottom: 0.2in;
+  border-bottom: 2px solid var(--ink);
+}
+
+.eyebrow {
+  margin: 0 0 0.055in;
+  color: var(--accent-dark);
+  font-size: 7.5pt;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: 25pt;
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.025in;
+  align-self: end;
+  color: var(--muted);
+  font-size: 7.9pt;
+  line-height: 1.25;
+  text-align: right;
+}
+
+.page-grid {
+  display: grid;
+  grid-template-columns: 1.92in 1fr;
+  gap: 0.28in;
+  padding-top: 0.24in;
+}
+
+.page-grid.second {
+  padding-top: 0.22in;
+}
+
+.rail {
+  padding-right: 0.18in;
+  border-right: 1px solid var(--line);
+}
+
+.rail-section {
+  margin-bottom: 0.19in;
+}
+
+.rail-section h2,
+.section-title {
+  margin: 0 0 0.08in;
+  color: var(--accent-dark);
+  font-size: 8.2pt;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.rail-section p,
+.mini-entry span,
+.compact-list {
+  margin: 0;
+  color: var(--muted);
+}
+
+.mini-entry {
+  margin-bottom: 0.105in;
+}
+
+.mini-entry strong {
+  display: block;
+  margin-bottom: 0.018in;
+  color: var(--ink);
+  font-size: 8.45pt;
+  line-height: 1.16;
+}
+
+.mini-entry span {
+  display: block;
+  font-size: 7.85pt;
+  line-height: 1.26;
+}
+
+.skill-line {
+  margin-bottom: 0.075in !important;
+  font-size: 7.95pt;
+  line-height: 1.28;
+}
+
+.skill-line strong {
+  display: block;
+  color: var(--ink);
+  font-size: 7.8pt;
+}
+
+.compact-list {
+  padding-left: 0.14in;
+  font-size: 7.95pt;
+  line-height: 1.27;
+}
+
+.compact-list li {
+  margin-bottom: 0.045in;
+}
+
+.content {
+  min-width: 0;
+}
+
+.section-title {
+  padding-bottom: 0.055in;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.entry {
+  margin: 0 0 0.145in;
+  break-inside: avoid;
+}
+
+.entry-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.16in;
+  align-items: baseline;
+  margin-bottom: 0.035in;
+}
+
+.entry h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 10.05pt;
+  line-height: 1.1;
+}
+
+.entry p {
+  margin: 0.02in 0 0;
+  color: var(--accent-dark);
+  font-size: 8.35pt;
+  font-weight: 700;
+}
+
+time {
+  color: var(--quiet);
+  font-size: 7.95pt;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.entry ul {
+  margin: 0;
+  padding-left: 0.16in;
+  color: var(--muted);
+  font-size: 8.38pt;
+  line-height: 1.29;
+}
+
+.entry li {
+  margin-bottom: 0.032in;
+}
+
+.subhead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: 0.16in;
+  border-bottom: 2px solid var(--ink);
+}
+
+.subhead h2 {
+  margin: 0;
+  font-size: 15pt;
+  line-height: 1;
+}
+
+.subhead p,
+.subhead span {
+  margin: 0.035in 0 0;
+  color: var(--muted);
+  font-size: 8.2pt;
+}
+
+@media screen {
+  .sheet {
+    margin: 0.24in 0;
+    box-shadow: 0 0.12in 0.45in rgba(15, 23, 42, 0.18);
+  }
+}
+
+html[data-capture-page] body {
+  background: #ffffff;
+}
+
+html[data-capture-page] .document {
+  margin: 0;
+}
+
+html[data-capture-page] .sheet {
+  display: none;
+  margin: 0;
+  box-shadow: none;
+}
+
+html[data-capture-page="1"] .sheet:nth-child(1),
+html[data-capture-page="2"] .sheet:nth-child(2) {
+  display: block;
+}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Download } from "lucide-react";
+import { Code2, Download } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Resume",
@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 };
 
 const HIGHLIGHTS = [
-  "Stanford AeroAstro with a focus on aerospace hardware and build programs",
-  "L1 rocket built with certification flight pending; L2 build in progress. SkyRunners UAV manufacturing and structures lead",
-  "Embedded systems across ESP32, IMU integration, servo control, and telemetry",
-  "Fabrication: composites, CNC milling, casting, laser cutting, 3D printing (FDM/resin)",
+  "Stanford AeroAstro with a focus on aerospace hardware, UAV structures, embedded controls, and fabrication-heavy test rigs",
+  "SkyRunners UAV manufacturing and structures lead; L1 rocket built with certification flight pending; L2 build in progress",
+  "Embedded systems across ESP32, FreeRTOS, Raspberry Pi, servo control, telemetry, and sensor logging",
+  "Fabrication: composites, CNC routing, vacuum bagging, laser cutting, 3D printing (FDM/SLA/SLS/SLM)",
   "Pilot: EASA + FAA PPL SEP(L) with night ops, currently training MEP and high-performance",
   "Harvard Digital Fabrication coursework: 11-week intensive across the full fabrication stack",
 ];
@@ -63,7 +63,21 @@ export default function Resume() {
                 }}
               >
                 <Download size={15} />
-                Download PDF
+                Download CV
+              </a>
+              <a
+                href="/docs/tiger-strake-cv.tex"
+                download
+                className="inline-flex items-center gap-2.5 px-6 py-3 rounded text-sm font-semibold"
+                style={{
+                  fontFamily: "var(--font-display)",
+                  color: "#C8865A",
+                  border: "1px solid rgba(200, 134, 90, 0.35)",
+                  background: "rgba(200, 134, 90, 0.06)",
+                }}
+              >
+                <Code2 size={15} />
+                LaTeX source
               </a>
             </div>
 

@@ -1,0 +1,164 @@
+\documentclass[10pt,letterpaper]{article}
+
+% Template: compact engineering CV.
+% Chosen for an ATS-friendly, one-column structure with a restrained technical
+% hierarchy: strong name block, clear section rules, reverse-chronological
+% experience, and concise action/result bullets.
+
+\usepackage[letterpaper,margin=0.62in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tabularx}
+\usepackage{array}
+
+\definecolor{ink}{HTML}{111827}
+\definecolor{muted}{HTML}{4B5563}
+\definecolor{accent}{HTML}{7A3F24}
+\definecolor{rule}{HTML}{D1D5DB}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\renewcommand{\familydefault}{\sfdefault}
+\color{ink}
+
+\titleformat{\section}
+  {\large\bfseries\color{accent}\uppercase}
+  {}
+  {0pt}
+  {}
+  [\vspace{2pt}{\color{rule}\titlerule}]
+\titlespacing*{\section}{0pt}{10pt}{6pt}
+
+\setlist[itemize]{
+  leftmargin=13pt,
+  itemsep=2pt,
+  topsep=2pt,
+  parsep=0pt,
+  partopsep=0pt
+}
+
+\newcommand{\role}[4]{
+  \textbf{#1} \hfill {\color{muted}\textbf{#4}}\\
+  {\color{accent}\textbf{#2}} \hfill {\color{muted}#3}
+  \vspace{2pt}
+}
+
+\newcommand{\project}[4]{
+  \textbf{#1} \hfill {\color{muted}\textbf{#4}}\\
+  {\color{accent}\textbf{#2}} \hfill {\color{muted}#3}
+  \vspace{2pt}
+}
+
+\begin{document}
+
+{\Huge\bfseries Tiger Strake}\\[3pt]
+{\color{accent}\textbf{Aerospace hardware / UAV structures / embedded systems / fabrication}}\\[4pt]
+Stanford, CA / Erwitte, Germany \quad
++49 174 151 6539 \quad
+\href{mailto:tiger29@stanford.edu}{tiger29@stanford.edu} \quad
+\href{mailto:tigerstrake@icloud.com}{tigerstrake@icloud.com} \quad
+\href{https://tigerstrake.com}{tigerstrake.com}
+
+\section{Profile}
+Stanford AeroAstro student focused on aerospace hardware, fixed-wing UAVs, high-power rockets, embedded controls, and fabrication-heavy test rigs. EASA and FAA private pilot; currently building toward multi-engine, helicopter, high-performance, tailwheel, and complex endorsements/ratings.
+
+\section{Education}
+\textbf{Stanford University} \hfill {\color{muted}Expected 2029}\\
+B.S. Aeronautics and Astronautics\\[2pt]
+\textbf{Hochschule Hamm-Lippstadt Junior Campus} \hfill {\color{muted}2022--2024}\\
+Dual-enrollment program\\[2pt]
+\textbf{Harvard University Summer School} \hfill {\color{muted}2023}\\
+Digital fabrication and planetary science\\[2pt]
+\textbf{Evangelisches Gymnasium Lippstadt} \hfill {\color{muted}2021--2025}
+
+\section{Engineering Experience}
+\role{SkyRunners UAV, Stanford}{Manufacturing and Structures Lead}{Stanford, CA}{2025--present}
+\begin{itemize}
+  \item Lead manufacturing and structures work for a Stanford fixed-wing UAV team, translating airframe design intent into buildable, serviceable parts.
+  \item Validated a cleaner wing production workflow using a 4-axis hot-wire foam cutter after manual rib-and-foam cutting introduced too much asymmetry.
+  \item Rebuilt the CAD model parametrically so chord, span, rib spacing, fuselage cross-section, and tail geometry update from a shared parameter table.
+\end{itemize}
+
+\role{Fabrication Lab EG}{Founder and Lab Lead}{Lippstadt, Germany}{2022--2024}
+\begin{itemize}
+  \item Founded and ran a school makerspace with five Bambu Lab X1Cs plus personal FDM, SLA, and laser-cutting equipment.
+  \item Mentored 12 students across grades 6--10 in 3D printing, CAD, laser cutting, PCB design, and web development.
+  \item Built a tiered machine-training process and handed the lab off to trained student successors before graduation.
+\end{itemize}
+
+\role{European Space Agency (ESA)}{Intern}{Darmstadt, Germany}{Jul 2022}
+\begin{itemize}
+  \item Worked around mission operations for BepiColombo and LISA Pathfinder, with a focus on attitude control systems and redundancy logic.
+  \item Completed backup satellite system analysis and contributed recommendations to attitude-control documentation.
+\end{itemize}
+
+\role{German Aerospace Center (DLR)}{Intern}{Cologne, Germany}{Apr--May 2022}
+\begin{itemize}
+  \item Worked in a hypersonic wind-tunnel environment and analyzed airfoil behavior at Mach 10 under supervised facility protocols.
+  \item Documented scramjet inlet and flow-path efficiency work from facility data and technical briefings.
+\end{itemize}
+
+\role{EUMETSAT}{Intern}{Darmstadt, Germany}{Mar--Apr 2022}
+\begin{itemize}
+  \item Developed a space-systems education program covering satellite construction, rocketry, and orbital mechanics.
+  \item Prepared, recorded, edited, and published a podcast interview with the Director General on low Earth orbit satellite operations.
+\end{itemize}
+
+\section{Selected Projects}
+\project{L1 and L2 High-Power Rocketry}{Builder / Systems Lead}{}{2025--present}
+\begin{itemize}
+  \item Built and bench-checked an L1 certification rocket; certification flight pending an insured NAR launch window.
+  \item Started L2 vehicle build with fiberglass airframe planning, dual-deployment recovery, redundant altimeters, and independent battery/arming systems.
+\end{itemize}
+
+\project{Stratosphere Balloon Payload}{Co-lead Engineer}{}{2022}
+\begin{itemize}
+  \item Built a 4-student science payload flown to approximately 30 km with a Raspberry Pi 2B, GoPro, Pi camera, GPS tracking, and sensor logging.
+  \item Recovered full altitude, pressure, interior/exterior temperature, magnetic-field, and acceleration data from the complete flight profile.
+\end{itemize}
+
+\project{Rocket Thrust Vector Control}{Mechanical and Embedded Integrator}{}{2026--present}
+\begin{itemize}
+  \item Built an ESP32-based TVC prototype for small rocket stabilization experiments, prioritizing hardware-in-loop validation before propulsion integration.
+  \item Prototyped a compliant gimbal, characterized backlash on a bench fixture, and reworked linkage geometry after measured backlash exceeded predictions.
+\end{itemize}
+
+\project{ESP32 Smart Light Switch}{Designer and Builder}{}{2026}
+\begin{itemize}
+  \item Built a self-contained servo retrofit for a wall switch; ESP32 hosts its own WiFi access point and local scheduling UI.
+  \item Implemented FreeRTOS servo/web-server tasks and NVS-backed scheduling; web UI loads in under 200 ms on the local network.
+\end{itemize}
+
+\project{Pulse Jet Test Rig}{Lead Builder and Test Engineer}{}{2025--present}
+\begin{itemize}
+  \item Designed a modular valveless pulse-jet fixture around repeatable geometry changes, fixed ignition routing, and defined instrumentation reference points.
+  \item Completed initial chamber fabrication and support fixture; hot-fire testing remains gated on safety protocol and instrumentation review.
+\end{itemize}
+
+\project{Additive Manufacturing Competition}{Individual Competitor}{}{2023}
+\begin{itemize}
+  \item Competed solo against company-sponsored teams across SLA, SLS, SLM, and FDM challenge rounds.
+  \item Won most challenge rounds by adapting geometry and tolerance strategy to each additive process and functional part requirement.
+\end{itemize}
+
+\section{Technical Skills}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{1.35in}X}
+CAD / analysis & Fusion 360, OpenRocket, Luminary CFD, SolidWorks, Onshape\\
+Embedded & ESP32, FreeRTOS, Raspberry Pi, Python, telemetry, sensor logging\\
+Fabrication & FDM, SLA, SLS, SLM, composites, CNC routing, vacuum bagging, laser cutting, KiCad\\
+Media & Final Cut, Premiere Pro, After Effects, Photoshop\\
+\end{tabularx}
+
+\section{Aviation, Certifications, Languages}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{1.35in}X}
+Aviation & EASA PPL(A), SEP(L), night qualification; FAA Private Pilot, ASEL, night operations; training toward MEP, helicopter, high performance, tailwheel, and complex\\
+Certification & MINT-EC Scholar with distinction\\
+Languages & English and German fluent; French and Spanish conversational\\
+\end{tabularx}
+
+\end{document}

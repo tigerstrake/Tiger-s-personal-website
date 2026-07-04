@@ -18,6 +18,8 @@
 
 # production
 /build
+/tmp/
+out/* 2.*
 
 # misc
 .DS_Store
