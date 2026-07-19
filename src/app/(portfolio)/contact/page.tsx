@@ -4,7 +4,7 @@ import { Mail, Github, Linkedin, Instagram } from "lucide-react";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Reach out about internships, project work, research, or technical collaboration.",
+    "Reach out about internships, project work, research, big questions, silly ideas, or roommate pranks.",
   alternates: {
     canonical: "/contact",
   },
@@ -45,22 +45,22 @@ const FOCUS_AREAS = [
   {
     title: "Internships",
     description:
-      "Aerospace, propulsion, UAV systems, and hardware engineering roles. Interested in teams that value execution.",
+      "Aerospace, propulsion, UAV systems, and hardware engineering roles where I can contribute to design, fabrication, and testing.",
   },
   {
     title: "Project collaboration",
     description:
-      "Technical work where design, build, and test all matter. Not interested in slide decks.",
+      "Hands-on technical work that includes building and testing, especially when another perspective or an extra pair of hands would help.",
   },
   {
     title: "Research",
     description:
-      "Applied work tied to real systems. Preference for aerospace, propulsion, and structures.",
+      "Experimental or applied research in aerospace, propulsion, structures, physics, or other fields where hardware and data meet.",
   },
   {
     title: "Technical conversations",
     description:
-      "Building something hard and want to compare approaches? Email works.",
+      "If you are working through a difficult build, a strange result, or a slightly silly idea, I am always happy to compare notes.",
   },
 ];
 
@@ -85,8 +85,9 @@ export default function Contact() {
             Contact
           </h1>
           <p className="body-lg" style={{ maxWidth: "480px" }}>
-            Reach out about internships, project work, research, or something
-            interesting you think I should be building.
+            Reach out about internships, project work, research, questions about
+            solving the world&apos;s problems, silly ideas, or good ways to prank my
+            roommate.
           </p>
         </div>
       </section>

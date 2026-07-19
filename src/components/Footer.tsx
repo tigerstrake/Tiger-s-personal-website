@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Github, Linkedin, Instagram, Mail } from "lucide-react";
 
 const SOCIAL = [
@@ -27,7 +28,7 @@ export default function Footer() {
           text-decoration: none;
           transition: color 0.2s;
         }
-        .footer-link:hover { color: #8A8F9C; }
+        .footer-link:hover { color: #C8865A; }
         .footer-social {
           display: inline-flex;
           align-items: center;
@@ -51,12 +52,21 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             {/* Identity */}
             <div>
-              <span
-                className="text-sm font-semibold tracking-wide block mb-3"
-                style={{ fontFamily: "var(--font-display)", color: "#ECEDF2", letterSpacing: "0.04em" }}
-              >
-                TIGER STRAKE
-              </span>
+              <div className="flex items-center gap-3 mb-3">
+                <Image
+                  src="/icon.png"
+                  alt="Tiger mascot"
+                  width={48}
+                  height={48}
+                  style={{ borderRadius: "10px" }}
+                />
+                <span
+                  className="text-sm font-semibold tracking-wide"
+                  style={{ fontFamily: "var(--font-display)", color: "#ECEDF2", letterSpacing: "0.04em" }}
+                >
+                  TIGER STRAKE
+                </span>
+              </div>
               <p className="text-sm leading-relaxed" style={{ color: "#7B8293" }}>
                 Stanford AeroAstro. Building rockets, UAVs, and embedded systems.
               </p>

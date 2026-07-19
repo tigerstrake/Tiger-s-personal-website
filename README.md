@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tiger Strake — personal website
 
-## Getting Started
+Next.js portfolio exported as a static site. Project content lives in `src/data/projects.ts`; Build Log content lives in `src/data/buildLog.ts`.
 
-First, run the development server:
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). To test the same static files used in production:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+node serve.mjs
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The production build is written to the tracked `out/` directory.
 
-## Learn More
+## Deployment
 
-To learn more about Next.js, take a look at the following resources:
+Cloudflare Pages does not build from this repository directly. The deployment has two GitHub remotes:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `origin` — `tigerstrake/v2personal-website`, the primary repository
+- `old` — `tigerstrake/Tiger-s-personal-website`, the legacy repository watched by Cloudflare Pages
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Cloudflare serves the checked-in `out/` directory from the legacy repository and has no build command configured. A source-only push therefore does not update the live site.
 
-## Deploy on Vercel
+After verifying a revision:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run build
+git add <changed source files> out/
+git commit -m "Describe the revision"
+git push origin main
+git push old main --force
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The final force-push is intentional: it makes the Cloudflare-connected legacy repository match the verified `main` branch. Run it only after the primary push succeeds, and confirm both remotes point at the same commit afterward:
+
+```bash
+git ls-remote origin refs/heads/main
+git ls-remote old refs/heads/main
+```
+
+Then check [tigerstrake.com](https://tigerstrake.com) after Cloudflare finishes the deployment.

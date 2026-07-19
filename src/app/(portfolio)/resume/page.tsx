@@ -11,7 +11,8 @@ export const metadata: Metadata = {
 
 const HIGHLIGHTS = [
   "Stanford AeroAstro with a focus on aerospace hardware, UAV structures, embedded controls, and fabrication-heavy test rigs",
-  "SkyRunners UAV manufacturing and structures lead; L1 rocket built with certification flight pending; L2 build in progress",
+  "Stanford Swift Solar Plane engineering team member; formerly SkyRunners UAV manufacturing and structures lead",
+  "L1 rocket built with certification flight pending; L2 build in progress",
   "Embedded systems across ESP32, FreeRTOS, Raspberry Pi, servo control, telemetry, and sensor logging",
   "Fabrication: composites, CNC routing, vacuum bagging, laser cutting, 3D printing (FDM/SLA/SLS/SLM)",
   "Pilot: EASA + FAA PPL SEP(L) with night ops, currently training MEP and high-performance",

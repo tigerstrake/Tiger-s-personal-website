@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
 const siteUrl = "https://tigerstrake.com";
@@ -9,24 +9,27 @@ const siteImage = {
   url: "/images/about-me/tiger-portrait-headshot.jpg",
   width: 2172,
   height: 1536,
-  alt: "Tiger Strake",
+  alt: "Portrait of Tiger Strake outdoors in the mountains",
 };
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
+const spaceGrotesk = localFont({
+  src: "./fonts/space-grotesk-latin.woff2",
   variable: "--font-space-grotesk",
+  weight: "300 700",
   display: "swap",
 });
 
-const inter = Inter({
-  subsets: ["latin"],
+const inter = localFont({
+  src: "./fonts/inter-latin.woff2",
   variable: "--font-inter",
+  weight: "100 900",
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
+const jetbrainsMono = localFont({
+  src: "./fonts/jetbrains-mono-latin.woff2",
   variable: "--font-geist-mono",
+  weight: "100 800",
   display: "swap",
 });
 

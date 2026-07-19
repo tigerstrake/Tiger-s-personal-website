@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Download, Menu, X } from "lucide-react";
@@ -20,12 +20,61 @@ export default function Navigation() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    const menu = mobileMenuRef.current;
+    const firstMenuControl = menu?.querySelector<HTMLElement>(focusableSelector);
+    firstMenuControl?.focus();
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+        menuButtonRef.current?.focus();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const controls = [
+        menuButtonRef.current,
+        ...(menu ? Array.from(menu.querySelectorAll<HTMLElement>(focusableSelector)) : []),
+      ].filter((control): control is HTMLElement => control !== null);
+
+      if (controls.length === 0) return;
+
+      const currentIndex = controls.indexOf(document.activeElement as HTMLElement);
+      const nextIndex = event.shiftKey
+        ? currentIndex <= 0
+          ? controls.length - 1
+          : currentIndex - 1
+        : currentIndex === controls.length - 1
+          ? 0
+          : currentIndex + 1;
+
+      event.preventDefault();
+      controls[nextIndex].focus();
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [isOpen]);
 
   return (
     <>
@@ -115,12 +164,16 @@ export default function Navigation() {
           </Link>
 
           {/* Desktop nav */}
-          <ul className="hidden md:flex items-center gap-1 list-none m-0 p-0">
+          <ul className="hidden lg:flex items-center gap-1 list-none m-0 p-0">
             {NAV_LINKS.map(({ href, label }) => {
               const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
               return (
                 <li key={href}>
-                  <Link href={href} className={`nav-link${active ? " active" : ""}`}>
+                  <Link
+                    href={href}
+                    className={`nav-link${active ? " active" : ""}`}
+                    aria-current={active ? "page" : undefined}
+                  >
                     {label}
                   </Link>
                 </li>
@@ -131,7 +184,7 @@ export default function Navigation() {
           <a
             href="/docs/tiger-strake-cv.pdf"
             download
-            className="nav-cv hidden md:inline-flex"
+            className="nav-cv hidden lg:inline-flex"
             aria-label="Download Tiger Strake CV"
           >
             <Download size={14} aria-hidden="true" />
@@ -140,8 +193,9 @@ export default function Navigation() {
 
           {/* Mobile hamburger */}
           <button
+            ref={menuButtonRef}
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden rounded"
+            className="lg:hidden rounded"
             style={{
               color: "#8A8F9C",
               background: "transparent",
@@ -154,6 +208,8 @@ export default function Navigation() {
               justifyContent: "center",
             }}
             aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
           >
             {isOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
@@ -164,8 +220,13 @@ export default function Navigation() {
       {/* Mobile overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-40 md:hidden"
+          id="mobile-navigation"
+          ref={mobileMenuRef}
+          className="fixed inset-0 z-40 lg:hidden"
           style={{ background: "rgba(7, 8, 12, 0.97)" }}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Site navigation"
         >
           <div className="flex flex-col pt-20 px-6">
             {NAV_LINKS.map(({ href, label }) => {
@@ -176,6 +237,7 @@ export default function Navigation() {
                   href={href}
                   className={`mobile-link${active ? " active" : ""}`}
                   onClick={() => setIsOpen(false)}
+                  aria-current={active ? "page" : undefined}
                 >
                   {label}
                 </Link>

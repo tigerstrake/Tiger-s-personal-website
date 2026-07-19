@@ -55,8 +55,9 @@ export default function Writing() {
             <p className="body-lg mb-4">
               Final paper for the Harvard astrophysics course. Covers the three
               types of stellar remnants (white dwarfs, neutron stars, and black
-              holes) and what determines which one a star becomes (the answer is
-              just mass). The paper goes into electron degeneracy pressure and
+              holes) and what determines which one a star becomes. Initial mass is
+              the main factor, while mass loss, composition, metallicity, and binary
+              interactions can also change the outcome. The paper goes into electron degeneracy pressure and
               the Pauli exclusion principle for white dwarfs, neutron star
               formation mechanics, and black hole physics including the
               information paradox and its relationship to string theory.

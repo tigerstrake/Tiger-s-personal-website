@@ -13,6 +13,7 @@ const eslintConfig = defineConfig([
     "public/**",
     "temporary screenshots/**",
     "flying videos/**",
+    "media archive/**",
     "build/**",
     "next-env.d.ts",
   ]),

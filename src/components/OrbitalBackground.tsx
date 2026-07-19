@@ -15,6 +15,8 @@ interface Particle {
   rotation?: number;     // current angle (debris rocks spin)
   spin?: number;         // angular velocity (rad/frame)
   seed?: number;         // 0–1, determines rock shape & color per particle
+  fadeStart?: number;    // ambient objects fade after a short pass
+  fadeDuration?: number;
 }
 
 interface Satellite {
@@ -131,6 +133,7 @@ export default function OrbitalBackground({
   const zoomRef        = useRef(1);   // 1 = normal, <1 = zoomed out
   const tutorialBHRef  = useRef<GravityWell | null>(null);
   const tutorialSatRef = useRef<Satellite | null>(null);
+  const lastActivityRef = useRef<number>(0);
   const tutCursorInnerRef = useRef<HTMLDivElement>(null);
   const tutLineRef     = useRef<SVGLineElement>(null);
   const tutDragRafRef  = useRef<number>(0);
@@ -163,6 +166,27 @@ export default function OrbitalBackground({
   useEffect(() => { noFadeRef.current  = noFade; }, [noFade]);
   useEffect(() => { debrisCountRef.current = debrisCount; }, [debrisCount]);
   useEffect(() => { debrisSizeRef.current  = debrisSize;  }, [debrisSize]);
+
+  // Treat reading, scrolling, pointer movement, keyboard use, and touch as activity.
+  // Ambient objects are only re-seeded after ten quiet seconds.
+  useEffect(() => {
+    const markActivity = () => { lastActivityRef.current = performance.now(); };
+    markActivity();
+    window.addEventListener("pointermove", markActivity, { passive: true });
+    window.addEventListener("pointerdown", markActivity, { passive: true });
+    window.addEventListener("keydown", markActivity, { passive: true });
+    window.addEventListener("scroll", markActivity, { passive: true });
+    window.addEventListener("wheel", markActivity, { passive: true });
+    window.addEventListener("touchstart", markActivity, { passive: true });
+    return () => {
+      window.removeEventListener("pointermove", markActivity);
+      window.removeEventListener("pointerdown", markActivity);
+      window.removeEventListener("keydown", markActivity);
+      window.removeEventListener("scroll", markActivity);
+      window.removeEventListener("wheel", markActivity);
+      window.removeEventListener("touchstart", markActivity);
+    };
+  }, []);
 
   // ─── Keyboard shortcuts ─────────────────────────────────────────────────────
   useEffect(() => {
@@ -439,6 +463,16 @@ export default function OrbitalBackground({
 
     for (let i = 0; i < particles.length; i++) {
       const p = particles[i];
+
+      if (
+        p.fadeStart !== undefined &&
+        p.fadeDuration !== undefined &&
+        now - p.fadeStart >= p.fadeDuration
+      ) {
+        particles.splice(i, 1);
+        i--;
+        continue;
+      }
 
       // 1. Compute acceleration at current position
       const [ax1, ay1, absorbed1] = accelAt(p.x, p.y, wells, now, persistMode);
@@ -933,7 +967,7 @@ export default function OrbitalBackground({
     for (const sat of satellites) {
       ctx.save();
       if (sat.fadeStart !== undefined && sat.fadeDuration !== undefined) {
-        const alpha = Math.max(0, 1 - (now - sat.fadeStart) / sat.fadeDuration);
+        const alpha = Math.max(0, Math.min(1, 1 - (now - sat.fadeStart) / sat.fadeDuration));
         ctx.globalAlpha = alpha;
       }
       ctx.translate(sat.x, sat.y);
@@ -1048,6 +1082,9 @@ export default function OrbitalBackground({
         // ── Asteroid rock ──────────────────────────────────────────────────
         const seed = p.seed ?? 0.5;
         const r    = p.size;
+        const fade = p.fadeStart !== undefined && p.fadeDuration !== undefined
+          ? Math.max(0, Math.min(1, 1 - (now - p.fadeStart) / p.fadeDuration))
+          : 1;
 
         ctx.save();
         ctx.translate(p.x, p.y);
@@ -1077,14 +1114,14 @@ export default function OrbitalBackground({
         const base  = 105 + Math.floor(seed * 75);      // 105–180 brightness
         const warm  = seed > 0.55 ? 12 : -8;            // warm S-type vs cool C-type
         const grd = ctx.createRadialGradient(-r * 0.35, -r * 0.3, 0, 0, 0, r * 1.15);
-        grd.addColorStop(0,    `rgba(${base+55+warm},${base+50},${base+44-warm},${p.alpha})`);
-        grd.addColorStop(0.55, `rgba(${base+warm},${base},${base-warm},${p.alpha})`);
-        grd.addColorStop(1,    `rgba(${base-28+warm},${base-30},${base-32-warm},${p.alpha * 0.45})`);
+        grd.addColorStop(0,    `rgba(${base+55+warm},${base+50},${base+44-warm},${p.alpha * fade})`);
+        grd.addColorStop(0.55, `rgba(${base+warm},${base},${base-warm},${p.alpha * fade})`);
+        grd.addColorStop(1,    `rgba(${base-28+warm},${base-30},${base-32-warm},${p.alpha * 0.45 * fade})`);
         ctx.fillStyle = grd;
         ctx.fill();
 
         // Faint edge catch-light
-        ctx.strokeStyle = `rgba(${base+60},${base+55},${base+50},${p.alpha * 0.25})`;
+        ctx.strokeStyle = `rgba(${base+60},${base+55},${base+50},${p.alpha * 0.25 * fade})`;
         ctx.lineWidth = 0.6;
         ctx.stroke();
 
@@ -1167,6 +1204,82 @@ export default function OrbitalBackground({
         return now - (well.createdAt ?? 0) < (well.lifetime ?? CFG.CLICK_LIFETIME_MS);
       });
       flashesRef.current = flashesRef.current.filter(f => now - f.createdAt < f.duration);
+
+      const visibleObjects =
+        wellsRef.current.some(well =>
+          !well.isMouse && well.x > -80 && well.x < W() + 80 && well.y > -80 && well.y < H() + 80
+        ) ||
+        satellitesRef.current.some(sat =>
+          sat.x > -80 && sat.x < W() + 80 && sat.y > -80 && sat.y < H() + 80
+        ) ||
+        particlesRef.current.some(p =>
+          p.isDebris && p.x > -40 && p.x < W() + 40 && p.y > -40 && p.y < H() + 40
+        );
+
+      if (
+        !noFadeRef.current &&
+        !visibleObjects &&
+        now - lastActivityRef.current >= 10_000
+      ) {
+        const inbound = () => {
+          const edge = Math.floor(Math.random() * 4);
+          const margin = 48;
+          const start = edge === 0
+            ? { x: -margin, y: Math.random() * H() }
+            : edge === 1
+              ? { x: W() + margin, y: Math.random() * H() }
+              : edge === 2
+                ? { x: Math.random() * W(), y: -margin }
+                : { x: Math.random() * W(), y: H() + margin };
+          const target = {
+            x: W() * (0.25 + Math.random() * 0.5),
+            y: H() * (0.25 + Math.random() * 0.5),
+          };
+          const dx = target.x - start.x;
+          const dy = target.y - start.y;
+          const distance = Math.max(1, Math.hypot(dx, dy));
+          const speed = 0.85 + Math.random() * 0.8;
+          return {
+            ...start,
+            vx: (dx / distance) * speed,
+            vy: (dy / distance) * speed,
+          };
+        };
+
+        if (Math.random() < 0.55) {
+          for (let i = 0; i < 2; i++) {
+            const path = inbound();
+            satellitesRef.current.push({
+              ...path,
+              rotation: Math.atan2(path.vy, path.vx),
+              spin: (Math.random() - 0.5) * 0.006,
+              fadeStart: now + 6_000,
+              fadeDuration: 2_500,
+              id: `ambient-sat-${now}-${i}`,
+            });
+          }
+        } else {
+          const count = 4 + Math.floor(Math.random() * 4);
+          for (let i = 0; i < count; i++) {
+            const path = inbound();
+            particlesRef.current.push({
+              ...path,
+              x: path.x + (Math.random() - 0.5) * 28,
+              y: path.y + (Math.random() - 0.5) * 28,
+              size: CFG.DEBRIS_SIZE_MIN + Math.random() * 2,
+              alpha: 0.55 + Math.random() * 0.3,
+              isDebris: true,
+              rotation: Math.random() * Math.PI * 2,
+              spin: (Math.random() - 0.5) * 0.04,
+              seed: Math.random(),
+              fadeStart: now + 6_000,
+              fadeDuration: 2_500,
+            });
+          }
+        }
+
+        lastActivityRef.current = now;
+      }
 
       step(particlesRef.current, wellsRef.current, flashesRef.current, W(), H(), now);
       stepSatellites(satellitesRef.current, wellsRef.current, particlesRef.current, flashesRef.current, W(), H(), now);
@@ -1371,18 +1484,18 @@ export default function OrbitalBackground({
                 borderRadius: "999px",
                 border: "none",
                 cursor: "pointer",
-                fontSize: "0.72rem",
+                fontSize: "0.78rem",
                 fontFamily: "var(--font-display)",
                 fontWeight: 500,
                 letterSpacing: "0.03em",
                 transition: "background 0.18s, color 0.18s, outline 0.18s",
                 background: tool === t.id ? `${t.color}20` : "transparent",
-                color:      tool === t.id ? t.color : "rgba(255,255,255,0.32)",
+                color:      tool === t.id ? t.color : "rgba(255,255,255,0.68)",
                 outline:    tool === t.id ? `1px solid ${t.color}50` : "1px solid transparent",
               }}
             >
-              <ToolIcon id={t.id} color={tool === t.id ? t.color : "rgba(255,255,255,0.22)"} />
-              <span className="hidden sm:inline">{t.label}</span>
+              <ToolIcon id={t.id} color={tool === t.id ? t.color : "rgba(255,255,255,0.58)"} />
+              <span className="hidden lg:inline">{t.label}</span>
             </button>
           ))}
 
@@ -1392,11 +1505,11 @@ export default function OrbitalBackground({
             display: "flex", alignItems: "center", gap: 6,
             padding: "5px 11px",
             cursor: "pointer",
-            fontSize: "0.72rem",
+            fontSize: "0.78rem",
             fontFamily: "var(--font-display)",
             fontWeight: 500,
             letterSpacing: "0.03em",
-            color: noFade ? "#DFA070" : "rgba(255,255,255,0.32)",
+            color: noFade ? "#DFA070" : "rgba(255,255,255,0.68)",
             userSelect: "none",
             borderRadius: "999px",
             transition: "color 0.18s",
@@ -1406,9 +1519,9 @@ export default function OrbitalBackground({
               checked={noFade}
               onChange={e => setNoFade(e.target.checked)}
               aria-label="Keep simulation objects from fading"
-              style={{ accentColor: "#C8865A", width: 11, height: 11, cursor: "pointer" }}
+              style={{ accentColor: "#C8865A", width: 14, height: 14, cursor: "pointer" }}
             />
-            <span className="hidden sm:inline">Persist</span>
+            <span className="hidden lg:inline">Persist</span>
           </label>
 
           <div style={{ width: 1, height: 20, background: "rgba(255,255,255,0.08)", margin: "0 3px", flexShrink: 0 }} />
@@ -1425,12 +1538,12 @@ export default function OrbitalBackground({
                 borderRadius: "999px",
                 border: "none",
                 cursor: "pointer",
-                fontSize: "0.68rem",
+                fontSize: "0.75rem",
                 fontFamily: "var(--font-mono)",
                 fontWeight: 600,
                 letterSpacing: "0.02em",
                 background: "rgba(255,255,255,0.06)",
-                color: "rgba(255,255,255,0.45)",
+                color: "rgba(255,255,255,0.68)",
                 transition: "color 0.18s, background 0.18s",
                 flexShrink: 0,
               }}
@@ -1451,11 +1564,11 @@ export default function OrbitalBackground({
               display: "flex", alignItems: "center", gap: 5,
               padding: "5px 10px",
               borderRadius: "999px",
-              fontSize: "0.72rem",
+              fontSize: "0.78rem",
               fontFamily: "var(--font-display)",
               fontWeight: 500,
               letterSpacing: "0.03em",
-              color: "rgba(255,255,255,0.28)",
+              color: "rgba(255,255,255,0.68)",
               textDecoration: "none",
               transition: "color 0.18s",
               flexShrink: 0,
@@ -1465,7 +1578,7 @@ export default function OrbitalBackground({
             <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
               <path d="M1 10L10 1M10 1H4M10 1V7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            <span className="hidden sm:inline">Sim</span>
+            <span className="hidden lg:inline">Sim</span>
           </a>
         </div>
 
@@ -1493,7 +1606,7 @@ export default function OrbitalBackground({
             ].map(({ label, min, max, step, value, fmt, onChange }) => (
               <label key={label} style={{
                 display: "flex", alignItems: "center", gap: 7,
-                fontSize: "0.68rem", color: "rgba(255,255,255,0.38)",
+                fontSize: "0.78rem", color: "rgba(255,255,255,0.78)",
                 fontFamily: "var(--font-display)", letterSpacing: "0.03em",
                 userSelect: "none",
               }}>
@@ -1505,7 +1618,7 @@ export default function OrbitalBackground({
                   onChange={e => onChange(+e.target.value)}
                   style={{ width: 88, accentColor: "#60A5FA", cursor: "pointer" }}
                 />
-                <span style={{ color: "#60A5FA", minWidth: 32, fontSize: "0.7rem", fontWeight: 600 }}>
+                <span style={{ color: "#60A5FA", minWidth: 32, fontSize: "0.75rem", fontWeight: 600 }}>
                   {fmt(value)}
                 </span>
               </label>
@@ -1515,13 +1628,23 @@ export default function OrbitalBackground({
 
         {/* Hint */}
         <div style={{
-          fontSize: "0.63rem",
-          color: "rgba(255,255,255,0.5)",
+          fontSize: "0.85rem",
+          color: "#D1D5E1",
           fontFamily: "var(--font-display)",
-          letterSpacing: "0.04em",
+          letterSpacing: "0.02em",
+          lineHeight: 1.45,
+          fontWeight: 500,
+          maxWidth: "calc(100vw - 32px)",
+          textAlign: "center",
           pointerEvents: "none",
+          background: "rgba(7,8,12,0.86)",
+          border: "1px solid rgba(255,255,255,0.12)",
+          borderRadius: "999px",
+          padding: "0.35rem 0.7rem",
+          backdropFilter: "blur(10px)",
         }}>
-          {activeTool.desc} &nbsp;·&nbsp; right-click repels &nbsp;·&nbsp; ctrl+scroll to zoom &nbsp;·&nbsp; G·B·D·S·R
+          <span style={{ color: activeTool.color, fontWeight: 700 }}>{activeTool.desc}</span>
+          &nbsp;·&nbsp; right-click repels &nbsp;·&nbsp; ctrl+scroll to zoom &nbsp;·&nbsp; G·B·D·S·R
           {noFade ? " · objects persist" : ""}
         </div>
       </div>
@@ -1674,7 +1797,7 @@ export default function OrbitalBackground({
       {showHelp ? (
         <div data-no-sim className="hidden sm:block fixed z-50" style={{ bottom: 28, right: 28 }}>
           <div style={{
-            width: 228,
+            width: 290,
             background: "rgba(7,8,12,0.88)",
             border: "1px solid rgba(255,255,255,0.09)",
             borderRadius: 12,
@@ -1683,7 +1806,7 @@ export default function OrbitalBackground({
             fontFamily: "var(--font-display)",
           }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-              <span style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.08em", color: "rgba(255,255,255,0.65)", textTransform: "uppercase" }}>
+              <span style={{ fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.08em", color: "rgba(255,255,255,0.78)", textTransform: "uppercase" }}>
                 Simulation
               </span>
               <button
@@ -1693,7 +1816,7 @@ export default function OrbitalBackground({
                   background: "none",
                   border: "none",
                   cursor: "pointer",
-                  color: "rgba(255,255,255,0.25)",
+                  color: "rgba(255,255,255,0.68)",
                   fontSize: 14,
                   lineHeight: 1,
                   padding: 0,
@@ -1718,11 +1841,11 @@ export default function OrbitalBackground({
                   <span style={{
                     minWidth: 16, height: 16, display: "flex", alignItems: "center", justifyContent: "center",
                     background: `${color}18`, border: `1px solid ${color}40`, borderRadius: 4,
-                    fontSize: "0.62rem", fontWeight: 700, color, flexShrink: 0, marginTop: 1,
+                    fontSize: "0.72rem", fontWeight: 700, color, flexShrink: 0, marginTop: 1,
                   }}>{key}</span>
                   <div>
-                    <div style={{ fontSize: "0.72rem", fontWeight: 600, color: "rgba(255,255,255,0.88)", lineHeight: 1.2 }}>{label}</div>
-                    <div style={{ fontSize: "0.63rem", color: "rgba(255,255,255,0.55)", lineHeight: 1.3, marginTop: 1 }}>{tip}</div>
+                    <div style={{ fontSize: "0.82rem", fontWeight: 600, color: "rgba(255,255,255,0.92)", lineHeight: 1.25 }}>{label}</div>
+                    <div style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.4, marginTop: 2 }}>{tip}</div>
                   </div>
                 </div>
               ))}
@@ -1735,7 +1858,7 @@ export default function OrbitalBackground({
               padding: "9px 10px",
               marginBottom: 10,
             }}>
-              <div style={{ fontSize: "0.64rem", fontWeight: 700, color: "#60A5FA", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 6 }}>
+              <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#60A5FA", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 6 }}>
                 How to orbit
               </div>
               {[
@@ -1746,13 +1869,13 @@ export default function OrbitalBackground({
                 "Release — debris will orbit",
               ].map((s, i) => (
                 <div key={i} style={{ display: "flex", gap: 6, marginBottom: 3, alignItems: "flex-start" }}>
-                  <span style={{ fontSize: "0.6rem", color: "#60A5FA", opacity: 0.8, minWidth: 10, marginTop: 1 }}>{i + 1}.</span>
-                  <span style={{ fontSize: "0.65rem", color: "rgba(255,255,255,0.65)", lineHeight: 1.35 }}>{s}</span>
+                  <span style={{ fontSize: "0.75rem", color: "#60A5FA", opacity: 0.95, minWidth: 10, marginTop: 1 }}>{i + 1}.</span>
+                  <span style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.82)", lineHeight: 1.4 }}>{s}</span>
                 </div>
               ))}
             </div>
 
-            <div style={{ fontSize: "0.61rem", color: "rgba(255,255,255,0.5)", lineHeight: 1.55 }}>
+            <div style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.55 }}>
               Right-click anywhere to repel.<br />
               Debris wraps at screen edges.
             </div>
@@ -1770,7 +1893,7 @@ export default function OrbitalBackground({
             border: "1px solid rgba(255,255,255,0.09)",
             borderRadius: "50%",
             cursor: "pointer",
-            color: "rgba(255,255,255,0.35)",
+            color: "rgba(255,255,255,0.72)",
             fontSize: 14,
             fontFamily: "var(--font-display)",
             fontWeight: 600,

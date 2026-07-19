@@ -1,7 +1,6 @@
 import Link from "next/link";
 import OrbitalBackground from "@/components/OrbitalBackground";
 import ProjectCard from "@/components/ProjectCard";
-import TiltCard from "@/components/TiltCard";
 import { getFeaturedProjects } from "@/data/projects";
 import { buildLog } from "@/data/buildLog";
 import { ArrowRight, Github, Linkedin } from "lucide-react";
@@ -9,50 +8,13 @@ import { ArrowRight, Github, Linkedin } from "lucide-react";
 const CREDENTIALS = [
   { label: "Stanford AeroAstro", detail: "Class of 2029" },
   { label: "ESA", detail: "BepiColombo, LISA Pathfinder" },
-  { label: "DLR", detail: "Mach 10 hypersonic testing" },
-  { label: "EUMETSAT", detail: "Satellite operations" },
+  { label: "German Aerospace Center (DLR)", detail: "Mach 10 hypersonic testing" },
+  {
+    label: "European Organisation for the Exploitation of Meteorological Satellites (EUMETSAT)",
+    detail: "Satellite operations",
+  },
   { label: "Harvard", detail: "Digital fabrication" },
-  { label: "EASA + FAA PPL", detail: "SEP, night, helicopter in training" },
-];
-
-
-const CURRENT_WORK = [
-  {
-    label: "L2 Rocket",
-    slug: "l2-rocket",
-    description: "Airframe and avionics integration. Next certification flight.",
-    status: "active" as const,
-  },
-  {
-    label: "SkyRunners UAV",
-    slug: "skyrunners-uav",
-    description: "Manufacturing and structures lead. Main spar build in progress.",
-    status: "active" as const,
-  },
-  {
-    label: "Pulse Jet",
-    slug: "pulse-jet",
-    description: "Safety protocol under review. Fixture design done.",
-    status: "early-stage" as const,
-  },
-  {
-    label: "Robotic Arm",
-    slug: "robotic-arm",
-    description: "Inverse kinematics implementation. Forward kinematics verified.",
-    status: "active" as const,
-  },
-  {
-    label: "Rocket TVC",
-    slug: "rocket-tvc",
-    description: "Control loop benchmarked. Backlash rework in progress.",
-    status: "active" as const,
-  },
-  {
-    label: "Smart Light Switch",
-    slug: "smart-light-switch",
-    description: "Servo actuation working. Wall-box integration next.",
-    status: "active" as const,
-  },
+  { label: "EASA + FAA PPL", detail: "SEP and night privileges; helicopter rating in training" },
 ];
 
 export default function Home() {
@@ -98,24 +60,31 @@ export default function Home() {
                 marginBottom: "1.5rem",
               }}
             >
-              Tiger Strake
+              Hi, I&apos;m Tiger!
             </h1>
 
             <div className="animate-fade-up stagger-3" style={{ maxWidth: "640px", marginBottom: "2.5rem" }}>
               <p style={{ fontSize: "1.1rem", lineHeight: 1.8, color: "#B0B6CB", marginBottom: "1rem", fontFamily: "var(--font-body)" }}>
-                I&apos;m a Stanford AeroAstro student focused on aerospace hardware:
+                I&apos;m a Stanford AeroAstro student from Germany focused on aerospace hardware:
                 high-power rockets, fixed-wing UAVs, embedded controls, and
                 fabrication-heavy test rigs. Before turning 16, I interned at
-                the European Space Agency and EUMETSAT, and worked on hypersonic
-                hardware testing at DLR.
+                the European Space Agency and the European Organisation for the
+                Exploitation of Meteorological Satellites (EUMETSAT), and worked
+                on hypersonic hardware testing at the German Aerospace Center (DLR).
               </p>
               <p style={{ fontSize: "1.1rem", lineHeight: 1.8, color: "#B0B6CB", marginBottom: "1rem", fontFamily: "var(--font-body)" }}>
-                I hold EASA and FAA private pilot licenses. At Stanford,
-                I serve as Chief Engineer of SkyRunners, where we&apos;re building a
-                12-foot wingspan UAV.
+                At Stanford, I&apos;m part of the Swift Solar Plane Project. We&apos;re
+                building a solar-powered airplane more than five meters across
+                for autonomous, multi-day flight, with the long-term goal of the
+                world record for the longest continuous electric flight. I also
+                hold EASA and FAA private pilot licenses.
               </p>
-              <p style={{ fontSize: "1rem", lineHeight: 1.6, color: "#B0B6CB", fontFamily: "var(--font-display)", fontWeight: 500, fontStyle: "italic" }}>
-                Yes, my real name is Tiger.
+              <p style={{ fontSize: "1.1rem", lineHeight: 1.8, color: "#B0B6CB", marginBottom: "1rem", fontFamily: "var(--font-body)" }}>
+                Away from the lab, I like mountaineering, running the trails around
+                the Stanford Dish, and wakeboarding.
+              </p>
+              <p style={{ fontSize: "1rem", lineHeight: 1.6, color: "#B8BDD0", fontFamily: "var(--font-display)", fontWeight: 600, fontStyle: "italic" }}>
+                And yes, my real name is Tiger.
               </p>
             </div>
 
@@ -180,7 +149,21 @@ export default function Home() {
               className="hidden sm:flex animate-fade-up items-center gap-2 mt-5"
               style={{ animationDelay: "0.5s" }}
             >
-              <span style={{ fontSize: "0.72rem", color: "#A78BFA", letterSpacing: "0.04em", fontFamily: "var(--font-display)" }}>
+              <span
+                style={{
+                  fontSize: "0.85rem",
+                  lineHeight: 1.45,
+                  color: "#C4B5FD",
+                  letterSpacing: "0.02em",
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 600,
+                  background: "rgba(7,8,12,0.78)",
+                  border: "1px solid rgba(167,139,250,0.32)",
+                  borderRadius: "999px",
+                  padding: "0.45rem 0.75rem",
+                  backdropFilter: "blur(10px)",
+                }}
+              >
                 ↑ The background is a live gravity simulator &mdash; use the toolbar to create black holes &amp; launch satellites
               </span>
             </div>
@@ -201,65 +184,6 @@ export default function Home() {
             zIndex: 1,
           }}
         />
-
-        {/* ─── Current Work ───────────────────────────────────────────────── */}
-        <section className="px-6 py-20" style={{ background: "rgba(7,8,12,0.96)" }}>
-          <div className="max-w-6xl mx-auto">
-            <div className="mb-12">
-              <span
-                className="text-xs font-semibold uppercase tracking-widest block mb-3"
-                style={{ color: "#C8865A", fontFamily: "var(--font-display)" }}
-              >
-                Status
-              </span>
-              <h2 className="heading-lg" style={{ color: "#ECEDF2" }}>
-                What I&apos;m building now
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {CURRENT_WORK.map((item) => (
-                <TiltCard key={item.label} intensity={5}>
-                  <Link
-                    href={`/projects/${item.slug}`}
-                    className="card card-hover p-5 flex flex-col gap-2"
-                    style={{ textDecoration: "none", display: "flex" }}
-                  >
-                    <div className="flex items-center justify-between gap-2">
-                      <span
-                        className="text-sm font-semibold"
-                        style={{
-                          color: "#ECEDF2",
-                          fontFamily: "var(--font-display)",
-                        }}
-                      >
-                        {item.label}
-                      </span>
-                      <span
-                        className="w-2 h-2 rounded-full shrink-0"
-                        style={{
-                          background:
-                            item.status === "active"
-                              ? "#C8865A"
-                              : "#B0A0CC",
-                          boxShadow:
-                            item.status === "active"
-                              ? "0 0 6px rgba(200,134,90,0.6)"
-                              : "none",
-                        }}
-                      />
-                    </div>
-                    <p className="text-sm" style={{ color: "#8A8F9C" }}>
-                      {item.description}
-                    </p>
-                  </Link>
-                </TiltCard>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <hr className="section-divider" />
 
         {/* ─── Featured Projects ──────────────────────────────────────────── */}
         <section className="px-6 py-20" style={{ background: "rgba(7,8,12,0.96)" }}>

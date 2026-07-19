@@ -41,7 +41,9 @@ export interface Project {
   lastUpdated: string;
   featured: boolean;
   coverImage?: string;
+  coverImageAlt?: string;
   images?: string[];
+  imageAlts?: string[];
   videos?: string[];
   youtubeUrl?: string;
   docs?: ProjectDoc[];
@@ -60,6 +62,149 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: "stanford-swift-solar-plane",
+    title: "Stanford Swift Solar Plane",
+    subtitle: "A solar aircraft designed for autonomous, multi-day flight",
+    description:
+      "I recently joined Stanford's Swift Solar Plane Project. The team is building a solar-powered aircraft with a wingspan of more than five meters, designed to fly continuously and autonomously in the Mojave Desert. The long-term goal is to set the world record for the longest continuous electric flight. I am new to the team, so this entry will get more specific as my own build work develops.",
+    status: "active",
+    categories: ["Aerospace", "UAVs", "Manufacturing"],
+    role: "Engineering Team Member",
+    timeline: "2026–Present",
+    lastUpdated: "2026-07-19",
+    featured: true,
+    coverImage: "/images/solar-plane/stanford-swift-team-plane.jpg",
+    coverImageAlt: "Stanford Swift team members standing behind the solar-plane prototype in their workshop",
+    images: ["/images/solar-plane/stanford-swift-team-wing.jpg"],
+    imageAlts: ["Stanford Swift team members holding a long composite wing section"],
+    url: "https://solarplanestanford.wixsite.com/swift",
+    challenge:
+      "Build an aircraft that can gather enough solar energy to fly autonomously through day-and-night cycles for days, and ultimately weeks, without landing.",
+    constraints: [
+      "Every structural and avionics decision affects the aircraft's energy budget",
+      "The final aircraft must operate autonomously for long periods in the Mojave Desert",
+      "The team has to scale from rapid prototypes to an aircraft more than five meters in wingspan",
+    ],
+    designDecisions: [
+      "Iterate through reusable prototypes before committing to the final aircraft",
+      "Use carbon-fiber layup and resin-infusion techniques to keep the structure light",
+      "Integrate solar encapsulation and avionics around a low-energy flight profile",
+    ],
+    buildProcess: [
+      "Rapid prototype cycles to improve the airframe and reduce energy use",
+      "Scale the wingspan and integrate solar panels with the avionics system",
+      "Validate sustained autonomous flight before the final multi-day Mojave campaign",
+    ],
+    results:
+      "The team has demonstrated a 45-minute sustained flight without solar panels. Solar integration, scaling, and longer-duration autonomous flights are the next steps.",
+    lessons: [],
+    highlights: [
+      { label: "Wingspan", value: "More than 5 m" },
+      { label: "Target", value: "Continuous flight for weeks" },
+      { label: "Flight mode", value: "Solar-powered and autonomous" },
+    ],
+    tools: ["Carbon-fiber layup", "Resin infusion", "Solar encapsulation", "CAD", "Avionics integration"],
+    relatedSlugs: ["skyrunners-uav", "stratosphere-balloon", "l2-rocket"],
+  },
+
+  {
+    slug: "doorboard",
+    title: "Doorboard",
+    subtitle: "A local-first smart door and smart room system",
+    description:
+      "An open-source, self-hosted smart-door and smart-room system built around a removable door-mounted appliance. A Raspberry Pi 5 with a Hailo AI accelerator runs the door-side camera and visitor experience, an ESP32 handles immediate physical I/O, and an indoor NUC provides the wider control plane. The system also ties together an ambient wallboard, visitor sessions, local face recognition, birds, aircraft, satellites, 3D-printer status, food recommendations, a photo booth, and a NAS archive.",
+    status: "active",
+    categories: ["Software", "Embedded", "Automation"],
+    role: "Creator and Systems Integrator",
+    timeline: "Jul 2026–Present",
+    lastUpdated: "2026-07-19",
+    featured: true,
+    coverImage: "/images/doorboard/doorboard-wallboard.png",
+    coverImageAlt: "Doorboard wall display showing the time, weather, calendar, and room information",
+    images: ["/images/doorboard/doorboard-doorpad.png"],
+    imageAlts: ["Doorboard visitor interface with camera view and door controls"],
+    url: "https://github.com/tigerstrake/doorboard",
+    challenge:
+      "Make a feature-rich smart door react immediately even when the NUC, NAS, cloud services, Home Assistant, background jobs, or a fresh AI inference are unavailable.",
+    constraints: [
+      "Physical door interactions must never depend on the network or control plane",
+      "Face recognition and visitor media need a privacy-aware, local-first data model",
+      "Services span an ESP32, door Pi, NUC, BirdNET Pi, ADS-B Pi, and NAS",
+      "Hardware bring-up must preserve the behavior already accepted in simulation",
+    ],
+    designDecisions: [
+      "Split the system into a real-time door plane and a wider control plane",
+      "Give the ESP32 ownership of physical feedback while the Pi 5 + Hailo own local vision and media",
+      "Use typed event contracts and offline-tolerant queues between services",
+      "Keep the project self-hosted and open source under the MIT license",
+    ],
+    buildProcess: [
+      "Defined the system architecture, trust boundaries, latency budgets, event catalog, and wire protocols",
+      "Implemented and verified the eight software milestones from real-time I/O through security and performance hardening",
+      "Built simulator, integration, end-to-end, and performance suites so the distributed system can be accepted without the final hardware online",
+      "Prepared hardware bring-up, deployment, monitoring, backup, and recovery runbooks",
+    ],
+    results:
+      "All eight software milestones are accepted in the hardware-free simulator. Physical bring-up and on-device acceptance for the Hailo, ESP32, cameras, and live external services are next.",
+    lessons: [
+      "The cleanest way to guarantee immediate physical feedback is to make the fast path independent by architecture, not by hoping every dependency stays online.",
+      "Simulation is most useful when it exercises the same contracts, state machines, and failure modes as the eventual hardware.",
+    ],
+    highlights: [
+      { label: "Edge computer", value: "Raspberry Pi 5 + Hailo" },
+      { label: "Real-time I/O", value: "ESP32-S3" },
+      { label: "Status", value: "Software accepted in simulation" },
+      { label: "License", value: "MIT" },
+    ],
+    tools: ["Python", "TypeScript", "ESP32", "Raspberry Pi 5", "Hailo", "PostgreSQL", "WebRTC", "Home Assistant"],
+    relatedSlugs: ["smart-light-switch", "stanford-dining-recommender"],
+  },
+
+  {
+    slug: "vr-mario-kart",
+    title: "VR Mario Kart Go-Kart",
+    subtitle: "A welded electric go-kart with multiplayer game mechanics",
+    description:
+      "A go-kart I am building with friends that turns a physical track into a multiplayer Mario Kart-style game. We welded the frame ourselves, are using electric motors and batteries for the drivetrain, and drive with VR headsets on a predefined track. Virtual coins make the kart speed up; getting hit by a shell slows it down. The aim is to make the digital race affect the real vehicle immediately without losing the feel of driving a go-kart.",
+    status: "active",
+    categories: ["Mechatronics", "Embedded", "Manufacturing", "Software"],
+    role: "Co-builder",
+    timeline: "2026–Present",
+    lastUpdated: "2026-07-19",
+    featured: true,
+    challenge:
+      "Synchronize multiplayer game events, virtual track position, and physical motor output quickly enough that the effects feel immediate while keeping the karts safe and controllable.",
+    constraints: [
+      "Speed changes triggered by the game must stay inside a safe physical envelope",
+      "The virtual track and real predefined track need to remain aligned in VR",
+      "Multiple karts need consistent, low-latency shared game state",
+      "The welded frame, batteries, motors, brakes, and controls must work as one reliable vehicle",
+    ],
+    designDecisions: [
+      "Build the frame in-house by welding it ourselves",
+      "Use an electric drivetrain so software can command controlled speed changes",
+      "Map coins and shell hits to bounded motor-speed changes rather than purely visual effects",
+      "Use a fixed physical track so the VR course can be aligned and tested repeatedly",
+    ],
+    buildProcess: [
+      "Weld and verify the frame geometry",
+      "Integrate the electric motors, battery system, braking, and controls",
+      "Define and align the physical and VR versions of the track",
+      "Connect multiplayer pickups and hits to the kart's speed controller",
+    ],
+    results:
+      "Active build. The team is developing the welded electric karts and the multiplayer VR control layer together.",
+    lessons: [],
+    highlights: [
+      { label: "Drivetrain", value: "Electric motors + batteries" },
+      { label: "Frame", value: "Welded in-house" },
+      { label: "Game", value: "Multiplayer VR" },
+    ],
+    tools: ["Welding", "Electric drivetrain", "Battery integration", "VR", "Multiplayer networking", "Embedded controls"],
+    relatedSlugs: ["robotic-arm", "smart-light-switch", "doorboard"],
+  },
+
+  {
     slug: "l1-rocket",
     title: "L1 Rocket",
     subtitle: "Level 1 high-power rocketry. Built, waiting on a launch window.",
@@ -68,10 +213,11 @@ export const projects: Project[] = [
     status: "active",
     categories: ["Rockets", "Aerospace"],
     role: "Builder",
-    timeline: "2025",
+    timeline: "2025–Present",
     lastUpdated: "2026-03-12",
     featured: true,
     coverImage: "/images/l1-rocket/l1-rocket-held-in-lab.jpg",
+    coverImageAlt: "Tiger holding the assembled Level 1 rocket in a fabrication lab",
     images: [],
     challenge:
       "The certification flight isn't the hard part. It's making sure everything works before you're standing on a field with a rocket on the pad and people watching.",
@@ -82,7 +228,7 @@ export const projects: Project[] = [
     ],
     designDecisions: [
       "Kept the avionics bay accessible with one tool, no panel removal. Field conditions are not the place to discover you can't reach something.",
-      "Wrote explicit go/no-go gates into the preflight checklist tied to physical states, not just task boxes",
+      "Tied every go/no-go gate in the preflight checklist to a physical state that can be verified at the pad",
       "Ran the full preflight procedure dry three times before ever going near a launch",
     ],
     buildProcess: [
@@ -111,7 +257,7 @@ export const projects: Project[] = [
     title: "L2 Rocket",
     subtitle: "Level 2 high-power rocketry. Early build phase.",
     description:
-      "The step up from L1. Bigger motor, longer airframe, more complex recovery, and the same care applied to a harder set of problems. Just started the build. L2 adds a written exam, a J/K/L motor, and mandatory dual-deployment recovery with altimeter-triggered ejection charges.",
+      "The step up from L1: a bigger motor, longer airframe, written exam, and a certification flight using at least one J, K, or L motor. NAR does not require dual deployment for Level 2, but I chose it for this rocket so I can test redundant altimeters and separate drogue and main-parachute events.",
     status: "active",
     categories: ["Rockets", "Aerospace"],
     role: "Systems Lead",
@@ -119,6 +265,7 @@ export const projects: Project[] = [
     lastUpdated: "2026-03-15",
     featured: true,
     coverImage: "/images/l2-rocket/l2-rocket-cad.png",
+    coverImageAlt: "CAD rendering of the Level 2 rocket airframe and internal components",
     challenge:
       "Scale the L1 approach to a significantly more powerful vehicle without losing the attention to process that made L1 work.",
     constraints: [
@@ -151,22 +298,24 @@ export const projects: Project[] = [
   {
     slug: "skyrunners-uav",
     title: "SkyRunners UAV",
-    subtitle: "Manufacturing and structures lead. Active team project.",
+    subtitle: "Former manufacturing and structures lead for a fixed-wing UAV team",
     description:
-      "SkyRunners is a Stanford student team building a fixed-wing UAV system. I lead manufacturing and structures, which means turning design intent into actual parts that survive the loads they're supposed to survive, assembled in a way that can be reproduced and maintained.",
-    status: "active",
+      "SkyRunners is a Stanford student team building a fixed-wing UAV system. From 2025 to 2026, I led manufacturing and structures, turning design intent into parts that could survive their design loads while remaining reproducible and serviceable. I left the team at the end of the 2025–26 academic year.",
+    status: "completed",
     categories: ["UAVs", "Aerospace", "Manufacturing"],
     role: "Manufacturing & Structures Lead",
-    timeline: "2025–Present",
-    lastUpdated: "2026-03-14",
-    featured: true,
+    timeline: "2025–2026",
+    lastUpdated: "2026-07-19",
+    featured: false,
     coverImage: "/images/skurunners/skyrunners-cover.jpg",
+    coverImageAlt: "SkyRunners fixed-wing UAV airframe under construction in the workshop",
     images: ["/images/skurunners/skurunners-wing-panel-blue-pink-stripes.jpg"],
+    imageAlts: ["Blue and pink SkyRunners wing panel during fabrication"],
     challenge:
       "Coordinate manufacturing across a team where design and build happen in parallel, while keeping structural integrity and weight targets intact throughout.",
     constraints: [
       "Weight budget is non-negotiable. Every gram in structure is a gram out of payload or endurance.",
-      "Parts need to be manufacturable with available tooling, not just theoretically optimal",
+      "Parts need to be repeatable with the tooling the team can actually access",
       "Airframe needs to be repairable in the field without specialized equipment",
     ],
     designDecisions: [
@@ -179,9 +328,9 @@ export const projects: Project[] = [
       "Switched wing production to the 4-axis wire foam cutter at CHIP, which cuts root and tip profiles simultaneously from the CAD file. First cuts came out clean and symmetric.",
       "Fuselage skinning: 1/32\" balsa sheet over rib frames, heatshrink foil pulled tight over the balsa for a smooth aerodynamic surface",
       "Full parametric redesign: rebuilt the model so chord, span, rib spacing, fuselage cross-section, and tail geometry all drive from a single parameter table instead of being manually updated",
-      "CFD in Luminary: current design has CoP too far aft. Elevators need negative AoA to trim, which is a drag penalty. Geometry revision in progress.",
+      "CFD in Luminary identified a center of pressure that was too far aft. The elevators required negative angle of attack to trim, creating a drag penalty that informed the next geometry revision.",
     ],
-    results: "Active development. Wing production process validated. Aerodynamic layout under revision based on CFD.",
+    results: "During my time on the team, the wing production process was validated and the aerodynamic layout was revised using CFD results.",
     lessons: [],
     highlights: [
       { label: "Platform", value: "Fixed-wing UAV" },
@@ -211,6 +360,7 @@ export const projects: Project[] = [
     lastUpdated: "2026-03-12",
     featured: false,
     coverImage: "/images/pulse-jet/pulse-jet-cover.webp",
+    coverImageAlt: "Metal pulse-jet engine and curved intake tube set up outdoors",
     challenge:
       "Build a pulse jet test setup where geometry changes can be evaluated without rebuilding the fixture every time. Repeatability before optimization.",
     constraints: [
@@ -252,6 +402,7 @@ export const projects: Project[] = [
     title: "Smart Light Switch",
     subtitle: "ESP32-based servo-actuated wall switch with WiFi scheduling",
     coverImage: "/images/smart-light-switch/smart-switch-cover.png",
+    coverImageAlt: "3D-printed smart-switch mechanism mounted over a household wall switch",
     videos: [
       "/images/smart-light-switch/smart-light-switch-demo.mp4",
       "/images/smart-light-switch/lightswitch-demo-clip-1.mp4",
@@ -303,16 +454,17 @@ export const projects: Project[] = [
   {
     slug: "robotic-arm",
     title: "Small Robotic Arm",
-    subtitle: "Multi-DOF arm. Target demo: autonomous block stacking.",
+    subtitle: "Paused desktop-arm testbed for autonomous block stacking",
     description:
-      "A small desktop robotic arm built as a testbed for control logic and inverse kinematics. The target demo is autonomous wooden block stacking, which makes it a useful exhibition piece for 3D printing events since the whole structure is printed. Currently working through IK and closed-loop joint control to get to the point where it can actually execute the stacking sequence reliably.",
-    status: "active",
+      "A small desktop robotic arm built as a testbed for control logic and inverse kinematics. The target demo was autonomous wooden block stacking, which would make it a useful exhibition piece for 3D printing events since the whole structure is printed. The project is currently paused after structure and forward-kinematics verification.",
+    status: "archived",
     categories: ["Robotics", "Embedded", "Mechatronics"],
     role: "Designer and Builder",
-    timeline: "2026–Present",
-    lastUpdated: "2026-03-08",
+    timeline: "2026",
+    lastUpdated: "2026-07-19",
     featured: false,
     coverImage: "/images/robotic-arm/robotic-arm-on-workbench.jpg",
+    coverImageAlt: "Small 3D-printed robotic arm assembled on a workshop bench",
     challenge:
       "Build a low-cost desktop arm with enough precision and repeatability to stack wooden blocks autonomously. Reliable enough to run unsupervised at an exhibition.",
     constraints: [
@@ -328,9 +480,9 @@ export const projects: Project[] = [
     buildProcess: [
       "CAD in Fusion 360, iterating on joint stiffness and servo mounting",
       "Firmware: servo control loop with position feedback from potentiometers",
-      "Inverse kinematics implementation in progress",
+      "Started the inverse-kinematics implementation before pausing the project",
     ],
-    results: "Structure complete, forward kinematics verified, IK in progress.",
+    results: "Structure complete and forward kinematics verified. Further control work is paused.",
     lessons: [],
     highlights: [
       { label: "DOF", value: "3 + gripper" },
@@ -346,7 +498,7 @@ export const projects: Project[] = [
     title: "Rocket TVC",
     subtitle: "Thrust vector control architecture for small rocket experiments",
     description:
-      "A thrust vector control prototype for small-scale rocket stabilization experiments. The goal is a TVC stack with real hardware-in-loop validation, not just a simulation that looks good on a laptop.",
+      "A thrust vector control prototype for small-scale rocket stabilization experiments. The work centers on a TVC stack that can be tested through hardware-in-loop bench experiments before any propulsion integration.",
     status: "active",
     categories: ["Rockets", "Embedded", "Aerospace"],
     role: "Mechanical and Embedded Integrator",
@@ -354,6 +506,7 @@ export const projects: Project[] = [
     lastUpdated: "2026-03-12",
     featured: false,
     coverImage: "/images/rocket-tvc/rocket-tvc-cover.png",
+    coverImageAlt: "Red 3D-printed thrust-vector-control gimbal with two servo motors",
     videos: ["/images/rocket-tvc/rocket-tvc-test-clip.mp4"],
     challenge:
       "Build a TVC mechanism that's responsive enough to be useful and mechanically reliable enough to trust in a test stand context.",
@@ -374,7 +527,7 @@ export const projects: Project[] = [
     ],
     results: "Core control architecture functional. Actuator selection and loop tuning in progress.",
     lessons: [
-      "Backlash sensitivity was significantly higher than predicted. Linkage stiffness needs to be a core design parameter from the start, not a detail sorted out later.",
+      "Backlash sensitivity was significantly higher than predicted. I should have treated linkage stiffness as a primary design parameter from the first iteration.",
     ],
     highlights: [
       { label: "Controller", value: "ESP32" },
@@ -402,9 +555,14 @@ export const projects: Project[] = [
     role: "Co-lead Engineer",
     timeline: "2022",
     lastUpdated: "2026-03-26",
-    featured: true,
+    featured: false,
     coverImage: "/images/stratosphere-balloon/stratosphere-balloon-earth-curvature-view.png",
+    coverImageAlt: "View of Earth and its curved horizon from the stratospheric balloon payload",
     images: ["/images/stratosphere-balloon/stratosphere-balloon-gps-flight-track-map.jpg", "/images/stratosphere-balloon/stratosphere-balloon-telemetry-altitude-chart.png"],
+    imageAlts: [
+      "Map showing the recovered stratospheric balloon flight track",
+      "Telemetry chart showing altitude across the balloon flight",
+    ],
     youtubeUrl: "https://www.youtube.com/embed/Uy57UXi4sQ4",
     challenge:
       "Keep a Raspberry Pi and its sensors running through a flight profile that hits near-vacuum pressure and temperatures well below -40°C, then recover the gondola and get usable data off it.",
@@ -452,11 +610,16 @@ export const projects: Project[] = [
     status: "completed",
     categories: ["Aerospace"],
     role: "Intern",
-    timeline: "2021",
+    timeline: "Jul 2022",
     lastUpdated: "2026-03-22",
-    featured: true,
+    featured: false,
     coverImage: "/images/esa/esa-airbus-spacecraft-hardware-lab-coats.jpg",
+    coverImageAlt: "Tiger and another student in lab coats beside spacecraft hardware at ESA",
     images: ["/images/esa/esa-esoc-mission-control-room.jpg", "/images/esa/esa-esoc-satellite-operations-workstation.jpg"],
+    imageAlts: [
+      "European Space Operations Centre mission-control room",
+      "Satellite-operations workstation at the European Space Agency",
+    ],
     challenge:
       "Do useful work on real spacecraft systems with two weeks of access and a high school physics background.",
     constraints: [
@@ -464,7 +627,7 @@ export const projects: Project[] = [
       "Working with flight software and documentation not designed for external interns",
     ],
     designDecisions: [
-      "Focused on the attitude control subsystem rather than trying to cover the full mission stack. Depth over breadth given the time available.",
+      "Used the limited placement time to concentrate on attitude control, where I could follow the data and redundancy logic in useful detail.",
       "Used the simulated launch exercise to build intuition for operations tradeoffs under time pressure",
     ],
     buildProcess: [
@@ -476,7 +639,7 @@ export const projects: Project[] = [
       "Completed backup satellite system analysis. Contributed recommendations to attitude control documentation.",
     lessons: [
       "Real spacecraft operations are dominated by edge case handling and redundancy logic. Almost none of that shows up in textbook descriptions of a mission.",
-      "The gap between simulation and flight software is larger than it looks from the outside",
+      "Moving from a clean simulation to flight software adds extensive checks for faults, degraded modes, and recovery",
     ],
     highlights: [
       { label: "Duration", value: "2 weeks" },
@@ -489,18 +652,23 @@ export const projects: Project[] = [
 
   {
     slug: "dlr-internship",
-    title: "DLR Internship",
+    title: "DLR (German Aerospace Center) Internship",
     subtitle: "Hypersonic aerodynamics and scramjet testing at Mach 10",
     description:
-      "One week at DLR (German Aerospace Research Center) in the hypersonic wind tunnel facility. Operated Mach 10 test equipment, calculated airfoil efficiency at hypersonic speeds, and worked through scramjet combustor aerodynamics data. Short duration, high density. The kind of week that recalibrates what you think fast means.",
+      "I spent one week at DLR (German Aerospace Center) in the hypersonic wind-tunnel facility. Under supervision, I worked with Mach 10 test equipment, calculated airfoil efficiency at hypersonic speeds, and examined scramjet-combustor aerodynamics data. Most of the week alternated between tests, calculations, and engineers explaining what the measurements meant.",
     status: "completed",
     categories: ["Aerospace", "Physics"],
     role: "Intern",
-    timeline: "2021",
+    timeline: "Apr–May 2022",
     lastUpdated: "2026-03-22",
-    featured: true,
+    featured: false,
     coverImage: "/images/dlr/dlr-optics-bench-experiment.jpg",
+    coverImageAlt: "Optical instruments aligned on a laboratory rail at the German Aerospace Center",
     images: ["/images/dlr/dlr-drone-3d-printed-component-test-rig.jpg", "/images/dlr/dlr-electronics-breadboard-workbench.jpg"],
+    imageAlts: [
+      "3D-printed aerospace component mounted in a DLR test rig",
+      "Electronics and breadboard experiment on a DLR workbench",
+    ],
     challenge:
       "Get meaningful technical understanding out of one week in a world-class hypersonic research facility.",
     constraints: [
@@ -508,7 +676,7 @@ export const projects: Project[] = [
       "Test facility safety protocols limited hands-on equipment operation to supervised sessions",
     ],
     designDecisions: [
-      "Concentrated time on aerodynamic analysis over propulsion. More accessible in the available window given existing background.",
+      "Spent most of the available time on aerodynamic analysis, where my existing physics background let me understand and contribute more within a one-week placement.",
     ],
     buildProcess: [
       "Wind tunnel facility orientation and safety protocol certification",
@@ -532,17 +700,18 @@ export const projects: Project[] = [
 
   {
     slug: "eumetsat-internship",
-    title: "EUMETSAT Internship",
+    title: "EUMETSAT (European Organisation for the Exploitation of Meteorological Satellites) Internship",
     subtitle: "Satellite operations and space systems program",
     description:
-      "Two weeks at EUMETSAT (European Organization for the Exploitation of Meteorological Satellites). Organized a space systems education program covering satellite construction, rocketry, and orbit mechanics. Produced and published a podcast interview with the Director General on low Earth orbit satellite operations, which required doing real homework to ask questions worth answering.",
+      "Two weeks at EUMETSAT (European Organisation for the Exploitation of Meteorological Satellites). Organized a space systems education program covering satellite construction, rocketry, and orbit mechanics. Produced and published a podcast interview with the Director General on low Earth orbit satellite operations, which required doing real homework to ask questions worth answering.",
     status: "completed",
     categories: ["Aerospace"],
     role: "Intern",
-    timeline: "2021",
+    timeline: "Mar–Apr 2022",
     lastUpdated: "2026-03-22",
     featured: false,
     coverImage: "/images/eumetsat/eumetsat-satellite.jpg",
+    coverImageAlt: "Meteorological satellite orbiting above Earth",
     videos: ["/images/eumetsat/eumetsat-airmass-rgb-satellite-animation.mp4"],
     challenge:
       "Design and deliver a coherent educational program on space systems while also producing a technically credible interview with the Director General on LEO satellite operations.",
@@ -587,9 +756,14 @@ export const projects: Project[] = [
     lastUpdated: "2026-03-25",
     featured: false,
     coverImage: "/images/fabrication-lab/fab-lab-students-3d-printers.jpg",
+    coverImageAlt: "Students working beside a row of 3D printers in the school fabrication lab",
     images: ["/images/fabrication-lab/fab-lab-3d-printer-interior-blue-parts.jpg", "/images/fabrication-lab/fab-lab-3d-printers-room-sign.jpg"],
+    imageAlts: [
+      "Blue student-made parts on the build plate inside a 3D printer",
+      "Fabrication-lab room sign above several 3D printers",
+    ],
     challenge:
-      "Build a functional makerspace in a school environment and develop students who can work independently, not just follow instructions when I'm present.",
+      "Build a functional makerspace in a school environment and train students to operate it safely without depending on me.",
     constraints: [
       "School equipment budget was limited. Most of the hardware came from my own print farm.",
       "Students ranged from grade 6 with no prior experience to grade 10 with some CAD background",
@@ -615,7 +789,7 @@ export const projects: Project[] = [
     highlights: [
       { label: "Students Mentored", value: "12 (grades 6–10)" },
       { label: "Equipment", value: "5 school Bambu X1Cs + personal print farm hardware" },
-      { label: "Running Since", value: "2021" },
+      { label: "Running Since", value: "2022" },
     ],
     tools: ["Fusion 360", "FDM 3D printing", "SLA printing", "Laser cutting", "KiCad", "Web development"],
     relatedSlugs: ["stratosphere-balloon", "harvard-fabrication"],
@@ -634,6 +808,7 @@ export const projects: Project[] = [
     lastUpdated: "2026-03-22",
     featured: false,
     coverImage: "/images/ml-robot/ml-robot-cover.jpg",
+    coverImageAlt: "Humanoid service robot walking through an indoor public space",
     challenge:
       "Build a practical robotic assistance system around the perception and manipulation problems involved in household chores. Tasks that are obvious to humans but poorly specified for robots.",
     constraints: [
@@ -670,6 +845,7 @@ export const projects: Project[] = [
     url: "https://tigerstrake.github.io/Digital_Fabrication_Tiger_Strake_phys-s-12/index.html",
     embed: true,
     coverImage: "/images/harvard/harvard-cover.jpg",
+    coverImageAlt: "Motorized kinetic sculpture with curved wooden tracks and white gears",
     description:
       "PHYS-S-12 at Harvard Summer School: eleven weeks covering laser cutting, CNC milling, casting, microcontroller programming, embedded sensor integration, and machine building, culminating in a modular TVC rocket. Each week is documented with build notes, CAD files, and process photos. The full course site, including week-by-week writeups and the final project breakdown, is embedded below.",
     status: "archived",
@@ -730,7 +906,9 @@ export const projects: Project[] = [
   {
     slug: "additive-manufacturing-competition",
     coverImage: "/images/am-competition/am-championships-lasertec-cnc-slm-machine.jpg",
+    coverImageAlt: "Industrial Lasertec metal additive-manufacturing machine and control station",
     images: ["/images/am-competition/am-championships-slm-metal-printed-parts-benchy.jpg"],
+    imageAlts: ["Small metal test parts produced with selective laser melting"],
     title: "Additive Manufacturing Competition",
     subtitle: "Competed solo against company-sponsored teams. Won most rounds.",
     description:
@@ -746,12 +924,12 @@ export const projects: Project[] = [
     constraints: [
       "Solo entry against company-sponsored teams of 3 or more with dedicated tooling resources",
       "Each challenge round used a different process. No single design approach carried across all categories.",
-      "Parts had to be functional, not just printable: geared mechanisms needed to mesh, pipe manifolds had to survive welding loads",
+      "Every submitted part had a functional test: geared mechanisms needed to mesh, and pipe manifolds had to survive welding loads",
     ],
     designDecisions: [
       "Prioritized design for the specific process over material optimization. The right geometry for SLS is different from SLM even with similar alloys.",
       "Geared mechanism tolerances tightened beyond default process specs to ensure actual engagement after post-processing shrinkage",
-      "Pipe manifold wall thickness and joint geometry driven by weld heat input, not just print geometry",
+      "Pipe manifold wall thickness and joint geometry were driven by weld heat input and the printing process together",
     ],
     buildProcess: [
       "Challenge brief analysis: identify which process constraints dominated each task",
@@ -761,7 +939,7 @@ export const projects: Project[] = [
     results: "Won most challenge rounds competing solo against company-sponsored teams.",
     lessons: [
       "Additive process selection is a design decision, not a manufacturing detail. Geometry that prints well in FDM can be structurally wrong for the same part in SLM.",
-      "Industrial parts competitions care about function, not just print quality. A beautiful SLA part that fails its fit check loses.",
+      "A clean surface finish did not matter if a part failed its fit or load check. I began each round by working backward from the functional test.",
     ],
     highlights: [
       { label: "Year", value: "2023" },
@@ -777,7 +955,7 @@ export const projects: Project[] = [
     title: "Short Film Production",
     subtitle: "Co-directed, produced, and edited a short film. Grade 11.",
     description:
-      "Co-directed and co-wrote a short film about an abduction with five peers, then handled the full post-production pipeline: VFX sequences including animated vehicles, an original soundtrack, and the final edit. The kind of project where you learn that the gap between what you envisioned and what you can actually pull off in post is mostly a function of how well you planned the shoot.",
+      "I co-directed and co-wrote a short film about an abduction with five friends, then handled the VFX, an original soundtrack, and the final edit. We learned quickly that post-production depends on what was captured during the shoot: when we missed coverage or clean audio, editing could improve it but could not fully replace it.",
     status: "archived",
     categories: ["Media"],
     role: "Co-Director, Executive Producer & Editor",
@@ -785,6 +963,7 @@ export const projects: Project[] = [
     lastUpdated: "2026-03-22",
     featured: false,
     coverImage: "/images/short-film/short-film-cover.png",
+    coverImageAlt: "Nighttime short-film scene beside an open white van",
     challenge:
       "Coordinate a six-person production, co-write a coherent script, shoot usable footage, and deliver a finished film with VFX and original music, without a budget or production infrastructure.",
     constraints: [
@@ -805,7 +984,7 @@ export const projects: Project[] = [
     results: "Film completed and screened. Full production from script to final cut.",
     lessons: [
       "Coverage matters more than any individual shot. Running out of options in the edit is a worse position than running long on set.",
-      "Audio is the thing that makes amateur productions feel amateur. Getting it right on set is worth more than any post-production fix.",
+      "Our weakest takes were usually the ones with poor sound. Recording clean audio on set saved far more time than trying to repair it in post.",
     ],
     highlights: [
       { label: "Role", value: "Co-Director, Producer & Editor" },
@@ -821,14 +1000,15 @@ export const projects: Project[] = [
     title: "Social Media: Autohaus Hecker",
     subtitle: "Content producer for a truck dealership. Final Cut, drones, cable cams.",
     description:
-      "Produced and edited social media content for Autohaus Hecker, a truck dealership, from 2019 to 2025. Along the way picked up a full production skill set: Final Cut Pro, Photoshop, After Effects, drone operation, gimbal work, audio equipment, cable cams, and suction-mounted cameras on vehicles. It's a real production environment. The truck has to look good moving, not just parked.",
+      "I have produced and edited social media content for Autohaus Hecker, a truck dealership, since 2019. Along the way I picked up a full production skill set: Final Cut Pro, Photoshop, After Effects, drone operation, gimbal work, audio equipment, cable cams, and suction-mounted cameras on vehicles. Filming trucks in motion taught me how to plan moving shots safely and make large vehicles read clearly on a small screen.",
     status: "archived",
     categories: ["Media"],
     role: "Content Producer",
-    timeline: "2019–2025",
+    timeline: "2019–Present",
     lastUpdated: "2026-03-26",
     featured: false,
     coverImage: "/images/social-media-manager/social-media-cover.png",
+    coverImageAlt: "Commercial truck filmed for an Autohaus Hecker social-media production",
     videos: [
       "/images/social-media-manager/01_sway_lng_drone_fields.mp4",
       "/images/social-media-manager/02_abroll_overhead_drone.mp4",
@@ -851,7 +1031,7 @@ export const projects: Project[] = [
       "Production: drone, gimbal, cable cam, suction mount, matched to the shot",
       "Post: Final Cut Pro edit, Photoshop and After Effects for graphics and compositing",
     ],
-    results: "Six years of content production. Full production capability built across video, photo, and motion graphics.",
+    results: "Ongoing content production since 2019, with a full production capability built across video, photo, and motion graphics.",
     lessons: [
       "Audio recorded on location with proper equipment saves more time in post than any edit shortcut",
       "Vehicle shoots require more safety planning than you expect. A suction mount failure at speed is a serious problem.",
@@ -870,14 +1050,15 @@ export const projects: Project[] = [
     title: "Junior Studium, Hochschule Hamm-Lippstadt",
     subtitle: "Selective dual enrollment. University-level physics and engineering during high school.",
     description:
-      "During high school, I joined the selective Junior Studium program at Hochschule Hamm-Lippstadt. I was only the second student ever from my school to be accepted into the program. I completed university-level courses in mechanics, thermodynamics, atomic physics, electrical engineering, instrumental analytics, and quantum mechanics, sitting the same exams as full-time university students. An early step into the kind of work I enjoy most: technical, demanding, and grounded in understanding how things actually work.",
+      "During high school, I joined the selective Junior Studium program at Hochschule Hamm-Lippstadt as the second student from my school to be accepted. I completed university-level courses in mechanics, thermodynamics, atomic physics, electrical engineering, instrumental analytics, and quantum mechanics, taking the same exams as full-time students. I liked having classes that moved faster than school physics and made me stay with topics I did not understand immediately.",
     status: "completed",
     categories: ["Physics"],
     role: "Junior Studium Student",
-    timeline: "2021–2024",
+    timeline: "2022–2024",
     lastUpdated: "2026-03-28",
     featured: false,
     coverImage: "/images/dual-enrollment/dual-enrollment-cover.png",
+    coverImageAlt: "Tiger speaking at a Hochschule Hamm-Lippstadt lecture podium",
     challenge:
       "Pursue technical depth beyond what the high school curriculum offered, in subjects that actually matched where my interests were pointing.",
     constraints: [
@@ -885,7 +1066,7 @@ export const projects: Project[] = [
       "Exams sat alongside full-time university students, no separate track",
     ],
     designDecisions: [
-      "Focused on physics and engineering courses rather than spreading across unrelated subjects. Depth over breadth.",
+      "Chose physics and engineering courses because they matched the questions I wanted to understand and complemented one another across the program.",
       "Pursued this alongside a full high school load, which forced real prioritization",
     ],
     buildProcess: [
@@ -902,7 +1083,7 @@ export const projects: Project[] = [
     highlights: [
       { label: "Institution", value: "Hochschule Hamm-Lippstadt" },
       { label: "Program", value: "Junior Studium (selective)" },
-      { label: "Duration", value: "2021–2024" },
+      { label: "Duration", value: "2022–2024" },
       { label: "Courses", value: "6 university-level" },
     ],
     tools: [
@@ -925,10 +1106,11 @@ export const projects: Project[] = [
     status: "active",
     categories: ["Software", "Automation"],
     role: "Solo Developer",
-    timeline: "2026",
+    timeline: "2026–Present",
     lastUpdated: "2026-05-11",
     featured: false,
     coverImage: "/images/stanford-dining-recommender/terminal-output.png",
+    coverImageAlt: "Terminal output from the Stanford Dining Recommender showing ranked dining halls and a suggested meal",
     challenge:
       "Stanford's dining system doesn't expose a clean public API. Getting reliable daily data meant working with a form-based web interface: select date, select meal, select hall, extract results. Doing this for every combination at every meal time, then turning raw menu text into a useful recommendation, required a pipeline that could handle scraping failures gracefully and still produce a usable output even if one layer broke.",
     constraints: [

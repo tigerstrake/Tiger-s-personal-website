@@ -22,7 +22,7 @@ export async function generateMetadata({
   if (!project) return { title: "Project not found" };
   const description = project.description.slice(0, 160);
   const images = project.coverImage
-    ? [{ url: project.coverImage, alt: `${project.title} cover image` }]
+    ? [{ url: project.coverImage, alt: project.coverImageAlt ?? `${project.title} project` }]
     : undefined;
 
   return {
@@ -104,12 +104,6 @@ export default async function ProjectDetail({
   );
 
   const projectLog = buildLog.filter((e) => e.projectSlug === project.slug);
-
-  const date = new Date(project.lastUpdated).toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
 
   return (
     <div style={{ background: "#07080C", minHeight: "100vh" }}>
@@ -193,20 +187,6 @@ export default async function ProjectDetail({
                 {project.timeline}
               </span>
             </div>
-            <div>
-              <span
-                className="text-xs block mb-1"
-                style={{ color: "#7B8293", fontFamily: "var(--font-display)" }}
-              >
-                Updated
-              </span>
-              <span
-                className="text-sm"
-                style={{ color: "#8A8F9C", fontFamily: "var(--font-mono)" }}
-              >
-                {date}
-              </span>
-            </div>
             {project.highlights.map((h) => (
               <div key={h.label}>
                 <span
@@ -239,7 +219,7 @@ export default async function ProjectDetail({
             >
               <Image
                 src={project.coverImage}
-                alt={`${project.title} cover image`}
+                alt={project.coverImageAlt ?? `${project.title} project`}
                 fill
                 priority
                 sizes="(min-width: 1024px) 896px, calc(100vw - 48px)"
@@ -279,7 +259,7 @@ export default async function ProjectDetail({
                 >
                   <Image
                     src={src}
-                    alt={`${project.title} detail image ${i + 1}`}
+                    alt={project.imageAlts?.[i] ?? `${project.title} detail ${i + 1}`}
                     fill
                     sizes="(min-width: 1024px) 448px, (min-width: 640px) 50vw, 100vw"
                     style={{ objectFit: "contain" }}

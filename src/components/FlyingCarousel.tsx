@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 
 export type MediaItem = {
   type: "image" | "video";
@@ -15,6 +15,7 @@ const AUTO_ADVANCE_MS = 3000;
 export default function FlyingCarousel({ items }: { items: MediaItem[] }) {
   const [current, setCurrent] = useState(0);
   const [progressKey, setProgressKey] = useState(0);
+  const [autoAdvance, setAutoAdvance] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -31,15 +32,24 @@ export default function FlyingCarousel({ items }: { items: MediaItem[] }) {
 
   const goPrev = () => goTo((current - 1 + items.length) % items.length);
 
-  // Auto-advance images after 3s
+  // Respect the user's operating-system motion preference by default.
   useEffect(() => {
-    if (items.length < 2) return;
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const syncPreference = () => setAutoAdvance(!media.matches);
+    syncPreference();
+    media.addEventListener("change", syncPreference);
+    return () => media.removeEventListener("change", syncPreference);
+  }, []);
+
+  // Auto-advance images after 3s when the user has not paused the carousel.
+  useEffect(() => {
+    if (!autoAdvance || items.length < 2) return;
     if (timerRef.current) clearTimeout(timerRef.current);
     if (items[current].type === "image") {
       timerRef.current = setTimeout(goNext, AUTO_ADVANCE_MS);
     }
     return () => { if (timerRef.current) clearTimeout(timerRef.current); };
-  }, [current, items, goNext]);
+  }, [autoAdvance, current, items, goNext]);
 
   const item = items[current];
   const isImage = item.type === "image";
@@ -111,6 +121,30 @@ export default function FlyingCarousel({ items }: { items: MediaItem[] }) {
           </>
         )}
 
+        {/* Explicit motion control for accessibility */}
+        {items.length > 1 && (
+          <button
+            type="button"
+            onClick={() => setAutoAdvance((enabled) => !enabled)}
+            aria-label={autoAdvance ? "Pause carousel autoplay" : "Start carousel autoplay"}
+            aria-pressed={!autoAdvance}
+            className="absolute left-3 top-3 min-h-11 px-3 rounded-full flex items-center gap-2 justify-center"
+            style={{
+              background: "rgba(7,8,12,0.90)",
+              border: "1.5px solid rgba(255,255,255,0.22)",
+              color: "#ECEDF2",
+              backdropFilter: "blur(10px)",
+              boxShadow: "0 2px 12px rgba(0,0,0,0.5)",
+              fontFamily: "var(--font-display)",
+              fontSize: "0.75rem",
+              fontWeight: 600,
+            }}
+          >
+            {autoAdvance ? <Pause size={15} aria-hidden="true" /> : <Play size={15} aria-hidden="true" />}
+            <span className="hidden sm:inline">{autoAdvance ? "Pause" : "Play"}</span>
+          </button>
+        )}
+
         {/* Counter badge */}
         {items.length > 1 && (
           <div
@@ -128,7 +162,7 @@ export default function FlyingCarousel({ items }: { items: MediaItem[] }) {
         )}
 
         {/* Progress bar (images only) */}
-        {isImage && items.length > 1 && (
+        {isImage && autoAdvance && items.length > 1 && (
           <div
             className="absolute bottom-0 left-0 right-0 h-[3px]"
             style={{ background: "rgba(255,255,255,0.08)" }}
@@ -156,23 +190,33 @@ export default function FlyingCarousel({ items }: { items: MediaItem[] }) {
       {/* Dot indicators */}
       {items.length > 1 && (
         <div className="flex gap-2 mt-3 items-center flex-wrap">
-          {items.map((it, i) => (
+          {items.map((_, i) => (
             <button
               key={i}
               onClick={() => goTo(i)}
               aria-label={`Slide ${i + 1}`}
               aria-current={i === current}
+              className="flex items-center justify-center"
               style={{
-                width: i === current ? "20px" : "8px",
-                height: "8px",
-                borderRadius: "4px",
-                background: i === current ? "#C8865A" : "rgba(255,255,255,0.18)",
+                width: "32px",
+                height: "32px",
                 border: "none",
                 cursor: "pointer",
                 padding: 0,
-                transition: "width 0.25s ease, background 0.2s",
+                background: "transparent",
               }}
-            />
+            >
+              <span
+                aria-hidden="true"
+                style={{
+                  width: i === current ? "20px" : "8px",
+                  height: "8px",
+                  borderRadius: "4px",
+                  background: i === current ? "#C8865A" : "rgba(255,255,255,0.28)",
+                  transition: "width 0.25s ease, background 0.2s",
+                }}
+              />
+            </button>
           ))}
         </div>
       )}

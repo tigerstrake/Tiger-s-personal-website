@@ -5,7 +5,7 @@ import FlyingCarousel, { type MediaItem } from "@/components/FlyingCarousel";
 export const metadata: Metadata = {
   title: "Flight",
   description:
-    "EASA PPL(A) and FAA Private Pilot. Building toward multi-engine, helicopter, high performance, tailwheel, and complex.",
+    "EASA PPL(A) and FAA Private Pilot. Training toward multiengine-airplane and rotorcraft-helicopter ratings plus high-performance, tailwheel, and complex endorsements.",
   alternates: {
     canonical: "/flight",
   },
@@ -31,59 +31,59 @@ const QUALIFICATIONS = [
 const IN_TRAINING = [
   {
     label: "MEP",
-    description: "Multi-engine piston — DA62 and Twin Comanche.",
+    description: "Airplane multiengine class rating — DA62 and Twin Comanche.",
     status: "In progress",
   },
   {
-    label: "Helicopter",
-    description: "Up to 12,500 lbs. Specialized Helicopters at KRHV.",
+    label: "Rotorcraft — Helicopter",
+    description: "Rotorcraft-helicopter category and class rating at Specialized Helicopters at KRHV.",
     status: "In progress",
   },
   {
     label: "High Performance",
-    description: "Required for aircraft with engines over 200hp.",
+    description: "FAA logbook endorsement for airplanes with an engine over 200 horsepower.",
     status: "In progress",
   },
   {
     label: "Tailwheel",
-    description: "Conventional gear — the old-school way to land.",
+    description: "FAA logbook endorsement for conventional-gear airplanes.",
     status: "In progress",
   },
   {
     label: "Complex",
-    description: "Retractable gear, flaps, and controllable-pitch prop.",
+    description: "FAA logbook endorsement for airplanes with retractable gear, flaps, and a controllable-pitch propeller.",
     status: "In progress",
   },
 ];
 
 const SINGLE_ENGINE: MediaItem[] = [
-  { type: "image", src: "/images/flying/single-engine/pa28-cockpit.jpeg",         caption: "PA-28 Warrior cockpit" },
-  { type: "image", src: "/images/flying/single-engine/pa28-in-cruise.jpeg",       caption: "PA-28 Warrior in cruise" },
-  { type: "video", src: "/images/flying/single-engine/sf-from-above.mov",         caption: "San Francisco from above" },
-  { type: "video", src: "/images/flying/single-engine/short-final-palo-alto.mov", caption: "Short final into Palo Alto" },
-  { type: "video", src: "/images/flying/single-engine/expedited-approach.mov",    caption: "Expedited approach — traffic conflict" },
-  { type: "video", src: "/images/flying/single-engine/night-flight-timelapse.mp4", caption: "Night flight timelapse" },
+  { type: "image", src: "/images/flying/single-engine/pa28-cockpit.jpeg",         caption: "PA-28 Warrior cockpit — Dortmund Airport, Germany" },
+  { type: "image", src: "/images/flying/single-engine/pa28-in-cruise.jpeg",       caption: "PA-28 Warrior in cruise — over Menden, Germany" },
+  { type: "video", src: "/images/flying/single-engine/sf-from-above.mp4",         caption: "San Francisco from above" },
+  { type: "video", src: "/images/flying/single-engine/short-final-palo-alto.mp4", caption: "Short final into Palo Alto" },
+  { type: "video", src: "/images/flying/single-engine/expedited-approach.mp4",    caption: "Expedited approach — traffic conflict near Dortmund Airport, Germany" },
+  { type: "video", src: "/images/flying/single-engine/night-flight-timelapse.mp4", caption: "Night flight timelapse — over the Ruhr area, Germany" },
   { type: "image", src: "/images/flying/single-engine/track-log-kavx-3o8.png",    caption: "Track log: Catalina (KAVX) → Harris Ranch (3O8)" },
   { type: "image", src: "/images/flying/single-engine/track-log-3o8-kpao.png",    caption: "Track log: Harris Ranch (3O8) → Palo Alto (KPAO)" },
-  { type: "video", src: "/images/flying/single-engine/harris-ranch-patterns.mov",  caption: "Pattern work at Harris Ranch" },
-  { type: "video", src: "/images/flying/single-engine/ifr-departure-kavx.mov",    caption: "IFR departure out of Catalina (KAVX)" },
+  { type: "video", src: "/images/flying/single-engine/harris-ranch-patterns.mp4",  caption: "Pattern work at Harris Ranch" },
+  { type: "video", src: "/images/flying/single-engine/ifr-departure-kavx.mp4",    caption: "IFR departure out of Catalina (KAVX)" },
 ];
 
 const MULTI_ENGINE: MediaItem[] = [
-  { type: "image", src: "/images/flying/multi-engine/twin-comanche-sunset.jpg",  caption: "Twin Comanche at sunset" },
-  { type: "video", src: "/images/flying/multi-engine/takeoff-san-jose.mov",      caption: "Takeoff from San Jose" },
-  { type: "video", src: "/images/flying/multi-engine/steep-turns.mov",           caption: "Steep turns" },
-  { type: "video", src: "/images/flying/multi-engine/base-final-hollister.mov",  caption: "Base and final into Hollister" },
+  { type: "image", src: "/images/flying/multi-engine/twin-comanche-sunset.jpg",  caption: "Twin Comanche at sunset — Reid–Hillview Airport, San José" },
+  { type: "video", src: "/images/flying/multi-engine/takeoff-san-jose.mp4",      caption: "Takeoff from San Jose" },
+  { type: "video", src: "/images/flying/multi-engine/steep-turns.mp4",           caption: "Steep turns — over San José" },
+  { type: "video", src: "/images/flying/multi-engine/base-final-hollister.mp4",  caption: "Base and final into Hollister" },
 ];
 
 const HELICOPTER: MediaItem[] = [
-  { type: "image", src: "/images/flying/helicopter/parents-sf-flight.jpg",           caption: "Taking my parents on a flight around SF" },
+  { type: "image", src: "/images/flying/helicopter/parents-sf-flight.jpg",           caption: "Taking my parents on a flight around San Francisco" },
   { type: "video", src: "/images/flying/helicopter/detour-chicago.mp4",              caption: "Detour in Chicago" },
-  { type: "video", src: "/images/flying/helicopter/final-hayward.mov",               caption: "Final approach into Hayward" },
-  { type: "video", src: "/images/flying/helicopter/short-base-final-hayward.mov",    caption: "Shortened base and final into Hayward" },
-  { type: "video", src: "/images/flying/helicopter/windy-departure-hayward.mov",     caption: "Windy departure from Hayward" },
-  { type: "video", src: "https://pub-1689e9161f494bbc873145913e873cd2.r2.dev/Setdown%20on%20Pad.mp4",  caption: "Setting down on pad" },
-  { type: "video", src: "https://pub-1689e9161f494bbc873145913e873cd2.r2.dev/sf-roundtrip.mp4", caption: "SF roundtrip" },
+  { type: "video", src: "/images/flying/helicopter/final-hayward.mp4",               caption: "Final approach into Hayward" },
+  { type: "video", src: "/images/flying/helicopter/short-base-final-hayward.mp4",    caption: "Shortened base and final into Hayward" },
+  { type: "video", src: "/images/flying/helicopter/windy-departure-hayward.mp4",     caption: "Windy departure from Hayward" },
+  { type: "video", src: "https://pub-1689e9161f494bbc873145913e873cd2.r2.dev/Setdown%20on%20Pad.mp4",  caption: "Setting down on pad — Hayward Executive Airport" },
+  { type: "video", src: "https://pub-1689e9161f494bbc873145913e873cd2.r2.dev/sf-roundtrip.mp4", caption: "SF roundtrip — around San Francisco Bay" },
 ];
 
 export default function Flight() {
@@ -109,8 +109,8 @@ export default function Flight() {
             Flight
           </h1>
           <p className="body-lg" style={{ maxWidth: "520px" }}>
-            EASA PPL(A) and FAA Private Pilot. Multi-engine, helicopter, and
-            more in progress.
+            EASA PPL(A) and FAA Private Pilot. Additional ratings and
+            endorsements in progress.
           </p>
         </div>
       </section>

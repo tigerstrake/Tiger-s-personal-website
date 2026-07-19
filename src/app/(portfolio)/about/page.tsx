@@ -57,13 +57,21 @@ export default function About() {
               <h2 className="heading-sm mb-4" style={{ color: "#ECEDF2" }}>What I&apos;m interested in</h2>
               <div className="space-y-4">
                 <p className="body-lg">
-                  Aerospace hardware is the main thing — propulsion, structural design with real weight budgets, embedded systems that have to work with the physics rather than around it. That&apos;s where most of my time goes.
+                  I like building things that have to work outside a CAD model: aircraft,
+                  rockets, electronics, and test rigs where you can measure whether an idea
+                  was actually good. I&apos;m especially interested in the parts where physics,
+                  fabrication, and embedded systems meet.
                 </p>
                 <p className="body-lg">
-                  I&apos;ve recently gotten into mountaineering, which I wasn&apos;t expecting to love as much as I do. There&apos;s something about committing to a route on incomplete information — deciding when to push and when to turn back — that maps surprisingly well to how I think about test programs and flight operations.
+                  I also spend a lot of time 3D printing. I started with my own machines,
+                  later ran a fabrication lab at my high school, and still like the fast loop
+                  of printing a part, finding out what is wrong with it, and trying again.
                 </p>
                 <p className="body-lg">
-                  Outside of that: orbital mechanics, bouncing half-formed ideas off people, and cooking. Night owl by nature. Most productive when it&apos;s quiet and something&apos;s running on the bench.
+                  Outside the lab, I like mountaineering because it is good exercise and the
+                  views are great. Around Stanford, I run the trails by the Dish; when I get
+                  the chance, I wakeboard. I also enjoy cooking, flying, and long conversations
+                  about slightly ridiculous technical ideas.
                 </p>
               </div>
             </div>
@@ -72,13 +80,15 @@ export default function About() {
               <h2 className="heading-sm mb-4" style={{ color: "#ECEDF2" }}>Flying</h2>
               <div className="space-y-4">
                 <p className="body-lg">
-                  I hold EASA and FAA Private Pilot Licences with single-engine
-                  piston ratings and night qualification. Currently training for
-                  multi-engine, high-performance, and helicopter endorsements.
+                  I hold EASA and FAA Private Pilot licences with single-engine
+                  piston privileges and a night qualification. I&apos;m training toward
+                  an airplane multiengine class rating and a rotorcraft-helicopter
+                  rating, along with high-performance, complex, and tailwheel
+                  endorsements.
                 </p>
                 <p className="body-lg">
-                  The appeal isn&apos;t complicated. You can just go, whenever,
-                  wherever. And the view from up there is hard to beat. More on this on the{" "}
+                  Flying is simply a lot of fun, and it makes spontaneous trips possible.
+                  The view from up there is hard to beat too. More on this on the{" "}
                   <Link href="/flight" style={{ color: "#C8865A" }}>
                     flight page
                   </Link>
@@ -91,11 +101,15 @@ export default function About() {
               <h2 className="heading-sm mb-4" style={{ color: "#ECEDF2" }}>What I&apos;m looking for</h2>
               <div className="space-y-4">
                 <p className="body-lg">
-                  Aerospace and hardware internships where the work involves
-                  real build and test, not slide preparation. Research tied to
-                  actual systems with measurable results. Technical teams where
-                  execution matters and people build things rather than describe
-                  building things.
+                  I&apos;m looking for internships and research where I can design, build,
+                  and test real systems. Aerospace is the obvious fit, but I&apos;m also
+                  interested in other physics-heavy work: planetary exploration,
+                  habitats and infrastructure for Mars, space engineering, orbital
+                  data centers, and additive manufacturing and 3D printing.
+                </p>
+                <p className="body-lg">
+                  Very long term, I&apos;d like to help build a Dyson sphere. It is obviously
+                  not a near-term plan, but I mean it.
                 </p>
               </div>
             </div>
@@ -115,7 +129,7 @@ export default function About() {
             >
               <Image
                 src="/images/about-me/tiger-portrait-headshot.jpg"
-                alt="Tiger Strake"
+                alt="Portrait of Tiger Strake outdoors in the mountains"
                 fill
                 style={{ objectFit: "cover", objectPosition: "center top" }}
                 priority

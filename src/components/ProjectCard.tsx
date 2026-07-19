@@ -21,7 +21,17 @@ interface ProjectCardProps {
   variant?: "default" | "compact" | "featured";
 }
 
-function Thumbnail({ src, title, height = 180 }: { src?: string; title: string; height?: number }) {
+function Thumbnail({
+  src,
+  alt,
+  title,
+  height = 180,
+}: {
+  src?: string;
+  alt?: string;
+  title: string;
+  height?: number;
+}) {
   const hasImage = src && !src.includes("placeholder");
   return (
     <div
@@ -38,7 +48,7 @@ function Thumbnail({ src, title, height = 180 }: { src?: string; title: string; 
       {hasImage ? (
         <Image
           src={src}
-          alt={`${title} cover image`}
+          alt={alt ?? `${title} project`}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           style={{ objectFit: "contain" }}
@@ -67,13 +77,8 @@ export default function ProjectCard({
   project,
   variant = "default",
 }: ProjectCardProps) {
-  const { slug, title, subtitle, description, status, categories, role, lastUpdated, coverImage } =
+  const { slug, title, subtitle, description, status, categories, role, timeline, coverImage, coverImageAlt } =
     project;
-
-  const date = new Date(lastUpdated).toLocaleDateString("en-US", {
-    month: "short",
-    year: "numeric",
-  });
 
   if (variant === "featured") {
     return (
@@ -83,7 +88,7 @@ export default function ProjectCard({
           style={{ minHeight: "320px" }}
         >
           {/* Thumbnail */}
-          <Thumbnail src={coverImage} title={title} height={190} />
+          <Thumbnail src={coverImage} alt={coverImageAlt} title={title} height={190} />
 
           <div className="p-7 flex flex-col flex-1">
             {/* Accent edge */}
@@ -105,7 +110,7 @@ export default function ProjectCard({
                 className="text-xs"
                 style={{ color: "#7B8293", fontFamily: "var(--font-mono)" }}
               >
-                {date}
+                {timeline}
               </span>
             </div>
 
@@ -192,7 +197,7 @@ export default function ProjectCard({
             className="text-xs shrink-0"
             style={{ color: "#7B8293", fontFamily: "var(--font-mono)" }}
           >
-            {date}
+            {timeline}
           </span>
         </article>
       </Link>
@@ -204,7 +209,7 @@ export default function ProjectCard({
     <Link href={`/projects/${slug}`} className="block group">
       <article className="card card-hover overflow-hidden h-full flex flex-col">
         {/* Thumbnail */}
-        <Thumbnail src={coverImage} title={title} height={160} />
+        <Thumbnail src={coverImage} alt={coverImageAlt} title={title} height={160} />
 
         <div className="p-6 flex flex-col flex-1">
           {/* Header */}
@@ -216,7 +221,7 @@ export default function ProjectCard({
               className="text-xs shrink-0"
               style={{ color: "#7B8293", fontFamily: "var(--font-mono)" }}
             >
-              {date}
+              {timeline}
             </span>
           </div>
 

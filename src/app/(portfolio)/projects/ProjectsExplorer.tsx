@@ -28,9 +28,19 @@ export default function ProjectsExplorer() {
       .filter((project) => {
         const matchesSearch =
           query === "" ||
-          project.title.toLowerCase().includes(query) ||
-          project.subtitle.toLowerCase().includes(query) ||
-          project.description.toLowerCase().includes(query);
+          [
+            project.title,
+            project.subtitle,
+            project.description,
+            project.role,
+            project.timeline,
+            project.challenge,
+            ...project.categories,
+            ...project.tools,
+          ]
+            .join(" ")
+            .toLowerCase()
+            .includes(query);
 
         const matchesCategory =
           activeCategory === "All" || project.categories.includes(activeCategory);
@@ -59,7 +69,8 @@ export default function ProjectsExplorer() {
     fontSize: "0.75rem",
     fontWeight: 500,
     letterSpacing: "0.02em",
-    padding: "4px 12px",
+    minHeight: "32px",
+    padding: "6px 12px",
     borderRadius: "999px",
     border: active
       ? "1px solid rgba(200,134,90,0.35)"
@@ -73,7 +84,7 @@ export default function ProjectsExplorer() {
   return (
     <>
       <section
-        className="sticky top-16 px-6 py-4"
+        className="sm:sticky sm:top-16 px-6 py-4"
         style={{
           background: "rgba(7,8,12,0.92)",
           backdropFilter: "blur(16px)",
@@ -81,8 +92,8 @@ export default function ProjectsExplorer() {
           zIndex: 10,
         }}
       >
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row gap-4">
-          <div className="relative flex-1 max-w-xs">
+        <div className="max-w-6xl mx-auto space-y-4">
+          <div className="relative w-full sm:max-w-md">
             <Search
               size={14}
               className="absolute left-3 top-1/2 -translate-y-1/2"
@@ -106,42 +117,69 @@ export default function ProjectsExplorer() {
             />
           </div>
 
-          <div className="flex flex-wrap gap-1.5 items-center">
-            <button
-              type="button"
-              onClick={() => setActiveCategory("All")}
-              style={filterBtnStyle(activeCategory === "All")}
-              aria-pressed={activeCategory === "All"}
+          <div>
+            <span
+              className="text-xs font-semibold uppercase tracking-widest block mb-2"
+              style={{ color: "#9EA6BA", fontFamily: "var(--font-display)" }}
             >
-              All
-            </button>
-            {ALL_CATEGORIES.map((category) => (
+              Topic
+            </span>
+            <div className="flex flex-wrap gap-1.5 items-center">
               <button
-                key={category}
                 type="button"
-                onClick={() =>
-                  setActiveCategory(activeCategory === category ? "All" : category)
-                }
-                style={filterBtnStyle(activeCategory === category)}
-                aria-pressed={activeCategory === category}
+                onClick={() => setActiveCategory("All")}
+                style={filterBtnStyle(activeCategory === "All")}
+                aria-pressed={activeCategory === "All"}
               >
-                {category}
+                All topics
               </button>
-            ))}
+              {ALL_CATEGORIES.map((category) => (
+                <button
+                  key={category}
+                  type="button"
+                  onClick={() =>
+                    setActiveCategory(activeCategory === category ? "All" : category)
+                  }
+                  style={filterBtnStyle(activeCategory === category)}
+                  aria-pressed={activeCategory === category}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div className="flex flex-wrap gap-1.5 items-center">
-            {ALL_STATUSES.map(({ value, label }) => (
+          <div
+            className="pt-3"
+            style={{ borderTop: "1px solid rgba(255,255,255,0.10)" }}
+          >
+            <span
+              className="text-xs font-semibold uppercase tracking-widest block mb-2"
+              style={{ color: "#9EA6BA", fontFamily: "var(--font-display)" }}
+            >
+              Project status
+            </span>
+            <div className="flex flex-wrap gap-1.5 items-center">
               <button
-                key={value}
                 type="button"
-                onClick={() => setActiveStatus(activeStatus === value ? "All" : value)}
-                style={filterBtnStyle(activeStatus === value)}
-                aria-pressed={activeStatus === value}
+                onClick={() => setActiveStatus("All")}
+                style={filterBtnStyle(activeStatus === "All")}
+                aria-pressed={activeStatus === "All"}
               >
-                {label}
+                All statuses
               </button>
-            ))}
+              {ALL_STATUSES.map(({ value, label }) => (
+                <button
+                  key={value}
+                  type="button"
+                  onClick={() => setActiveStatus(activeStatus === value ? "All" : value)}
+                  style={filterBtnStyle(activeStatus === value)}
+                  aria-pressed={activeStatus === value}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </section>
